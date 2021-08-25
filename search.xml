@@ -1,6 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【Java注解】如何理解和使用 Java注解</title>
+    <url>/Java-Annotation-notes/</url>
+    <content><![CDATA[<pre><code>java 注解理解与开发
+</code></pre>
+<img src="/Java-Annotation-notes/Inherited.png" class="">
+
+<span id="more"></span>
+<h1 id="注解？"><a href="#注解？" class="headerlink" title="注解？"></a>注解？</h1><ul>
+<li>Java 注解（Annotation）又称 Java 标注，是 JDK5.0 引入的一种注释机制。</li>
+<li>注解可以理解为元数据，即一种描述数据的数据。所以，可以说注解就是源代码的元数据。</li>
+<li>Annotation是一种应用于类、方法、参数、变量、构造器及包声明中的特殊修饰符。它是一种由JSR-175标准选择用来描述元数据的一种工具。</li>
+</ul>
+<h1 id="为什么用"><a href="#为什么用" class="headerlink" title="为什么用"></a>为什么用</h1><ul>
+<li>注解可以被其他程序（比如：编译器等）读取，开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。</li>
+<li>节省配置</li>
+</ul>
+<h1 id="注解架构"><a href="#注解架构" class="headerlink" title="注解架构"></a>注解架构</h1><img src="/Java-Annotation-notes/framework.jpg" class="">
+<ul>
+<li>1 个 Annotation 和 1 个 RetentionPolicy 关联。</li>
+<li>1 个 Annotation 和 1~n 个 ElementType 关联。</li>
+<li>Annotation 有许多实现类，包括：Deprecated, Documented, Inherited, Override 等等。</li>
+</ul>
+<h1 id="Annotation-组成部分"><a href="#Annotation-组成部分" class="headerlink" title="Annotation 组成部分"></a>Annotation 组成部分</h1><ul>
+<li><p>Annotation.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Annotation&gt; annotationType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Annotation 就是个接口。</p>
+</li>
+<li><p>ElementType.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ElementType</span> </span>&#123;</span><br><span class="line">    TYPE,           <span class="comment">// 类、接口（包括注释类型）或枚举声明</span></span><br><span class="line">    FIELD,          <span class="comment">// 字段声明（包括枚举常量）</span></span><br><span class="line">    METHOD,         <span class="comment">// 方法声明</span></span><br><span class="line">    PARAMETER,      <span class="comment">// 形式参数声明</span></span><br><span class="line">    CONSTRUCTOR,    <span class="comment">// 构造函数声明</span></span><br><span class="line">    LOCAL_VARIABLE, <span class="comment">//  局部变量声明</span></span><br><span class="line">    ANNOTATION_TYPE,<span class="comment">//  批注类型声明</span></span><br><span class="line">    PACKAGE,        <span class="comment">//包装声明</span></span><br><span class="line">    TYPE_PARAMETER, <span class="comment">// 类型参数声明</span></span><br><span class="line">    TYPE_USE        <span class="comment">// 类型的使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ElementType 是 Enum 枚举类型，它用来指定 Annotation 的类型。</p>
+</li>
+<li><p>RetentionPolicy.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">RetentionPolicy</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Annotation信息仅存在于编译器处理期间，编译器处理完之后就没有该Annotation信息了  </span></span><br><span class="line">    SOURCE,</span><br><span class="line">    <span class="comment">// 编译器将Annotation存储于类对应的.class文件中。默认行为</span></span><br><span class="line">    CLASS,</span><br><span class="line">    <span class="comment">// 编译器将Annotation存储于class文件中，并且可由JVM读入</span></span><br><span class="line">    RUNTIME</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>RetentionPolicy 是 Enum 枚举类型，它用来指定 Annotation 的策略。<br>通俗点说，就是不同 RetentionPolicy 类型的 Annotation 的作用域不同。</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>作用域</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SOURCE</td>
+<td>编译器处理期间有效</td>
+<td></td>
+</tr>
+<tr>
+<td>CLASS</td>
+<td>在class文件有效，有可能被jvm忽略</td>
+<td></td>
+</tr>
+<tr>
+<td>RUNTIME</td>
+<td>在运行时有效</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h1 id="语法定义"><a href="#语法定义" class="headerlink" title="语法定义"></a>语法定义</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面定义了一个名为<code>MyAnnotation</code>的Annotation(注解),<br>我们可以在代码中通过<code>@MyAnnotation</code>来使用它</p>
+</blockquote>
+<ul>
+<li>@interface<ul>
+<li>使用 @interface 定义注解时，意味着它实现了 java.lang.annotation.Annotation 接口，即该注解就是一个Annotation。</li>
+<li>定义 Annotation 时，@interface 是必须的。</li>
+<li>Annotation 接口的实现细节都由编译器完成。通过 @interface 定义注解后，该注解不能继承其他的注解或接口。</li>
+</ul>
+</li>
+<li>@Documented<ul>
+<li>类和方法的 Annotation 在缺省情况下是不出现在 javadoc 中的。</li>
+<li>如果使用 @Documented 修饰该 Annotation,则表示它可以出现在 javadoc 中。</li>
+<li>定义 Annotation 时，@Documented 可有可无；若没有定义，则 Annotation 不会出现在 javadoc 中。</li>
+</ul>
+</li>
+<li>@Target(ElementType.TYPE)<ul>
+<li>就是来指定 Annotation 的类型属性。</li>
+<li>定义 Annotation 时，@Target 可有可无。</li>
+<li>若有 @Target，则该 Annotation 只能用于它所指定的地方；</li>
+<li>若无 @Target，则该 Annotation 可以用于任何地方。</li>
+</ul>
+</li>
+<li>@Retention(RetentionPolicy.RUNTIME)<ul>
+<li>就是指定 Annotation 的策略属性。</li>
+<li>定义 Annotation 时，@Retention 可有可无。</li>
+<li>若无 @Retention，则默认是 RetentionPolicy.CLASS。</li>
+</ul>
+</li>
+</ul>
+<h1 id="内置注解"><a href="#内置注解" class="headerlink" title="内置注解"></a>内置注解</h1><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>所在包</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Override</td>
+<td>java.lang</td>
+<td>检查该方法是否是重写方法。如果发现其父类，或者是引用的接口中并没有该方法时，会报编译错误</td>
+</tr>
+<tr>
+<td>@Deprecated</td>
+<td>java.lang</td>
+<td>标记过时方法。如果使用该方法，会报编译警告</td>
+</tr>
+<tr>
+<td>@SuppressWarnings</td>
+<td>java.lang</td>
+<td>指示编译器去忽略注解中声明的警告</td>
+</tr>
+<tr>
+<td>@SafeVarargs</td>
+<td>java.lang</td>
+<td>忽略任何使用参数为泛型变量的方法或构造函数调用产生的警告</td>
+</tr>
+<tr>
+<td>@FunctionalInterface</td>
+<td>java.lang</td>
+<td>标识一个匿名函数或函数式接口</td>
+</tr>
+<tr>
+<td>@Retention</td>
+<td>java.lang.annotation</td>
+<td>标识这个注解怎么保存，是只在代码中，还是编入class文件中，或者是在运行时可以通过反射访问。</td>
+</tr>
+<tr>
+<td>@Documented</td>
+<td>java.lang.annotation</td>
+<td>标记这些注解是否包含在用户文档中</td>
+</tr>
+<tr>
+<td>@Target</td>
+<td>java.lang.annotation</td>
+<td>标记这个注解应该是哪种 Java 成员</td>
+</tr>
+<tr>
+<td>@Inherited</td>
+<td>java.lang.annotation</td>
+<td>标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)</td>
+</tr>
+<tr>
+<td>@Repeatable</td>
+<td>java.lang.annotation</td>
+<td>标识某注解可以在同一个声明上使用多次</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>@Deprecated</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>@interface</code> 修饰 Deprecated 证明 <code>Deprecated</code> 实现了<code>java.lang.annotation.Annotation </code>接口，<code>Deprecated</code> 为一个接口<br><code>@Documented </code>修饰该注解 说明注解能出现在 javadoc 中。<br><code>@Retention(RetentionPolicy.RUNTIME)</code> 中，<code>RUNTIME</code>说明编译器会将Deprecated 的信息保留在 .class 文件中，并且能被虚拟机读取。<br> <code>@Deprecated</code> 所标注内容，不再被建议使用。</p>
+</blockquote>
+</li>
+<li><p>@Inherited</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.ANNOTATION_TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Inherited &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>@interface</code>  修饰 Inherited，意味着 Inherited 实现了 java.lang.annotation.Annotation 接口<br><code>@Documented </code>修饰该注解 说明注解能出现在 javadoc 中。<br><code>@Retention(RetentionPolicy.RUNTIME)</code> 中，<code>RUNTIME</code>说明编译器会将Deprecated 的信息保留在 .class 文件中，并且能被虚拟机读取。<br><code>@Target(ElementType.ANNOTATION_TYPE)</code>中,<code>ANNOTATION_TYPE</code> 说明 @Inherited 只能被用来标注 “Annotation 类型”。<br><code>@Inherited</code> 的含义是，它所标注的Annotation将具有继承性。</p>
+</blockquote>
+</li>
+<li><p>@SuppressWarnings</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.SOURCE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SuppressWarnings &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>@interface</code>修饰 SuppressWarnings，意味着 SuppressWarnings 实现了 java.lang.annotation.Annotation 接口<br><code>@Retention(RetentionPolicy.SOURCE)</code>中<code>SOURCE</code>。这就意味着，SuppressWarnings 信息仅存在于编译器处理期间，编译器处理完之后 SuppressWarnings 就没有作用了。<br><code>@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</code></p>
+<blockquote>
+<p><code>TYPE</code> 意味着，它能标注”类、接口（包括注释类型）或枚举声明”。<br><code>FIELD</code> 意味着，它能标注”字段声明”。<br><code>METHOD</code> 意味着，它能标注”方法”。<br><code>PARAMETER</code> 意味着，它能标注”参数”。<br><code>CONSTRUCTOR</code> 意味着，它能标注”构造方法”。<br><code>LOCAL_VARIABLE</code> 意味着，它能标注”局部变量”。</p>
+</blockquote>
+<p> <code>String[] value();</code> 意味着，SuppressWarnings 能指定参数</p>
+<blockquote>
+<blockquote>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>deprecation</td>
+<td>使用了不赞成使用的类或方法时的警告</td>
+</tr>
+<tr>
+<td>unchecked</td>
+<td>执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型。</td>
+</tr>
+<tr>
+<td>fallthrough</td>
+<td>当 Switch 程序块直接通往下一种情况而没有 Break 时的警告。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>在类路径、源文件路径等中有不存在的路径时的警告。</td>
+</tr>
+<tr>
+<td>serial</td>
+<td>当在可序列化的类上缺少 serialVersionUID 定义时的警告。</td>
+</tr>
+<tr>
+<td>finally</td>
+<td>任何 finally 子句不能正常完成时的警告。</td>
+</tr>
+<tr>
+<td>all</td>
+<td>关于以上所有情况的警告。</td>
+</tr>
+</tbody></table>
+</blockquote>
+<p><code>SuppressWarnings</code> 的作用是，让编译器对”它所标注的内容”的某些警告保持静默。</p>
+</blockquote>
+<p>用例:</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuppressWarningTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings(value=&#123;&quot;deprecation&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Date date = <span class="keyword">new</span> Date(<span class="number">113</span>, <span class="number">8</span>, <span class="number">26</span>);</span><br><span class="line">        System.out.println(date);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="基本用途"><a href="#基本用途" class="headerlink" title="基本用途"></a>基本用途</h1><h2 id="编译检查"><a href="#编译检查" class="headerlink" title="编译检查"></a>编译检查</h2><p>@SuppressWarnings, @Deprecated 和 @Override 都具有编译检查作用。</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2></li>
+<li><p>声明注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Annotation在反射函数中的使用示例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line">    String[] value() <span class="keyword">default</span> <span class="string">&quot;unknown&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>构建一个类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Person类。它会使用MyAnnotation注解。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * empty()方法同时被 &quot;<span class="doctag">@Deprecated</span>&quot; 和 &quot;<span class="doctag">@MyAnnotation</span>(value=&#123;&quot;a&quot;,&quot;b&quot;&#125;)&quot;所标注</span></span><br><span class="line"><span class="comment">   * (01) <span class="doctag">@Deprecated</span>，意味着empty()方法，不再被建议使用</span></span><br><span class="line"><span class="comment">   * (02) <span class="doctag">@MyAnnotation</span>, 意味着empty() 方法对应的MyAnnotation的value值是默认值&quot;unknown&quot;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@MyAnnotation</span></span><br><span class="line">  <span class="meta">@Deprecated</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;\n调用方法 Person.empty()&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * sombody() 被 <span class="doctag">@MyAnnotation</span>(value=&#123;&quot;girl&quot;,&quot;boy&quot;&#125;) 所标注，</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@MyAnnotation</span>(value=&#123;&quot;girl&quot;,&quot;boy&quot;&#125;), 意味着MyAnnotation的value值是&#123;&quot;girl&quot;,&quot;boy&quot;&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@MyAnnotation(value = &#123;&quot;111&quot;, &quot;222&quot;, &quot;333&quot;&#125;)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">somebody</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;\n调用方法 Person.somebody(String name, int age): &quot;</span> + name + <span class="string">&quot;, &quot;</span> + age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>反射调用拿到注解的值</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 新建Person</span></span><br><span class="line">        Person person = <span class="keyword">new</span> Person();</span><br><span class="line">        <span class="comment">// 获取Person的Class实例</span></span><br><span class="line">        Class&lt;Person&gt; c = Person.class;</span><br><span class="line">        <span class="comment">// 获取 somebody() 方法的Method实例</span></span><br><span class="line">        Method mSomebody = c.getMethod(<span class="string">&quot;somebody&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class, <span class="keyword">int</span>.class&#125;);</span><br><span class="line">        <span class="comment">// 执行该方法</span></span><br><span class="line">        mSomebody.invoke(person, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;wx&quot;</span>, <span class="number">20</span>&#125;);</span><br><span class="line">        iteratorAnnotations(mSomebody);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;\n================&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取 somebody() 方法的Method实例</span></span><br><span class="line">        Method mEmpty = c.getMethod(<span class="string">&quot;empty&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;);</span><br><span class="line">        <span class="comment">// 执行该方法</span></span><br><span class="line">        mEmpty.invoke(person, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line">        iteratorAnnotations(mEmpty);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">iteratorAnnotations</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断 somebody() 方法是否包含MyAnnotation注解</span></span><br><span class="line">        <span class="keyword">if</span> (method.isAnnotationPresent(MyAnnotation.class)) &#123;</span><br><span class="line">            <span class="comment">// 获取该方法的MyAnnotation注解实例</span></span><br><span class="line">            MyAnnotation myAnnotation = method.getAnnotation(MyAnnotation.class);</span><br><span class="line">            <span class="comment">// 获取 myAnnotation的值，并打印出来</span></span><br><span class="line">            String[] values = myAnnotation.value();</span><br><span class="line">            System.out.print(<span class="string">&quot;反射得到的方法上的注解所包含的值：&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (String str : values)</span><br><span class="line">                System.out.printf(str + <span class="string">&quot;, &quot;</span>);</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取方法上的所有注解，并打印出来</span></span><br><span class="line">        Annotation[] annotations = method.getAnnotations();</span><br><span class="line">        System.out.print(<span class="string">&quot;反射得到的方法上的所有注解：&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Annotation annotation : annotations) &#123;</span><br><span class="line">            System.out.print(annotation + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果:</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">调用方法 Person.somebody(String name, int age): wx, 20</span><br><span class="line">反射得到的方法上的注解所包含的值：111, 222, 333, </span><br><span class="line">反射得到的方法上的所有注解：@MyAnnotation(value=[111, 222, 333]),</span><br><span class="line">================</span><br><span class="line">调用方法 Person.empty()</span><br><span class="line">反射得到的方法上的注解所包含的值：unknown, </span><br><span class="line">反射得到的方法上的所有注解：@MyAnnotation(value=[unknown]),@java.lang.Deprecated(),</span><br></pre></td></tr></table></figure>
+<h2 id="生成帮助文档"><a href="#生成帮助文档" class="headerlink" title="生成帮助文档"></a>生成帮助文档</h2><p>通过给 Annotation 注解加上 @Documented 标签，能使该 Annotation 标签出现在 javadoc 中。</p>
+<h2 id="帮忙查看查看代码"><a href="#帮忙查看查看代码" class="headerlink" title="帮忙查看查看代码"></a>帮忙查看查看代码</h2><p>通过 @Override, @Deprecated 等，我们能很方便的了解程序的大致结构。</p>
+</li>
+</ul>
+<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><p>我们还可以这样声明一个注解</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> myUser &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">id</span> <span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line">    String[] list() <span class="keyword">default</span> &#123;<span class="string">&quot;list1&quot;</span>,<span class="string">&quot;list2&quot;</span>&#125;;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@myUser(name = &quot;test&quot;,age = 20,id = 01,list = &#123;&quot;1&quot;,&quot;2&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>感谢查阅</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>Java注解</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Annotation</tag>
+        <tag>Java注解</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【hexo】从零构建hexo网站项目</title>
     <url>/Hexo-build-project/</url>
     <content><![CDATA[<pre><code>本文描述了如何用hexo从零开始建立自己的一个博客
@@ -478,252 +724,6 @@ repo直接粘贴即可<img src="/Hexo-build-project/git-repo.png" class=""></li>
       </tags>
   </entry>
   <entry>
-    <title>【Java注解】如何理解和使用 Java注解</title>
-    <url>/Java-Annotation-notes/</url>
-    <content><![CDATA[<pre><code>java 注解理解与开发
-</code></pre>
-<img src="/Java-Annotation-notes/Inherited.png" class="">
-
-<span id="more"></span>
-<h1 id="注解？"><a href="#注解？" class="headerlink" title="注解？"></a>注解？</h1><ul>
-<li>Java 注解（Annotation）又称 Java 标注，是 JDK5.0 引入的一种注释机制。</li>
-<li>注解可以理解为元数据，即一种描述数据的数据。所以，可以说注解就是源代码的元数据。</li>
-<li>Annotation是一种应用于类、方法、参数、变量、构造器及包声明中的特殊修饰符。它是一种由JSR-175标准选择用来描述元数据的一种工具。</li>
-</ul>
-<h1 id="为什么用"><a href="#为什么用" class="headerlink" title="为什么用"></a>为什么用</h1><ul>
-<li>注解可以被其他程序（比如：编译器等）读取，开发人员可以在不改变原有代码和逻辑的情况下在源代码中嵌入补充信息。</li>
-<li>节省配置</li>
-</ul>
-<h1 id="注解架构"><a href="#注解架构" class="headerlink" title="注解架构"></a>注解架构</h1><img src="/Java-Annotation-notes/framework.jpg" class="">
-<ul>
-<li>1 个 Annotation 和 1 个 RetentionPolicy 关联。</li>
-<li>1 个 Annotation 和 1~n 个 ElementType 关联。</li>
-<li>Annotation 有许多实现类，包括：Deprecated, Documented, Inherited, Override 等等。</li>
-</ul>
-<h1 id="Annotation-组成部分"><a href="#Annotation-组成部分" class="headerlink" title="Annotation 组成部分"></a>Annotation 组成部分</h1><ul>
-<li><p>Annotation.java</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Annotation</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">toString</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;? extends Annotation&gt; annotationType();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Annotation 就是个接口。</p>
-</li>
-<li><p>ElementType.java</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ElementType</span> </span>&#123;</span><br><span class="line">    TYPE,           <span class="comment">// 类、接口（包括注释类型）或枚举声明</span></span><br><span class="line">    FIELD,          <span class="comment">// 字段声明（包括枚举常量）</span></span><br><span class="line">    METHOD,         <span class="comment">// 方法声明</span></span><br><span class="line">    PARAMETER,      <span class="comment">// 形式参数声明</span></span><br><span class="line">    CONSTRUCTOR,    <span class="comment">// 构造函数声明</span></span><br><span class="line">    LOCAL_VARIABLE, <span class="comment">//  局部变量声明</span></span><br><span class="line">    ANNOTATION_TYPE,<span class="comment">//  批注类型声明</span></span><br><span class="line">    PACKAGE,        <span class="comment">//包装声明</span></span><br><span class="line">    TYPE_PARAMETER, <span class="comment">// 类型参数声明</span></span><br><span class="line">    TYPE_USE        <span class="comment">// 类型的使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ElementType 是 Enum 枚举类型，它用来指定 Annotation 的类型。</p>
-</li>
-<li><p>RetentionPolicy.java</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang.annotation;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">RetentionPolicy</span> </span>&#123;</span><br><span class="line">    <span class="comment">//Annotation信息仅存在于编译器处理期间，编译器处理完之后就没有该Annotation信息了  </span></span><br><span class="line">    SOURCE,</span><br><span class="line">    <span class="comment">// 编译器将Annotation存储于类对应的.class文件中。默认行为</span></span><br><span class="line">    CLASS,</span><br><span class="line">    <span class="comment">// 编译器将Annotation存储于class文件中，并且可由JVM读入</span></span><br><span class="line">    RUNTIME</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>RetentionPolicy 是 Enum 枚举类型，它用来指定 Annotation 的策略。<br>通俗点说，就是不同 RetentionPolicy 类型的 Annotation 的作用域不同。</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>作用域</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>SOURCE</td>
-<td>编译器处理期间有效</td>
-<td></td>
-</tr>
-<tr>
-<td>CLASS</td>
-<td>在class文件有效，有可能被jvm忽略</td>
-<td></td>
-</tr>
-<tr>
-<td>RUNTIME</td>
-<td>在运行时有效</td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-<h1 id="语法定义"><a href="#语法定义" class="headerlink" title="语法定义"></a>语法定义</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Target(ElementType.TYPE)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyAnnotation &#123;&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>上面定义了一个名为<code>MyAnnotation</code>的Annotation(注解),<br>我们可以在代码中通过<code>@MyAnnotation</code>来使用它</p>
-</blockquote>
-<ul>
-<li>@interface<ul>
-<li>使用 @interface 定义注解时，意味着它实现了 java.lang.annotation.Annotation 接口，即该注解就是一个Annotation。</li>
-<li>定义 Annotation 时，@interface 是必须的。</li>
-<li>Annotation 接口的实现细节都由编译器完成。通过 @interface 定义注解后，该注解不能继承其他的注解或接口。</li>
-</ul>
-</li>
-<li>@Documented<ul>
-<li>类和方法的 Annotation 在缺省情况下是不出现在 javadoc 中的。</li>
-<li>如果使用 @Documented 修饰该 Annotation,则表示它可以出现在 javadoc 中。</li>
-<li>定义 Annotation 时，@Documented 可有可无；若没有定义，则 Annotation 不会出现在 javadoc 中。</li>
-</ul>
-</li>
-<li>@Target(ElementType.TYPE)<ul>
-<li>就是来指定 Annotation 的类型属性。</li>
-<li>定义 Annotation 时，@Target 可有可无。</li>
-<li>若有 @Target，则该 Annotation 只能用于它所指定的地方；</li>
-<li>若无 @Target，则该 Annotation 可以用于任何地方。</li>
-</ul>
-</li>
-<li>@Retention(RetentionPolicy.RUNTIME)<ul>
-<li>就是指定 Annotation 的策略属性。</li>
-<li>定义 Annotation 时，@Retention 可有可无。</li>
-<li>若无 @Retention，则默认是 RetentionPolicy.CLASS。</li>
-</ul>
-</li>
-</ul>
-<h1 id="内置注解"><a href="#内置注解" class="headerlink" title="内置注解"></a>内置注解</h1><table>
-<thead>
-<tr>
-<th>注解</th>
-<th>所在包</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>@Override</td>
-<td>java.lang</td>
-<td>检查该方法是否是重写方法。如果发现其父类，或者是引用的接口中并没有该方法时，会报编译错误</td>
-</tr>
-<tr>
-<td>@Deprecated</td>
-<td>java.lang</td>
-<td>标记过时方法。如果使用该方法，会报编译警告</td>
-</tr>
-<tr>
-<td>@SuppressWarnings</td>
-<td>java.lang</td>
-<td>指示编译器去忽略注解中声明的警告</td>
-</tr>
-<tr>
-<td>@SafeVarargs</td>
-<td>java.lang</td>
-<td>忽略任何使用参数为泛型变量的方法或构造函数调用产生的警告</td>
-</tr>
-<tr>
-<td>@FunctionalInterface</td>
-<td>java.lang</td>
-<td>标识一个匿名函数或函数式接口</td>
-</tr>
-<tr>
-<td>@Retention</td>
-<td>java.lang.annotation</td>
-<td>标识这个注解怎么保存，是只在代码中，还是编入class文件中，或者是在运行时可以通过反射访问。</td>
-</tr>
-<tr>
-<td>@Documented</td>
-<td>java.lang.annotation</td>
-<td>标记这些注解是否包含在用户文档中</td>
-</tr>
-<tr>
-<td>@Target</td>
-<td>java.lang.annotation</td>
-<td>标记这个注解应该是哪种 Java 成员</td>
-</tr>
-<tr>
-<td>@Inherited</td>
-<td>java.lang.annotation</td>
-<td>标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)</td>
-</tr>
-<tr>
-<td>@Repeatable</td>
-<td>java.lang.annotation</td>
-<td>标识某注解可以在同一个声明上使用多次</td>
-</tr>
-</tbody></table>
-<ul>
-<li><p>@Deprecated</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(value=&#123;CONSTRUCTOR, FIELD, LOCAL_VARIABLE, METHOD, PACKAGE, PARAMETER, TYPE&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Deprecated &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>@interface</code> 修饰 Deprecated 证明 <code>Deprecated</code> 实现了<code>java.lang.annotation.Annotation </code>接口，<code>Deprecated</code> 为一个接口<br><code>@Documented </code>修饰该注解 说明注解能出现在 javadoc 中。<br><code>@Retention(RetentionPolicy.RUNTIME)</code> 中，<code>RUNTIME</code>说明编译器会将Deprecated 的信息保留在 .class 文件中，并且能被虚拟机读取。<br> <code>@Deprecated</code> 所标注内容，不再被建议使用。</p>
-</blockquote>
-</li>
-<li><p>@Inherited</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(ElementType.ANNOTATION_TYPE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Inherited &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>@interface</code>  修饰 Inherited，意味着 Inherited 实现了 java.lang.annotation.Annotation 接口<br><code>@Documented </code>修饰该注解 说明注解能出现在 javadoc 中。<br><code>@Retention(RetentionPolicy.RUNTIME)</code> 中，<code>RUNTIME</code>说明编译器会将Deprecated 的信息保留在 .class 文件中，并且能被虚拟机读取。<br><code>@Target(ElementType.ANNOTATION_TYPE)</code>中,<code>ANNOTATION_TYPE</code> 说明 @Inherited 只能被用来标注 “Annotation 类型”。<br><code>@Inherited</code> 的含义是，它所标注的Annotation将具有继承性。</p>
-</blockquote>
-</li>
-<li><p>@SuppressWarnings</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.SOURCE)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SuppressWarnings &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>@interface</code>修饰 SuppressWarnings，意味着 SuppressWarnings 实现了 java.lang.annotation.Annotation 接口<br><code>@Retention(RetentionPolicy.SOURCE)</code>中<code>SOURCE</code>。这就意味着，SuppressWarnings 信息仅存在于编译器处理期间，编译器处理完之后 SuppressWarnings 就没有作用了。<br><code>@Target(&#123;TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE&#125;)</code></p>
-<blockquote>
-<p><code>TYPE</code> 意味着，它能标注”类、接口（包括注释类型）或枚举声明”。<br><code>FIELD</code> 意味着，它能标注”字段声明”。<br><code>METHOD</code> 意味着，它能标注”方法”。<br><code>PARAMETER</code> 意味着，它能标注”参数”。<br><code>CONSTRUCTOR</code> 意味着，它能标注”构造方法”。<br><code>LOCAL_VARIABLE</code> 意味着，它能标注”局部变量”。</p>
-</blockquote>
-<p> <code>String[] value();</code> 意味着，SuppressWarnings 能指定参数</p>
-<blockquote>
-<blockquote>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>deprecation</td>
-<td>使用了不赞成使用的类或方法时的警告</td>
-</tr>
-<tr>
-<td>unchecked</td>
-<td>执行了未检查的转换时的警告，例如当使用集合时没有用泛型 (Generics) 来指定集合保存的类型。</td>
-</tr>
-<tr>
-<td>fallthrough</td>
-<td>当 Switch 程序块直接通往下一种情况而没有 Break 时的警告。</td>
-</tr>
-<tr>
-<td>path</td>
-<td>在类路径、源文件路径等中有不存在的路径时的警告。</td>
-</tr>
-<tr>
-<td>serial</td>
-<td>当在可序列化的类上缺少 serialVersionUID 定义时的警告。</td>
-</tr>
-<tr>
-<td>finally</td>
-<td>任何 finally 子句不能正常完成时的警告。</td>
-</tr>
-<tr>
-<td>all</td>
-<td>关于以上所有情况的警告。</td>
-</tr>
-</tbody></table>
-</blockquote>
-<p><code>SuppressWarnings</code> 的作用是，让编译器对”它所标注的内容”的某些警告保持静默。</p>
-</blockquote>
-<p>用例:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Date;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuppressWarningTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings(value=&#123;&quot;deprecation&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Date date = <span class="keyword">new</span> Date(<span class="number">113</span>, <span class="number">8</span>, <span class="number">26</span>);</span><br><span class="line">        System.out.println(date);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="基本用途"><a href="#基本用途" class="headerlink" title="基本用途"></a>基本用途</h1><h2 id="编译检查"><a href="#编译检查" class="headerlink" title="编译检查"></a>编译检查</h2><p>@SuppressWarnings, @Deprecated 和 @Override 都具有编译检查作用。</p>
-<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2></li>
-<li><p>声明注解</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Annotation在反射函数中的使用示例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@interface</span> MyAnnotation &#123;</span><br><span class="line">    String[] value() <span class="keyword">default</span> <span class="string">&quot;unknown&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>构建一个类</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Person类。它会使用MyAnnotation注解。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * empty()方法同时被 &quot;<span class="doctag">@Deprecated</span>&quot; 和 &quot;<span class="doctag">@MyAnnotation</span>(value=&#123;&quot;a&quot;,&quot;b&quot;&#125;)&quot;所标注</span></span><br><span class="line"><span class="comment">   * (01) <span class="doctag">@Deprecated</span>，意味着empty()方法，不再被建议使用</span></span><br><span class="line"><span class="comment">   * (02) <span class="doctag">@MyAnnotation</span>, 意味着empty() 方法对应的MyAnnotation的value值是默认值&quot;unknown&quot;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@MyAnnotation</span></span><br><span class="line">  <span class="meta">@Deprecated</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;\n调用方法 Person.empty()&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * sombody() 被 <span class="doctag">@MyAnnotation</span>(value=&#123;&quot;girl&quot;,&quot;boy&quot;&#125;) 所标注，</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@MyAnnotation</span>(value=&#123;&quot;girl&quot;,&quot;boy&quot;&#125;), 意味着MyAnnotation的value值是&#123;&quot;girl&quot;,&quot;boy&quot;&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@MyAnnotation(value = &#123;&quot;111&quot;, &quot;222&quot;, &quot;333&quot;&#125;)</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">somebody</span><span class="params">(String name, <span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;\n调用方法 Person.somebody(String name, int age): &quot;</span> + name + <span class="string">&quot;, &quot;</span> + age);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li><p>反射调用拿到注解的值</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AnnotationTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 新建Person</span></span><br><span class="line">        Person person = <span class="keyword">new</span> Person();</span><br><span class="line">        <span class="comment">// 获取Person的Class实例</span></span><br><span class="line">        Class&lt;Person&gt; c = Person.class;</span><br><span class="line">        <span class="comment">// 获取 somebody() 方法的Method实例</span></span><br><span class="line">        Method mSomebody = c.getMethod(<span class="string">&quot;somebody&quot;</span>, <span class="keyword">new</span> Class[]&#123;String.class, <span class="keyword">int</span>.class&#125;);</span><br><span class="line">        <span class="comment">// 执行该方法</span></span><br><span class="line">        mSomebody.invoke(person, <span class="keyword">new</span> Object[]&#123;<span class="string">&quot;wx&quot;</span>, <span class="number">20</span>&#125;);</span><br><span class="line">        iteratorAnnotations(mSomebody);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">&quot;\n================&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取 somebody() 方法的Method实例</span></span><br><span class="line">        Method mEmpty = c.getMethod(<span class="string">&quot;empty&quot;</span>, <span class="keyword">new</span> Class[]&#123;&#125;);</span><br><span class="line">        <span class="comment">// 执行该方法</span></span><br><span class="line">        mEmpty.invoke(person, <span class="keyword">new</span> Object[]&#123;&#125;);</span><br><span class="line">        iteratorAnnotations(mEmpty);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">iteratorAnnotations</span><span class="params">(Method method)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 判断 somebody() 方法是否包含MyAnnotation注解</span></span><br><span class="line">        <span class="keyword">if</span> (method.isAnnotationPresent(MyAnnotation.class)) &#123;</span><br><span class="line">            <span class="comment">// 获取该方法的MyAnnotation注解实例</span></span><br><span class="line">            MyAnnotation myAnnotation = method.getAnnotation(MyAnnotation.class);</span><br><span class="line">            <span class="comment">// 获取 myAnnotation的值，并打印出来</span></span><br><span class="line">            String[] values = myAnnotation.value();</span><br><span class="line">            System.out.print(<span class="string">&quot;反射得到的方法上的注解所包含的值：&quot;</span>);</span><br><span class="line">            <span class="keyword">for</span> (String str : values)</span><br><span class="line">                System.out.printf(str + <span class="string">&quot;, &quot;</span>);</span><br><span class="line">            System.out.println();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 获取方法上的所有注解，并打印出来</span></span><br><span class="line">        Annotation[] annotations = method.getAnnotations();</span><br><span class="line">        System.out.print(<span class="string">&quot;反射得到的方法上的所有注解：&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Annotation annotation : annotations) &#123;</span><br><span class="line">            System.out.print(annotation + <span class="string">&quot;,&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果:</p>
-<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">调用方法 Person.somebody(String name, int age): wx, 20</span><br><span class="line">反射得到的方法上的注解所包含的值：111, 222, 333, </span><br><span class="line">反射得到的方法上的所有注解：@MyAnnotation(value=[111, 222, 333]),</span><br><span class="line">================</span><br><span class="line">调用方法 Person.empty()</span><br><span class="line">反射得到的方法上的注解所包含的值：unknown, </span><br><span class="line">反射得到的方法上的所有注解：@MyAnnotation(value=[unknown]),@java.lang.Deprecated(),</span><br></pre></td></tr></table></figure>
-<h2 id="生成帮助文档"><a href="#生成帮助文档" class="headerlink" title="生成帮助文档"></a>生成帮助文档</h2><p>通过给 Annotation 注解加上 @Documented 标签，能使该 Annotation 标签出现在 javadoc 中。</p>
-<h2 id="帮忙查看查看代码"><a href="#帮忙查看查看代码" class="headerlink" title="帮忙查看查看代码"></a>帮忙查看查看代码</h2><p>通过 @Override, @Deprecated 等，我们能很方便的了解程序的大致结构。</p>
-</li>
-</ul>
-<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><p>我们还可以这样声明一个注解</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> myUser &#123;</span><br><span class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> &quot;&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">age</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">id</span> <span class="params">()</span> <span class="keyword">default</span> -1</span>;</span><br><span class="line">    String[] list() <span class="keyword">default</span> &#123;<span class="string">&quot;list1&quot;</span>,<span class="string">&quot;list2&quot;</span>&#125;;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@myUser(name = &quot;test&quot;,age = 20,id = 01,list = &#123;&quot;1&quot;,&quot;2&quot;&#125;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>感谢查阅</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>Java注解</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Annotation</tag>
-        <tag>Java注解</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Node.js】NodeJs学习笔记</title>
     <url>/NodeJs-Notes/</url>
     <content><![CDATA[<pre><code>NodeJs学习笔记
@@ -1104,40 +1104,6 @@ presets字段设定转码规则，将es2015规则加入 .babelrc：<figure class
       </tags>
   </entry>
   <entry>
-    <title>【Dos命令】基础Dos命令随笔</title>
-    <url>/basic-dos-command/</url>
-    <content><![CDATA[<h1 id="本文为-Dos命令随笔"><a href="#本文为-Dos命令随笔" class="headerlink" title="本文为 Dos命令随笔"></a>本文为 Dos命令随笔</h1><span id="more"></span>
-<h1 id="盘符切换"><a href="#盘符切换" class="headerlink" title="盘符切换"></a>盘符切换</h1><p>切到D盘</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:</span><br></pre></td></tr></table></figure>
-<p>切到C盘</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:</span><br></pre></td></tr></table></figure>
-
-<h1 id="查看当前目录"><a href="#查看当前目录" class="headerlink" title="查看当前目录"></a>查看当前目录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir</span><br></pre></td></tr></table></figure>
-
-<h1 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h1><p>切换到某一目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd \d &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<p>返回上一级</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
-
-<h1 id="清理屏幕"><a href="#清理屏幕" class="headerlink" title="清理屏幕"></a>清理屏幕</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cls</span><br></pre></td></tr></table></figure>
-
-<h1 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<h1 id="查本机IP"><a href="#查本机IP" class="headerlink" title="查本机IP"></a>查本机IP</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
-
-<h1 id="ping-某些网站得到ip"><a href="#ping-某些网站得到ip" class="headerlink" title="ping 某些网站得到ip"></a>ping 某些网站得到ip</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ping www.wx1998.cn</span><br></pre></td></tr></table></figure>
-<p>一般测试网站是否链接</p>
-<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">md 目录</span><br><span class="line">rd 目录</span><br><span class="line">cd&gt;文件名</span><br><span class="line">del 文件名</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Windows</category>
-        <category>doc命令</category>
-      </categories>
-      <tags>
-        <tag>Dos命令</tag>
-        <tag>命令</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Github】Github Pages 的使用攻略</title>
     <url>/create-github-pages/</url>
     <content><![CDATA[<pre><code>本文教你从零创建一个Github Pages静态网站
@@ -1195,6 +1161,40 @@ presets字段设定转码规则，将es2015规则加入 .babelrc：<figure class
       <tags>
         <tag>Github</tag>
         <tag>Github Pages</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Dos命令】基础Dos命令随笔</title>
+    <url>/basic-dos-command/</url>
+    <content><![CDATA[<h1 id="本文为-Dos命令随笔"><a href="#本文为-Dos命令随笔" class="headerlink" title="本文为 Dos命令随笔"></a>本文为 Dos命令随笔</h1><span id="more"></span>
+<h1 id="盘符切换"><a href="#盘符切换" class="headerlink" title="盘符切换"></a>盘符切换</h1><p>切到D盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:</span><br></pre></td></tr></table></figure>
+<p>切到C盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看当前目录"><a href="#查看当前目录" class="headerlink" title="查看当前目录"></a>查看当前目录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir</span><br></pre></td></tr></table></figure>
+
+<h1 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h1><p>切换到某一目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd \d &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<p>返回上一级</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+
+<h1 id="清理屏幕"><a href="#清理屏幕" class="headerlink" title="清理屏幕"></a>清理屏幕</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cls</span><br></pre></td></tr></table></figure>
+
+<h1 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h1 id="查本机IP"><a href="#查本机IP" class="headerlink" title="查本机IP"></a>查本机IP</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
+
+<h1 id="ping-某些网站得到ip"><a href="#ping-某些网站得到ip" class="headerlink" title="ping 某些网站得到ip"></a>ping 某些网站得到ip</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ping www.wx1998.cn</span><br></pre></td></tr></table></figure>
+<p>一般测试网站是否链接</p>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">md 目录</span><br><span class="line">rd 目录</span><br><span class="line">cd&gt;文件名</span><br><span class="line">del 文件名</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Windows</category>
+        <category>doc命令</category>
+      </categories>
+      <tags>
+        <tag>Dos命令</tag>
+        <tag>命令</tag>
       </tags>
   </entry>
   <entry>
@@ -1848,7 +1848,7 @@ public class test &#123;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;wx.98@qq.com&gt;</span><br></pre></td></tr></table></figure>
 <p>效果↓</p>
 <blockquote>
-<p><a href="mailto:&#119;&#x78;&#x2e;&#57;&#56;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#109;">&#119;&#x78;&#x2e;&#57;&#56;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#109;</a></p>
+<p><a href="mailto:&#119;&#120;&#46;&#57;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#119;&#120;&#46;&#57;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
 </blockquote>
 <h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，<br>例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\\   反斜线</span><br><span class="line">\&#96;   反引号</span><br><span class="line">\*   星号</span><br><span class="line">\_   底线</span><br><span class="line">\&#123;&#125;  花括号</span><br><span class="line">\[]  方括号</span><br><span class="line">\()  括弧</span><br><span class="line">\#   井字号</span><br><span class="line">\+   加号</span><br><span class="line">\-   减号</span><br><span class="line">\.   英文句点</span><br><span class="line">\!   惊叹号</span><br></pre></td></tr></table></figure>
@@ -2663,12 +2663,12 @@ public class test &#123;
 <iframe src="https://m.baidu.com/" width="1000" height="300"></iframe></blockquote>
 </li>
 <li><p>内联网站跳转</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;../build-hexo-project&quot;</span> <span class="attr">target</span>=<span class="string">&quot;hello&quot;</span>&gt;</span>点击跳转到---&gt;&gt;&gt;【hexo】从零构建hexo网站项目<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;../hello-hexo&quot;</span> <span class="attr">target</span>=<span class="string">&quot;hello&quot;</span>&gt;</span>点击跳转到---&gt;&gt;&gt;【hexo】命令汇总-日常更新维护命令<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hello&quot;</span> <span class="attr">width</span>=<span class="string">&quot;1000&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;../Hexo-build-project&quot;</span> <span class="attr">target</span>=<span class="string">&quot;hello&quot;</span>&gt;</span>点击跳转到---&gt;&gt;&gt;【hexo】从零构建hexo网站项目<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;../hello-hexo&quot;</span> <span class="attr">target</span>=<span class="string">&quot;hello&quot;</span>&gt;</span>点击跳转到---&gt;&gt;&gt;【hexo】命令汇总-日常更新维护命令<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">&quot;&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hello&quot;</span> <span class="attr">width</span>=<span class="string">&quot;1000&quot;</span> <span class="attr">height</span>=<span class="string">&quot;300&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>效果↓:</p>
 <blockquote>
 </blockquote>
-<p><a href="../build-hexo-project" target="hello">点击跳转到—&gt;&gt;&gt;【hexo】从零构建hexo网站项目</a><br><a href="../hello-hexo" target="hello">点击跳转到—&gt;&gt;&gt;【hexo】命令汇总-日常更新维护命令</a></p>
+<p><a href="../Hexo-build-project" target="hello">点击跳转到—&gt;&gt;&gt;【hexo】从零构建hexo网站项目</a><br><a href="../hello-hexo" target="hello">点击跳转到—&gt;&gt;&gt;【hexo】命令汇总-日常更新维护命令</a></p>
 <iframe src="" name="hello" width="1000" height="300"></iframe></li>
 </ul>
 <h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;get/post&quot;</span> <span class="attr">action</span>=<span class="string">&quot;表单提交的位置&quot;</span>&gt;</span></span><br><span class="line">    .......</span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -3980,7 +3980,7 @@ pubsub.publish(&quot;getStudentName&quot;, 666);
 <li>Cotegory.vue<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123; title &#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">:listData</span>=<span class="string">&quot;mydata&quot;</span>&gt;</span> <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;Cotegory&quot;</span>,</span></span><br><span class="line"><span class="javascript">  props: [<span class="string">&quot;title&quot;</span>],</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">      mydata: [<span class="string">&quot;aaaa&quot;</span>, <span class="string">&quot;bbbb&quot;</span>, <span class="string">&quot;ccccc&quot;</span>, <span class="string">&quot;ddddd&quot;</span>, <span class="string">&quot;eeeeee&quot;</span>, <span class="string">&quot;fffff&quot;</span>],</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span></span><br><span class="line">.box &#123;</span><br><span class="line"><span class="css">  <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(<span class="number">225</span>, <span class="number">255</span>, <span class="number">255</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 <li>App.vue<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Cotegory</span> <span class="attr">title</span>=<span class="string">&quot;data1&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">template</span> <span class="attr">scope</span>=<span class="string">&quot;data&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(str, index) in data.listData&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123; str &#125;&#125;</span><br><span class="line">          <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Cotegory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Cotegory</span> <span class="attr">title</span>=<span class="string">&quot;data1&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">template</span> <span class="attr">scope</span>=<span class="string">&quot;&#123;listData&#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">ol</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;(str, index) in listData&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">            &#123;&#123; str &#125;&#125;</span><br><span class="line">          <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Cotegory</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Cotegory</span> <span class="attr">title</span>=<span class="string">&quot;data2&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;&#123; listData &#125;&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h4</span> <span class="attr">v-for</span>=<span class="string">&quot;(str, index) in listData&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">          &#123;&#123; str &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Cotegory</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Cotegory <span class="keyword">from</span> <span class="string">&quot;./components/Cotegory.vue&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;App&quot;</span>,</span></span><br><span class="line">  components: &#123; Cotegory &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span></span><br><span class="line">.container &#123;</span><br><span class="line"><span class="css">  <span class="attribute">display</span>: flex;</span></span><br><span class="line"><span class="css">  <span class="attribute">justify-content</span>: space-around;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><h2 id="vuex-是什么"><a href="#vuex-是什么" class="headerlink" title="vuex 是什么?"></a>vuex 是什么?</h2><ul>
+<h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><h2 id="vuex-是什么"><a href="#vuex-是什么" class="headerlink" title="vuex 是什么?"></a>vuex 是什么?</h2><ul>
 <li>专门在 Vue 中实现集中式状态（数据）管理的一个 Vue 插件，</li>
 <li>对 vue 应用中多个组件的共享状态进行集中式的管理（读/写），</li>
 <li>也是一种组件间通信的方式，且适用于任意组件间通信。</li>
@@ -4052,6 +4052,7 @@ pubsub.publish(&quot;getStudentName&quot;, 666);
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是Home的内容<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;Home&quot;</span>,</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>About.vue</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是About的内容<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;About&quot;</span>,</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h3 id="编写配置项"><a href="#编写配置项" class="headerlink" title="编写配置项"></a>编写配置项</h3><p>src\router\index.js</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> About <span class="keyword">from</span> <span class="string">&quot;../pages/About.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">&quot;../pages/Home.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&quot;/about&quot;</span>, <span class="attr">component</span>: About &#125;,</span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&quot;/home&quot;</span>, <span class="attr">component</span>: Home &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h3 id="引入项目"><a href="#引入项目" class="headerlink" title="引入项目"></a>引入项目</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&quot;./App.vue&quot;</span>;</span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&quot;./router&quot;</span>;</span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="comment">//将App组件放进容器中</span></span><br><span class="line">  render: <span class="function">(<span class="params">h</span>) =&gt;</span> h(App),</span><br><span class="line">  router: router,</span><br><span class="line">&#125;).$mount(<span class="string">&quot;#app&quot;</span>);</span><br></pre></td></tr></table></figure>
@@ -4094,7 +4095,136 @@ pubsub.publish(&quot;getStudentName&quot;, 666);
 <p>src\router\index.js</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> About <span class="keyword">from</span> <span class="string">&quot;../pages/About.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">&quot;../pages/Home.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Message <span class="keyword">from</span> <span class="string">&quot;../pages/Message.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> News <span class="keyword">from</span> <span class="string">&quot;../pages/News.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Detail <span class="keyword">from</span> <span class="string">&quot;../pages/Detail.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&quot;guanyu&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;/about&quot;</span>, <span class="attr">component</span>: About &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">&quot;zhuye&quot;</span>,</span><br><span class="line">      path: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">      component: Home,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          path: <span class="string">&quot;message&quot;</span>,</span><br><span class="line">          component: Message,</span><br><span class="line">          children: [</span><br><span class="line">            &#123; <span class="attr">name</span>: <span class="string">&quot;xiaoxi&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;detail&quot;</span>, <span class="attr">component</span>: Detail &#125;,</span><br><span class="line">          ],</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">&quot;xinwen&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;news&quot;</span>, <span class="attr">component</span>: News &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;name:&#x27;guanyu&#x27;&#125;&quot;</span>&gt;</span>跳转到About<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;name:&#x27;xiaoxi&#x27;,query:&#123; id:666, title:&#x27;你好&#x27; &#125;&#125;&quot;</span>&gt;</span>跳转并附带信息<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;name:&#x27;guanyu&#x27;&#125;&quot;</span>&gt;</span>跳转到About<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">:to</span>=<span class="string">&quot;&#123;name:&#x27;xiaoxi&#x27;,query:&#123; id:666, title:&#x27;你好&#x27; &#125;&#125;&quot;</span>&gt;</span>跳转并附带信息<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="路由的props配置"><a href="#路由的props配置" class="headerlink" title="路由的props配置"></a>路由的props配置</h2><p>让路由组件更方便的收到参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> About <span class="keyword">from</span> <span class="string">&quot;../pages/About.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">&quot;../pages/Home.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Message <span class="keyword">from</span> <span class="string">&quot;../pages/Message.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> News <span class="keyword">from</span> <span class="string">&quot;../pages/News.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Detail <span class="keyword">from</span> <span class="string">&quot;../pages/Detail.vue&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&quot;guanyu&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;/about&quot;</span>, <span class="attr">component</span>: About &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">&quot;zhuye&quot;</span>,</span><br><span class="line">      path: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">      component: Home,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          path: <span class="string">&quot;message&quot;</span>,</span><br><span class="line">          component: Message,</span><br><span class="line">          children: [</span><br><span class="line">            &#123;</span><br><span class="line">              name: <span class="string">&quot;xiaoxi&quot;</span>,</span><br><span class="line">              path: <span class="string">&quot;detail/:id/:title&quot;</span>,</span><br><span class="line">              component: Detail,</span><br><span class="line"></span><br><span class="line">              <span class="comment">//props的第一种写法，值为对象，该对象中的所有key-value都会以props的形式传给Detail组件。</span></span><br><span class="line">              <span class="comment">// props:&#123;a:1,b:&#x27;hello&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line">              <span class="comment">//props的第二种写法，值为布尔值，若布尔值为真，就会把该路由组件收到的所有params参数，以props的形式传给Detail组件。</span></span><br><span class="line">              <span class="comment">// props:true</span></span><br><span class="line"></span><br><span class="line">              <span class="comment">//props的第三种写法，值为函数</span></span><br><span class="line">              <span class="function"><span class="title">props</span>(<span class="params">$route</span>)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> &#123;</span><br><span class="line">                  id: $route.query.id,</span><br><span class="line">                  title: $route.query.title,</span><br><span class="line">                  a: <span class="number">1</span>,</span><br><span class="line">                  b: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">                &#125;;</span><br><span class="line">              &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">          ],</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123; <span class="attr">name</span>: <span class="string">&quot;xinwen&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;news&quot;</span>, <span class="attr">component</span>: News &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="replace属性"><a href="#replace属性" class="headerlink" title="replace属性"></a>replace属性</h2><p><code>&lt;router-link&gt;</code>的replace属性</p>
+<h3 id="作用？"><a href="#作用？" class="headerlink" title="作用？"></a>作用？</h3><p>控制路由跳转时操作浏览器历史记录的模式</p>
+<h3 id="理解-1"><a href="#理解-1" class="headerlink" title="理解"></a>理解</h3><ul>
+<li>浏览器的历史记录有两种写入方式：分别为<code>push</code>和<code>replace</code>，<ul>
+<li><code>push</code>是追加历史记录，</li>
+<li><code>replace</code>是替换当前记录。</li>
+<li>路由跳转时候默认为<code>push</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="如何开启-？"><a href="#如何开启-？" class="headerlink" title="如何开启 ？"></a>如何开启 ？</h3><p>开启`replace``模式</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-link</span> <span class="attr">replace</span> <span class="attr">.......</span>&gt;</span>News<span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="编程式路由导航"><a href="#编程式路由导航" class="headerlink" title="编程式路由导航"></a>编程式路由导航</h2><h3 id="作用-1"><a href="#作用-1" class="headerlink" title="作用?"></a>作用?</h3><p>不借助<code>&lt;router-link&gt; </code>实现路由跳转，让路由跳转更加灵活</p>
+<h3 id="跳转到指定页面"><a href="#跳转到指定页面" class="headerlink" title="跳转到指定页面"></a>跳转到指定页面</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">&quot;m in messageList&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;m.id&quot;</span>&gt;</span></span><br><span class="line">        &lt;router-link</span><br><span class="line">          :to=&quot;&#123; name: &#x27;xiaoxi&#x27;, params: &#123; id: m.id, title: m.title &#125; &#125;&quot;</span><br><span class="line">        &gt;</span><br><span class="line">          params2:&#123;&#123; m.title &#125;&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">router-link</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;pushShow(m)&quot;</span>&gt;</span>push查看<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;replaceShow(m)&quot;</span>&gt;</span>replace查看<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;Message&quot;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line">      messageList: [</span><br><span class="line"><span class="javascript">        &#123; <span class="attr">id</span>: <span class="string">&quot;001&quot;</span>, <span class="attr">title</span>: <span class="string">&quot;消息001&quot;</span> &#125;,</span></span><br><span class="line"><span class="javascript">        &#123; <span class="attr">id</span>: <span class="string">&quot;002&quot;</span>, <span class="attr">title</span>: <span class="string">&quot;消息002&quot;</span> &#125;,</span></span><br><span class="line"><span class="javascript">        &#123; <span class="attr">id</span>: <span class="string">&quot;003&quot;</span>, <span class="attr">title</span>: <span class="string">&quot;消息003&quot;</span> &#125;,</span></span><br><span class="line">      ],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">pushShow</span>(<span class="params">m</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.$router.push(&#123;</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&quot;xiaoxi&quot;</span>,</span></span><br><span class="line">        params: &#123; id: m.id, title: m.title &#125;,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="javascript">    <span class="function"><span class="title">replaceShow</span>(<span class="params">m</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">this</span>.$router.replace(&#123;</span></span><br><span class="line"><span class="javascript">        name: <span class="string">&quot;xiaoxi&quot;</span>,</span></span><br><span class="line">        params: &#123; id: m.id, title: m.title &#125;,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="前进或-后退操作"><a href="#前进或-后退操作" class="headerlink" title="前进或 后退操作"></a>前进或 后退操作</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">this</span>.$router.forward() <span class="comment">//前进</span></span><br><span class="line"><span class="built_in">this</span>.$router.back() <span class="comment">//后退</span></span><br><span class="line"><span class="built_in">this</span>.$router.go() <span class="comment">//可前进也可后退</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="缓存路由组件"><a href="#缓存路由组件" class="headerlink" title="缓存路由组件"></a>缓存路由组件</h2><h3 id="作用-2"><a href="#作用-2" class="headerlink" title="作用"></a>作用</h3><p>让不展示的路由组件保持挂载，不被销毁。</p>
+<h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">keep-alive</span> <span class="attr">include</span>=<span class="string">&quot;组件名&quot;</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="路由组件生命周期"><a href="#路由组件生命周期" class="headerlink" title="路由组件生命周期"></a>路由组件生命周期</h2><h3 id="作用-3"><a href="#作用-3" class="headerlink" title="作用"></a>作用</h3><p>路由组件所独有的两个钩子，用于捕获路由组件的激活状态。</p>
+<h3 id="具体名字"><a href="#具体名字" class="headerlink" title="具体名字"></a>具体名字</h3><p><code>activated</code>路由组件被激活时触发。<br><code>deactivated</code>路由组件失活时触发。</p>
+<h2 id="路由守卫"><a href="#路由守卫" class="headerlink" title="路由守卫"></a>路由守卫</h2><h3 id="作用-4"><a href="#作用-4" class="headerlink" title="作用"></a>作用</h3><p>对路由进行权限控制</p>
+<h3 id="全局守卫"><a href="#全局守卫" class="headerlink" title="全局守卫"></a>全局守卫</h3><h4 id="全局前置路由守卫"><a href="#全局前置路由守卫" class="headerlink" title="全局前置路由守卫"></a>全局前置路由守卫</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//全局前置路由守卫</span></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//初始化的时候被调用，</span></span><br><span class="line">  <span class="comment">//切换之前被调用</span></span><br><span class="line">  <span class="built_in">console</span>.log(to); <span class="comment">//目标路由</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">from</span>); <span class="comment">//来自路由</span></span><br><span class="line">  next(); <span class="comment">//放行</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="全局后置路由守卫"><a href="#全局后置路由守卫" class="headerlink" title="全局后置路由守卫"></a>全局后置路由守卫</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">//全局后置路由守卫</span></span><br><span class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//初始化的时候被调用，</span></span><br><span class="line">  <span class="comment">//切换之后被调用</span></span><br><span class="line">  <span class="built_in">console</span>.log(to); <span class="comment">//目标路由</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">from</span>); <span class="comment">//来自路由</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="独享守卫"><a href="#独享守卫" class="headerlink" title="独享守卫"></a>独享守卫</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&quot;vue-router&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> About <span class="keyword">from</span> <span class="string">&quot;../pages/About.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Home <span class="keyword">from</span> <span class="string">&quot;../pages/Home.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Message <span class="keyword">from</span> <span class="string">&quot;../pages/Message.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> News <span class="keyword">from</span> <span class="string">&quot;../pages/News.vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Detail <span class="keyword">from</span> <span class="string">&quot;../pages/Detail.vue&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123; <span class="attr">name</span>: <span class="string">&quot;guanyu&quot;</span>, <span class="attr">path</span>: <span class="string">&quot;/about&quot;</span>, <span class="attr">component</span>: About &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      name: <span class="string">&quot;zhuye&quot;</span>,</span><br><span class="line">      path: <span class="string">&quot;/home&quot;</span>,</span><br><span class="line">      component: Home,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          name: <span class="string">&quot;xinwen&quot;</span>,</span><br><span class="line">          path: <span class="string">&quot;news&quot;</span>,</span><br><span class="line">          component: News,</span><br><span class="line">          <span class="comment">//独享路由守卫</span></span><br><span class="line">          beforeEnter: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//初始化的时候被调用，</span></span><br><span class="line">            <span class="comment">//切换之前被调用</span></span><br><span class="line">            <span class="built_in">console</span>.log(to); <span class="comment">//目标路由</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="keyword">from</span>); <span class="comment">//来自路由s</span></span><br><span class="line">            next(); <span class="comment">//放行</span></span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">      ],</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="组件内守卫"><a href="#组件内守卫" class="headerlink" title="组件内守卫"></a>组件内守卫</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h2</span>&gt;</span>我是About的内容<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">  name: <span class="string">&quot;About&quot;</span>,</span></span><br><span class="line"><span class="javascript">  <span class="comment">//通过路由规则，进入该组件时被调用</span></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">beforeRouteEnter</span>(<span class="params">to, <span class="keyword">from</span>, next</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//初始化的时候被调用，</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//切换之前被调用</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(to); <span class="comment">//目标路由</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="keyword">from</span>); <span class="comment">//来自路由</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    next(); <span class="comment">//放行</span></span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="javascript">  <span class="comment">//通过路由规则，离开该组件时被调用</span></span></span><br><span class="line"><span class="javascript">  <span class="function"><span class="title">beforeRouteLeave</span>(<span class="params">to, <span class="keyword">from</span>, next</span>)</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//初始化的时候被调用，</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//切换之前被调用</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(to); <span class="comment">//目标路由</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">console</span>.log(<span class="keyword">from</span>); <span class="comment">//来自路由</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    next(); <span class="comment">//放行</span></span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">scoped</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="两种工作模式"><a href="#两种工作模式" class="headerlink" title="两种工作模式"></a>两种工作模式</h2><ol>
+<li>对于一个url来说，什么是hash值？—— #及其后面的内容就是hash值。</li>
+<li>hash值不会包含在 HTTP 请求中，即：hash值不会带给服务器。</li>
+</ol>
+<h3 id="hash模式"><a href="#hash模式" class="headerlink" title="hash模式"></a>hash模式</h3><ol>
+<li>地址中永远带着#号，不美观 。</li>
+<li>若以后将地址通过第三方手机app分享，若app校验严格，则地址会被标记为不合法。</li>
+<li>兼容性较好。</li>
+</ol>
+<h3 id="history模式"><a href="#history模式" class="headerlink" title="history模式"></a>history模式</h3><ol>
+<li>地址干净，美观 。</li>
+<li>兼容性和hash模式相比略差。</li>
+<li>应用部署上线时需要后端人员支持，解决刷新页面服务端404的问题。</li>
+</ol>
+<h1 id="Vue-UI-组件库"><a href="#Vue-UI-组件库" class="headerlink" title="Vue UI 组件库"></a>Vue UI 组件库</h1><h2 id="移动端常用-UI-组件库"><a href="#移动端常用-UI-组件库" class="headerlink" title="移动端常用 UI 组件库"></a>移动端常用 UI 组件库</h2><ol>
+<li>Vant <a href="https://youzan.github.io/vant">https://youzan.github.io/vant</a></li>
+<li>Cube UI <a href="https://didi.github.io/cube-ui">https://didi.github.io/cube-ui</a></li>
+<li>Mint UI <a href="http://mint-ui.github.io/">http://mint-ui.github.io</a><h2 id="PC-端常用-UI-组件库"><a href="#PC-端常用-UI-组件库" class="headerlink" title="PC 端常用 UI 组件库"></a>PC 端常用 UI 组件库</h2></li>
+<li>Element UI <a href="https://element.eleme.cn/">https://element.eleme.cn</a></li>
+<li>IView UI <a href="https://www.iviewui.com/">https://www.iviewui.com</a></li>
+</ol>
+<h1 id="Vue-3"><a href="#Vue-3" class="headerlink" title="Vue 3"></a>Vue 3</h1><h2 id="Vue3-介绍"><a href="#Vue3-介绍" class="headerlink" title="Vue3 介绍"></a>Vue3 介绍</h2><p>。。。。。。。。。。。。。。</p>
+<h2 id="Vue3-带来了什么"><a href="#Vue3-带来了什么" class="headerlink" title="Vue3 带来了什么"></a>Vue3 带来了什么</h2><h3 id="性能提升"><a href="#性能提升" class="headerlink" title="性能提升"></a>性能提升</h3><ul>
+<li>打包大小减少41%</li>
+<li>初次渲染快55%, 更新渲染快133%</li>
+<li>内存减少54%</li>
+<li>……</li>
+</ul>
+<h3 id="源码的升级"><a href="#源码的升级" class="headerlink" title="源码的升级"></a>源码的升级</h3><ul>
+<li>使用Proxy代替defineProperty实现响应式</li>
+<li>重写虚拟DOM的实现和Tree-Shaking</li>
+<li>……</li>
+</ul>
+<h3 id="拥抱TypeScript"><a href="#拥抱TypeScript" class="headerlink" title="拥抱TypeScript"></a>拥抱TypeScript</h3><ul>
+<li>Vue3可以更好的支持TypeScript</li>
+</ul>
+<h3 id="新的特性"><a href="#新的特性" class="headerlink" title="新的特性"></a>新的特性</h3><h4 id="Composition-API（组合API）"><a href="#Composition-API（组合API）" class="headerlink" title="Composition API（组合API）"></a>Composition API（组合API）</h4><ul>
+<li>setup配置</li>
+<li>ref与reactive</li>
+<li>watch与watchEffect</li>
+<li>provide与inject</li>
+<li>……</li>
+</ul>
+<h4 id="新的内置组件"><a href="#新的内置组件" class="headerlink" title="新的内置组件"></a>新的内置组件</h4><ul>
+<li>Fragment </li>
+<li>Teleport</li>
+<li>Suspense</li>
+</ul>
+<h4 id="其他改变"><a href="#其他改变" class="headerlink" title="其他改变"></a>其他改变</h4><ul>
+<li>新的生命周期钩子</li>
+<li>data 选项应始终被声明为一个函数</li>
+<li>移除keyCode支持作为 v-on 的修饰符</li>
+<li>……</li>
+</ul>
+<h2 id="创建Vue3-0工程"><a href="#创建Vue3-0工程" class="headerlink" title="创建Vue3.0工程"></a>创建Vue3.0工程</h2><h3 id="使用-vue-cli-创建"><a href="#使用-vue-cli-创建" class="headerlink" title="使用 vue-cli 创建"></a>使用 vue-cli 创建</h3><p><a href="https://cli.vuejs.org/zh/guide/creating-a-project.html#vue-create">官方文档</a></p>
+<h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">## 查看@vue/cli版本，确保@vue/cli版本在4.5.0以上</span><br><span class="line">vue --version</span><br><span class="line"></span><br><span class="line">## 安装或者升级你的@vue/cli</span><br><span class="line">npm install -g @vue/cli</span><br><span class="line"></span><br><span class="line">## 创建</span><br><span class="line">vue create vue_test</span><br><span class="line"></span><br><span class="line">## 启动</span><br><span class="line">cd vue_test</span><br><span class="line">npm run serve</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-vite-创建"><a href="#使用-vite-创建" class="headerlink" title="使用 vite 创建"></a>使用 vite 创建</h3><p><a href="https://v3.cn.vuejs.org/guide/installation.html#vite">官方文档</a><br><a href="https://vitejs.cn/">vite官网</a></p>
+<h4 id="什么是vite？"><a href="#什么是vite？" class="headerlink" title="什么是vite？"></a>什么是vite？</h4><p>新一代前端构建工具。</p>
+<h4 id="优势"><a href="#优势" class="headerlink" title="优势?"></a>优势?</h4><ul>
+<li>开发环境中，无需打包操作，可快速的冷启动。</li>
+<li>轻量快速的热重载（HMR）。</li>
+<li>真正的按需编译，不再等待整个应用编译完成。</li>
+<li>传统构建 与 vite构建对比图<img src="/Vue-notes/bundler.37740380.png" class="">
+<img src="/Vue-notes/esm.3070012d.png" class=""></li>
+</ul>
+<h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">## 创建工程</span><br><span class="line">npm init vite-app &lt;project-name&gt;</span><br><span class="line"></span><br><span class="line">## 进入工程目录</span><br><span class="line">cd &lt;project-name&gt;</span><br><span class="line"></span><br><span class="line">## 安装依赖</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">## 运行</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="Composition-API"><a href="#Composition-API" class="headerlink" title="Composition API"></a>Composition API</h2><h3 id="setup"><a href="#setup" class="headerlink" title="setup"></a>setup</h3><h4 id="理解-2"><a href="#理解-2" class="headerlink" title="理解"></a>理解</h4><ul>
+<li>Vue3.0 中一个新的配置项，值为一个函数。</li>
+<li>setup 是所有<strong style="color:#DD5145">Composition API（组合 API）</strong><i style="color:gray;font-weight:bold">“ 表演的舞台 ”</i>。</li>
+<li>组件中所用到的：数据、方法等等，均要配置在 setup 中。</li>
+<li>setup 函数的两种返回值：<ul>
+<li>若返回一个对象，则对象中的属性、方法, 在模板中均可以直接使用。（重点关注！）</li>
+<li><span style="color:#aad">若返回一个渲染函数：则可以自定义渲染内容。（了解）</span></li>
+</ul>
+</li>
+</ul>
+<h4 id="注意点-1"><a href="#注意点-1" class="headerlink" title="注意点"></a>注意点</h4><ul>
+<li>尽量不要与 Vue2.x 配置混用<ul>
+<li>Vue2.x 配置（data、methos、computed…）中<strong style="color:#DD5145">可以访问到</strong>setup 中的属性、方法。</li>
+<li>但在 setup 中<strong style="color:#DD5145">不能访问到</strong>Vue2.x 配置（data、methos、computed…）。</li>
+<li>如果有重名, setup 优先。</li>
+</ul>
+</li>
+<li>setup 不能是一个 async 函数，<ul>
+<li>因为返回值不再是 return 的对象, 而是 promise, 模板看不到 return 对象中的属性。</li>
+<li>（后期也可以返回一个 Promise 实例，但需要 Suspense 和异步组件的配合）</li>
+</ul>
+</li>
+</ul>
+]]></content>
       <categories>
         <category>Vue</category>
       </categories>

@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>洛玖随笔</title>
+  <icon>https://www.wx1998.cn/icon.png</icon>
+  
+  <link href="https://www.wx1998.cn/atom.xml" rel="self"/>
+  
+  <link href="https://www.wx1998.cn/"/>
+  <updated>2021-08-12T03:46:17.209Z</updated>
+  <id>https://www.wx1998.cn/</id>
+  
+  <author>
+    <name>洛玖</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【Node.js】NodeJs学习笔记</title>
+    <link href="https://www.wx1998.cn/NodeJs-Notes/"/>
+    <id>https://www.wx1998.cn/NodeJs-Notes/</id>
+    <published>2021-07-13T07:40:37.000Z</published>
+    <updated>2021-08-12T03:46:17.209Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;NodeJs学习笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/NodeJs-Notes/WhatIsNodejs.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="Ndoe.js" scheme="https://www.wx1998.cn/tags/Ndoe-js/"/>
+    
+    <category term="NPM" scheme="https://www.wx1998.cn/tags/NPM/"/>
+    
+    <category term="JavaScript" scheme="https://www.wx1998.cn/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Vue】Vue笔记</title>
+    <link href="https://www.wx1998.cn/Vue-notes/"/>
+    <id>https://www.wx1998.cn/Vue-notes/</id>
+    <published>2021-07-13T06:55:07.000Z</published>
+    <updated>2021-08-24T13:23:35.128Z</updated>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;img src=&quot;/Vue-notes/Vue.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Vue" scheme="https://www.wx1998.cn/categories/Vue/"/>
+    
+    
+    <category term="Vue" scheme="https://www.wx1998.cn/tags/Vue/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Spring】Spring-MVC-项目实战</title>
+    <link href="https://www.wx1998.cn/Spring-MVC-Practice/"/>
+    <id>https://www.wx1998.cn/Spring-MVC-Practice/</id>
+    <published>2021-07-11T14:36:52.000Z</published>
+    <updated>2021-08-12T03:48:37.998Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;Spring-MVC-项目实战笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Spring-MVC-Practice/Spring-MVC-Practice.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
+    
+    <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
+    
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
+    <category term="java" scheme="https://www.wx1998.cn/tags/java/"/>
+    
+    <category term="SpringMvc" scheme="https://www.wx1998.cn/tags/SpringMvc/"/>
+    
+    <category term="MySql" scheme="https://www.wx1998.cn/tags/MySql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Spring】Spring-MVC</title>
+    <link href="https://www.wx1998.cn/Spring-MVC/"/>
+    <id>https://www.wx1998.cn/Spring-MVC/</id>
+    <published>2021-07-08T12:40:31.000Z</published>
+    <updated>2021-08-12T03:48:37.986Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;Spring Mvc 的原理 理解 使用 笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Spring-MVC/mvc.png&quot; class=&quot;&quot; title=&quot;封面&quot;&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
+    
+    <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
+    
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
+    <category term="java" scheme="https://www.wx1998.cn/tags/java/"/>
+    
+    <category term="SpringMvc" scheme="https://www.wx1998.cn/tags/SpringMvc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】Dynamic-Proxy-动态代理模式/JDK代理</title>
+    <link href="https://www.wx1998.cn/Pattern-Dynamic-Proxy/"/>
+    <id>https://www.wx1998.cn/Pattern-Dynamic-Proxy/</id>
+    <published>2021-07-06T05:44:45.000Z</published>
+    <updated>2021-08-11T06:38:29.202Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;动态代理模式的理解以及使用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Dynamic-Proxy/Uml1.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    <category term="代理模式" scheme="https://www.wx1998.cn/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】Proxy-Pattern 代理模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Proxy-Pattern/"/>
+    <id>https://www.wx1998.cn/Pattern-Proxy-Pattern/</id>
+    <published>2021-07-06T05:36:06.000Z</published>
+    <updated>2021-08-11T06:38:29.202Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;代理模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Proxy-Pattern/Uml1.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Java注解】如何理解和使用 Java注解</title>
+    <link href="https://www.wx1998.cn/Java-Annotation-notes/"/>
+    <id>https://www.wx1998.cn/Java-Annotation-notes/</id>
+    <published>2021-07-05T03:40:00.000Z</published>
+    <updated>2021-08-11T06:39:06.247Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;java 注解理解与开发
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Java-Annotation-notes/Inherited.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/categories/Java/"/>
+    
+    <category term="Java注解" scheme="https://www.wx1998.cn/categories/Java/Java%E6%B3%A8%E8%A7%A3/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="Annotation" scheme="https://www.wx1998.cn/tags/Annotation/"/>
+    
+    <category term="Java注解" scheme="https://www.wx1998.cn/tags/Java%E6%B3%A8%E8%A7%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【OpenCV】使用 OpenCv 进行图片模板匹配</title>
+    <link href="https://www.wx1998.cn/OpenCV-matchTemplate/"/>
+    <id>https://www.wx1998.cn/OpenCV-matchTemplate/</id>
+    <published>2021-06-15T11:44:59.000Z</published>
+    <updated>2021-08-11T06:38:29.201Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;使用OpenCv在输入图片中匹配模板图片的位置
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/OpenCV-matchTemplate/OpenCV_matchTemplate.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/categories/Java/"/>
+    
+    <category term="OpenCV" scheme="https://www.wx1998.cn/categories/Java/OpenCV/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="OpenCV" scheme="https://www.wx1998.cn/tags/OpenCV/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Python】Python 爬虫笔记</title>
+    <link href="https://www.wx1998.cn/python-crawler-notes/"/>
+    <id>https://www.wx1998.cn/python-crawler-notes/</id>
+    <published>2021-04-18T11:08:48.000Z</published>
+    <updated>2021-08-11T06:38:29.205Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;记录一次爬虫心路历程
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/python-crawler-notes/111.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Python" scheme="https://www.wx1998.cn/categories/Python/"/>
+    
+    <category term="爬虫" scheme="https://www.wx1998.cn/categories/Python/%E7%88%AC%E8%99%AB/"/>
+    
+    
+    <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
+    
+    <category term="爬虫" scheme="https://www.wx1998.cn/tags/%E7%88%AC%E8%99%AB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Flag】Android中间件模块-使用反编译注入自定义代码</title>
+    <link href="https://www.wx1998.cn/android-middleware-module/"/>
+    <id>https://www.wx1998.cn/android-middleware-module/</id>
+    <published>2021-04-04T14:35:11.000Z</published>
+    <updated>2021-08-11T06:39:43.441Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;根据Android反编译技术，
+将不同代码以及功能，批量注入到目标软件中，
+批量生成附带不同功能（定制功能）的各自的安装包
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/android-middleware-module/AndroidDecompilationInjection.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Android" scheme="https://www.wx1998.cn/categories/Android/"/>
+    
+    <category term="反编译" scheme="https://www.wx1998.cn/categories/Android/%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="自定义中间件" scheme="https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
+    <category term="Android" scheme="https://www.wx1998.cn/tags/Android/"/>
+    
+    <category term="Android反编译" scheme="https://www.wx1998.cn/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【hexo】命令汇总-日常更新维护命令</title>
+    <link href="https://www.wx1998.cn/hello-hexo/"/>
+    <id>https://www.wx1998.cn/hello-hexo/</id>
+    <published>2020-11-06T23:51:01.000Z</published>
+    <updated>2021-07-06T11:33:32.389Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;本篇为常用的《hexo命令》笔记
+涵盖了 编译、预览、部署、新建文章 等基本命令
+收录了 文章属性，分类与标签、hexo特有标签插件等基本语法与规则
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/hello-hexo/hexo.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://www.wx1998.cn/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://www.wx1998.cn/tags/Hexo/"/>
+    
+    <category term="learn" scheme="https://www.wx1998.cn/tags/learn/"/>
+    
+    <category term="指令笔记" scheme="https://www.wx1998.cn/tags/%E6%8C%87%E4%BB%A4%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【hexo】从零构建hexo网站项目</title>
+    <link href="https://www.wx1998.cn/Hexo-build-project/"/>
+    <id>https://www.wx1998.cn/Hexo-build-project/</id>
+    <published>2020-11-04T23:51:01.000Z</published>
+    <updated>2021-07-06T11:33:41.058Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;本文描述了如何用hexo从零开始建立自己的一个博客
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Hexo-build-project/themes.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Hexo" scheme="https://www.wx1998.cn/categories/Hexo/"/>
+    
+    
+    <category term="Hexo" scheme="https://www.wx1998.cn/tags/Hexo/"/>
+    
+    <category term="Github" scheme="https://www.wx1998.cn/tags/Github/"/>
+    
+    <category term="Github Pages" scheme="https://www.wx1998.cn/tags/Github-Pages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Github】Github Pages 的使用攻略</title>
+    <link href="https://www.wx1998.cn/create-github-pages/"/>
+    <id>https://www.wx1998.cn/create-github-pages/</id>
+    <published>2020-11-04T09:51:01.000Z</published>
+    <updated>2021-08-11T06:39:43.442Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;本文教你从零创建一个Github Pages静态网站
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/create-github-pages/themes.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="Github" scheme="https://www.wx1998.cn/categories/Github/"/>
+    
+    
+    <category term="Github" scheme="https://www.wx1998.cn/tags/Github/"/>
+    
+    <category term="Github Pages" scheme="https://www.wx1998.cn/tags/Github-Pages/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Mybatis】Mybatis 学习笔记</title>
+    <link href="https://www.wx1998.cn/mybatis-note/"/>
+    <id>https://www.wx1998.cn/mybatis-note/</id>
+    <published>2020-05-28T02:13:14.000Z</published>
+    <updated>2021-08-12T03:48:38.017Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;本文为本人自学 Mybatis 的学习笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/mybatis-note/mybatis.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
+    
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/tags/Mybatis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Markdown】Markdown 语法教程</title>
+    <link href="https://www.wx1998.cn/markdown-grammar/"/>
+    <id>https://www.wx1998.cn/markdown-grammar/</id>
+    <published>2018-05-15T03:09:57.000Z</published>
+    <updated>2021-08-11T06:38:47.509Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;此文件整理了Markdown的基本用法。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/markdown-grammar/markdown.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    
+    <category term="Markdown" scheme="https://www.wx1998.cn/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【Dos命令】基础Dos命令随笔</title>
+    <link href="https://www.wx1998.cn/basic-dos-command/"/>
+    <id>https://www.wx1998.cn/basic-dos-command/</id>
+    <published>2018-04-14T21:10:12.000Z</published>
+    <updated>2021-08-11T06:39:43.442Z</updated>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;本文为-Dos命令随笔&quot;&gt;&lt;a href=&quot;#本文为-Dos命令随笔&quot; class=&quot;headerlink&quot; title=&quot;本文为 Dos命令随笔&quot;&gt;&lt;/a&gt;本文为 Dos命令随笔&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="Windows" scheme="https://www.wx1998.cn/categories/Windows/"/>
+    
+    <category term="doc命令" scheme="https://www.wx1998.cn/categories/Windows/doc%E5%91%BD%E4%BB%A4/"/>
+    
+    
+    <category term="Dos命令" scheme="https://www.wx1998.cn/tags/Dos%E5%91%BD%E4%BB%A4/"/>
+    
+    <category term="命令" scheme="https://www.wx1998.cn/tags/%E5%91%BD%E4%BB%A4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【JavaScript】 JavaScript 学习笔记</title>
+    <link href="https://www.wx1998.cn/javascript-notes/"/>
+    <id>https://www.wx1998.cn/javascript-notes/</id>
+    <published>2017-10-01T09:14:22.000Z</published>
+    <updated>2021-08-11T06:39:06.248Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;本文为本人自学javaScript的学习笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/javascript-notes/JavaScript1.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
+    
+    <category term="JavaScript" scheme="https://www.wx1998.cn/categories/JavaWeb/JavaScript/"/>
+    
+    
+    <category term="JavaScript" scheme="https://www.wx1998.cn/tags/JavaScript/"/>
+    
+    <category term="Dom" scheme="https://www.wx1998.cn/tags/Dom/"/>
+    
+    <category term="jQuery" scheme="https://www.wx1998.cn/tags/jQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【HTML5】 HTML5 学习笔记</title>
+    <link href="https://www.wx1998.cn/htm5-notes/"/>
+    <id>https://www.wx1998.cn/htm5-notes/</id>
+    <published>2017-09-20T09:14:22.000Z</published>
+    <updated>2021-08-11T06:39:43.443Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;HTML5 学习笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/htm5-notes/html5.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
+    
+    <category term="Html5" scheme="https://www.wx1998.cn/categories/JavaWeb/Html5/"/>
+    
+    
+    <category term="Html" scheme="https://www.wx1998.cn/tags/Html/"/>
+    
+    <category term="Html5" scheme="https://www.wx1998.cn/tags/Html5/"/>
+    
+  </entry>
+  
+</feed>

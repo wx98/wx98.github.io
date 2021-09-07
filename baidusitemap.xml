@@ -2,7 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.wx1998.cn/Vue-notes/</loc>
-    <lastmod>2021-08-25</lastmod>
+    <lastmod>2021-09-07</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/D3js-notes/</loc>
+    <lastmod>2021-09-07</lastmod>
   </url>
   <url>
     <loc>https://www.wx1998.cn/htm5-notes/</loc>
@@ -25,11 +29,11 @@
     <lastmod>2021-08-12</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/create-github-pages/</loc>
+    <loc>https://www.wx1998.cn/basic-dos-command/</loc>
     <lastmod>2021-08-11</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/basic-dos-command/</loc>
+    <loc>https://www.wx1998.cn/create-github-pages/</loc>
     <lastmod>2021-08-11</lastmod>
   </url>
   <url>

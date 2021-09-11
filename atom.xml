@@ -75,9 +75,9 @@
     
     <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
     
-    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
-    
     <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
@@ -269,11 +269,11 @@
     <category term="自定义中间件" scheme="https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
     
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
     <category term="Android" scheme="https://www.wx1998.cn/tags/Android/"/>
     
     <category term="Android反编译" scheme="https://www.wx1998.cn/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
     
@@ -378,6 +378,52 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Flyweight  Pattern 享元模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Flyweight/"/>
+    <id>https://www.wx1998.cn/Pattern-Flyweight/</id>
+    <published>2019-03-07T14:11:00.000Z</published>
+    <updated>2019-03-17T06:10:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;享元模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Flyweight/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】Decorator Pattern 外观模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Facade/"/>
+    <id>https://www.wx1998.cn/Pattern-Facade/</id>
+    <published>2019-03-06T14:11:00.000Z</published>
+    <updated>2019-03-17T04:10:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;外观模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Facade/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】Decorator Pattern 装饰器模式</title>
     <link href="https://www.wx1998.cn/Pattern-Decorator/"/>
     <id>https://www.wx1998.cn/Pattern-Decorator/</id>
@@ -428,11 +474,12 @@
     <link href="https://www.wx1998.cn/Pattern-Filter&amp;Criteria/"/>
     <id>https://www.wx1998.cn/Pattern-Filter&amp;Criteria/</id>
     <published>2019-03-06T08:21:00.000Z</published>
-    <updated>2021-09-11T03:04:05.112Z</updated>
+    <updated>2021-09-11T06:43:48.732Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;过滤器模式/标准模式 理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;</summary>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Filter&amp;Criteria/AndCriteria.png&quot; class=&quot;&quot;&gt;</summary>
     
     
     
@@ -456,52 +503,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;桥接模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Bridge/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Adapter Pattern 适配器模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Adapter/"/>
-    <id>https://www.wx1998.cn/Pattern-Adapter/</id>
-    <published>2019-03-06T02:11:00.000Z</published>
-    <updated>2019-03-17T07:30:06.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;适配器模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Adapter/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Prototype Pattern 原型模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Prototype/"/>
-    <id>https://www.wx1998.cn/Pattern-Prototype/</id>
-    <published>2019-03-05T15:01:00.000Z</published>
-    <updated>2019-03-17T09:16:11.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;原型模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Prototype/uml2.gif&quot; class=&quot;&quot;&gt;</summary>
     
     
     

@@ -378,6 +378,74 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Composite Pattern 组合模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Composite/"/>
+    <id>https://www.wx1998.cn/Pattern-Composite/</id>
+    <published>2019-03-06T09:11:00.000Z</published>
+    <updated>2021-09-11T05:04:35.534Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;组合模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Composite/1-1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】Filter/Criteria Pattern 过滤器模式/标准模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Filter&amp;Criteria/"/>
+    <id>https://www.wx1998.cn/Pattern-Filter&amp;Criteria/</id>
+    <published>2019-03-06T08:21:00.000Z</published>
+    <updated>2021-09-11T03:04:05.112Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;过滤器模式/标准模式 理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】Bridge Pattern 桥接模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Bridge/"/>
+    <id>https://www.wx1998.cn/Pattern-Bridge/</id>
+    <published>2019-03-06T05:11:00.000Z</published>
+    <updated>2021-09-10T15:47:22.526Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;桥接模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Bridge/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】Adapter Pattern 适配器模式</title>
     <link href="https://www.wx1998.cn/Pattern-Adapter/"/>
     <id>https://www.wx1998.cn/Pattern-Adapter/</id>
@@ -434,75 +502,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;建造者模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Builder/uml2.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Singleton  Pattern 单例模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Singleton/"/>
-    <id>https://www.wx1998.cn/Pattern-Singleton/</id>
-    <published>2019-03-05T11:19:00.000Z</published>
-    <updated>2021-09-10T04:49:22.888Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;工厂模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Singleton/Uml1.jpg&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Abstract Factory Pattern 抽象工厂模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Abstract-Factory/"/>
-    <id>https://www.wx1998.cn/Pattern-Abstract-Factory/</id>
-    <published>2019-03-05T08:30:06.000Z</published>
-    <updated>2021-09-09T17:13:44.999Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;抽象工厂模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Abstract-Factory/Uml1.jpg&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Factory Pattern 工厂模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Factory/"/>
-    <id>https://www.wx1998.cn/Pattern-Factory/</id>
-    <published>2019-03-05T05:36:06.000Z</published>
-    <updated>2021-09-09T16:31:27.653Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;工厂模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Factory/Uml2.jpg&quot; class=&quot;&quot;&gt;</summary>
     
     
     

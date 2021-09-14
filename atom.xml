@@ -378,6 +378,29 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Chain of Responsibility Pattern 责任链模式</title>
+    <link href="https://www.wx1998.cn/Pattern-ChainOfResponsibility/"/>
+    <id>https://www.wx1998.cn/Pattern-ChainOfResponsibility/</id>
+    <published>2019-03-08T01:11:00.000Z</published>
+    <updated>2019-03-17T09:10:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;责任链模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-ChainOfResponsibility/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】Flyweight  Pattern 享元模式</title>
     <link href="https://www.wx1998.cn/Pattern-Flyweight/"/>
     <id>https://www.wx1998.cn/Pattern-Flyweight/</id>
@@ -480,29 +503,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;过滤器模式/标准模式 理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Filter&amp;Criteria/AndCriteria.png&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Bridge Pattern 桥接模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Bridge/"/>
-    <id>https://www.wx1998.cn/Pattern-Bridge/</id>
-    <published>2019-03-06T05:11:00.000Z</published>
-    <updated>2019-03-17T08:30:06.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;桥接模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Bridge/1.gif&quot; class=&quot;&quot;&gt;</summary>
     
     
     

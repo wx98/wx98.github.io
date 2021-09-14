@@ -1267,6 +1267,94 @@ Pepsi.java 百事可乐<figure class="highlight java"><table><tr><td class="code
       </tags>
   </entry>
   <entry>
+    <title>【设计模式】Chain of Responsibility Pattern 责任链模式</title>
+    <url>/Pattern-ChainOfResponsibility/</url>
+    <content><![CDATA[<pre><code>责任链模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-ChainOfResponsibility/1.gif" class="">
+<span id="more"></span>
+
+<h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><p>责任链模式（Chain of Responsibility Pattern）为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>避免请求发送者与接收者耦合在一起，让多个对象都有可能接收请求，将这些对象连接成一条链，并且沿着这条链传递请求，直到有对象处理它为止。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>为了避免请求发送者与多个请求处理者耦合在一起，于是将所有请求的处理者通过前一对象记住其下一个对象的引用而连成一条链；当有请求发生时，可将请求沿着这条链传递，直到有对象处理它为止。<br><del>职责链上的处理者负责处理请求，客户只需要将请求发送到职责链上即可，无须关心请求的处理细节和请求的传递，所以职责链将请求的发送者和请求的处理者解耦了。</del></p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>有多个对象可以处理同一个请求，具体哪个对象处理该请求由运行时刻自动确定。 </li>
+<li>在不明确指定接收者的情况下，向多个对象中的一个提交一个请求。</li>
+<li>可动态指定一组对象处理请求。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>红楼梦中的”击鼓传花”。</li>
+<li>JS 中的事件冒泡。</li>
+<li>JAVA WEB 中 Apache Tomcat 对 Encoding 的处理，Struts2 的拦截器，jsp servlet 的 Filter。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li><p>降低了对象之间的耦合度。该模式使得一个对象无须知道到底是哪一个对象处理其请求以及链的结构，发送者和接收者也无须拥有对方的明确信息。</p>
+</li>
+<li><p>增强了系统的可扩展性。可以根据需要增加新的请求处理类，满足开闭原则。</p>
+</li>
+<li><p>增强了给对象指派职责的灵活性。当工作流程发生变化，可以动态地改变链内的成员或者调动它们的次序，也可动态地新增或者删除责任。</p>
+</li>
+<li><p>责任链简化了对象之间的连接。每个对象只需保持一个指向其后继者的引用，不需保持其他所有处理者的引用，这避免了使用众多的 if 或者 if···else 语句。</p>
+</li>
+<li><p>责任分担。每个类只需要处理自己该处理的工作，不该处理的传递给下一个对象完成，明确各类的责任范围，符合类的单一职责原则。</p>
+</li>
+<li><p>降低耦合度。它将请求的发送者和接收者解耦。</p>
+</li>
+<li><p>简化了对象。使得对象不需要知道链的结构。 </p>
+</li>
+<li><p>增强给对象指派职责的灵活性。通过改变链内的成员或者调动它们的次序，允许动态地新增或者删除责任。 </p>
+</li>
+<li><p>增加新的请求处理类很方便。</p>
+</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>不能保证请求一定被接收。 </li>
+<li>系统性能将受到一定影响，而且在进行代码调试时不太方便，可能会造成循环调用。 </li>
+<li>可能不容易观察运行时的特征，有碍于除错。</li>
+<li>不能保证每个请求一定被处理。由于一个请求没有明确的接收者，所以不能保证它一定会被处理，该请求可能一直传到链的末端都得不到处理。</li>
+<li>对比较长的职责链，请求的处理可能涉及多个处理对象，系统性能将受到一定影响。</li>
+<li>职责链建立的合理性要靠客户端来保证，增加了客户端的复杂性，可能会由于职责链的错误设置而导致系统出错，如可能会造成循环调用。</li>
+</ol>
+<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-ChainOfResponsibility/1.gif" class="">
+<ul>
+<li>抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。</li>
+<li>具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者。</li>
+<li>客户类（Client）角色：创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程。</li>
+</ul>
+<img src="/Pattern-ChainOfResponsibility/2.gif" class="">
+<ul>
+<li>责任链模式的本质是解耦请求与处理，让请求在处理链中能进行传递与被处理；</li>
+<li>理解责任链模式应当理解其模式，而不是其具体实现。</li>
+<li>责任链模式的独到之处是将其节点处理者组合成了链式结构，并允许节点自身决定是否进行请求处理或转发，相当于让请求流动起来。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>抽象处理者角色<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Handler next;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNext</span><span class="params">(Handler next)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Handler <span class="title">getNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> next;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//处理请求的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(String request)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>具体处理者角色1<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteHandler1</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(String request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (request.equals(<span class="string">&quot;one&quot;</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;具体处理者1负责处理该请求！&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (getNext() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                getNext().handleRequest(request);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;没有人处理该请求！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>具体处理者角色2<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteHandler2</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleRequest</span><span class="params">(String request)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (request.equals(<span class="string">&quot;two&quot;</span>)) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;具体处理者2负责处理该请求！&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (getNext() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                getNext().handleRequest(request);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;没有人处理该请求！&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainOfResponsibilityPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//组装责任链</span></span><br><span class="line">        Handler handler1 = <span class="keyword">new</span> ConcreteHandler1();</span><br><span class="line">        Handler handler2 = <span class="keyword">new</span> ConcreteHandler2();</span><br><span class="line">        handler1.setNext(handler2);</span><br><span class="line">        <span class="comment">//提交请求</span></span><br><span class="line">        handler1.handleRequest(<span class="string">&quot;two&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+结果<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">具体处理者2负责处理该请求！</span><br></pre></td></tr></table></figure>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1>创建抽象类 AbstractLogger，带有详细的日志记录级别。<br>然后我们创建三种类型的记录器，都扩展了 AbstractLogger。<br>每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。<img src="/Pattern-ChainOfResponsibility/3.svg" class=""></li>
+<li>创建抽象的记录器类。<br>AbstractLogger.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> INFO = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> DEBUG = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ERROR = <span class="number">3</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">int</span> level;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//责任链中的下一个元素</span></span><br><span class="line">   <span class="keyword">protected</span> AbstractLogger nextLogger;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLogger</span><span class="params">(AbstractLogger nextLogger)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.nextLogger = nextLogger;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logMessage</span><span class="params">(<span class="keyword">int</span> level, String message)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.level &lt;= level)&#123;</span><br><span class="line">         write(message);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(nextLogger !=<span class="keyword">null</span>)&#123;</span><br><span class="line">         nextLogger.logMessage(level, message);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建扩展了该记录器类的实体类。<br>ConsoleLogger.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsoleLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ConsoleLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;Standard Console::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ErrorLogger.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ErrorLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">ErrorLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;Error Console::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+FileLogger.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileLogger</span> <span class="keyword">extends</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">FileLogger</span><span class="params">(<span class="keyword">int</span> level)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.level = level;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span> </span>&#123;    </span><br><span class="line">      System.out.println(<span class="string">&quot;File::Logger: &quot;</span> + message);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试<br>ChainPatternDemo.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainPatternDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> AbstractLogger <span class="title">getChainOfLoggers</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AbstractLogger errorLogger = <span class="keyword">new</span> ErrorLogger(AbstractLogger.ERROR);</span><br><span class="line">        AbstractLogger fileLogger = <span class="keyword">new</span> FileLogger(AbstractLogger.DEBUG);</span><br><span class="line">        AbstractLogger consoleLogger = <span class="keyword">new</span> ConsoleLogger(AbstractLogger.INFO);</span><br><span class="line"></span><br><span class="line">        errorLogger.setNextLogger(fileLogger);</span><br><span class="line">        fileLogger.setNextLogger(consoleLogger);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> errorLogger;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractLogger loggerChain = getChainOfLoggers();</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.INFO, <span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>);</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.DEBUG, <span class="string">&quot;bbbbbbbbbbbbbbbbbbbbbbbbbbbbb&quot;</span>);</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.ERROR, <span class="string">&quot;ccccccccccccccccccccccccccc&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+此时对象为<img src="/Pattern-ChainOfResponsibility/Snipaste_2021-09-14_10-42-34.png" class="">
+结果：<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Standard Console::Logger: aaaaaaaaaaaaaaaaaaaaaaaa</span><br><span class="line">File::Logger: bbbbbbbbbbbbbbbbbbbbbbbbbbbbb</span><br><span class="line">Standard Console::Logger: bbbbbbbbbbbbbbbbbbbbbbbbbbbbb</span><br><span class="line">Error Console::Logger: ccccccccccccccccccccccccccc</span><br><span class="line">File::Logger: ccccccccccccccccccccccccccc</span><br><span class="line">Standard Console::Logger: ccccccccccccccccccccccccccc</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【设计模式】Composite Pattern 组合模式</title>
     <url>/Pattern-Composite/</url>
     <content><![CDATA[<pre><code>组合模式理解剖析以及应用
@@ -1873,68 +1961,6 @@ Circle.java<figure class="highlight java"><table><tr><td class="code"><pre><span
       </tags>
   </entry>
   <entry>
-    <title>【设计模式】Proxy Pattern 代理模式</title>
-    <url>/Pattern-Proxy-Pattern/</url>
-    <content><![CDATA[<pre><code>代理模式理解剖析以及应用
-</code></pre>
-<img src="/Pattern-Proxy-Pattern/Uml1.png" class="">
-<span id="more"></span>
-<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理模式——就是给某一个对象提供一个代理，并由代理对象控制对原对象的引用。<br>在一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。<br>例如电脑桌面的快捷方式就是一个代理对象，快捷方式是它所引用的程序的一个代理。</p>
-<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在某种情况下，有些对象会由于各种原因的障碍，以至于不能直接访问，或直接访问此类对象会对系统带来风险。<br>此时只需要在系统与目标对象之间创建一个中间层，让中间层去代理目标对象，系统只需要访问中间层即可</p>
-<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ul>
-<li>远程代理（Remote）：为一个位于不同的地址空间的对象提供一个局域代表对象。这个不同的地址空间可以是本电脑中，也可以在另一台电脑中。最典型的例子就是——客户端调用Web服务或WCF服务。</li>
-<li>虚拟代理（Virtual）：根据需要创建一个资源消耗较大的对象，使得对象只在需要时才会被真正创建。<ul>
-<li>Copy-on-Write代理：虚拟代理的一种，把复制（或者叫克隆）拖延到只有在客户端需要时，才真正采取行动。</li>
-</ul>
-</li>
-<li>保护代理（Protect or Access）：控制一个对象的访问，可以给不同的用户提供不同级别的使用权限。</li>
-<li>防火墙（Firewall）代理：保护目标不让恶意用户接近。</li>
-<li>智能引用（Smart Reference）代理：当一个对象被引用时，提供一些额外的操作，比如将对此对象调用的次数记录下来等。</li>
-<li>Cache代理：为某一个目标操作的结果提供临时的存储空间，以便多个客户端可以这些结果。</li>
-</ul>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>代理模式能够将调用用于真正被调用的对象隔离，在一定程度上降低了系统的耦合度；</li>
-<li>理对象在客户端和目标对象之间起到一个中介的作用，这样可以起到对目标对象的保护。 </li>
-<li>代理对象可以在对目标对象发出请求之前进行一个额外的操作，例如权限检查等。</li>
-<li>职责清晰:真实角色的操作更加纯粹，不必再关注一些杂七杂八的业务。</li>
-<li>高扩展性：发生业务扩展的时候方便集中管理</li>
-</ol>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
-<li>代码量会翻倍，开发效率变低</li>
-<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 </li>
-<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
-</ol>
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Proxy-Pattern/Uml1.png" class="">
-
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ol>
-<li>接口<br>Person.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li>真实角色<br>Foreigners.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Foreigners</span> <span class="keyword">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;听到的是：&quot;</span> + number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>代理角色<br>ProxyPerson.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyPerson</span> <span class="keyword">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Foreigners foreigners;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建真实的对象</span></span><br><span class="line">        <span class="keyword">if</span> (foreigners == <span class="keyword">null</span>) &#123;</span><br><span class="line">            foreigners = <span class="keyword">new</span> Foreigners();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//翻译成数字（代理操作）</span></span><br><span class="line">        String result =  translate(number);</span><br><span class="line">        <span class="comment">//代理给真实的对象</span></span><br><span class="line">        foreigners.listenNumber(result);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数字翻译</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">translate</span><span class="params">(String number)</span></span>&#123;</span><br><span class="line">        String result ;</span><br><span class="line">        <span class="keyword">switch</span> (number) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;一&quot;</span> : result = <span class="string">&quot;1&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;二&quot;</span> : result = <span class="string">&quot;2&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;三&quot;</span> : result = <span class="string">&quot;3&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;四&quot;</span> : result = <span class="string">&quot;4&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;五&quot;</span> : result = <span class="string">&quot;5&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;六&quot;</span> : result = <span class="string">&quot;6&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;七&quot;</span> : result = <span class="string">&quot;7&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;八&quot;</span> : result = <span class="string">&quot;8&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;九&quot;</span> : result = <span class="string">&quot;9&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;十&quot;</span> : result = <span class="string">&quot;10&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>: result = <span class="string">&quot;不知道&quot;</span> ;<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>调用者<br>Me.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Me</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;一&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;二&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;九&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayNumber</span><span class="params">(String number)</span></span>&#123;</span><br><span class="line">        Person person = <span class="keyword">new</span> ProxyPerson();</span><br><span class="line">        person.listenNumber(number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>结果<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">听到的是：1</span><br><span class="line">听到的是：2</span><br><span class="line">听到的是：9</span><br></pre></td></tr></table></figure>
-此示例的大致结构如下<img src="/Pattern-Proxy-Pattern/Uml2.png" class="">
-如图所示</li>
-</ol>
-<ul>
-<li>我(Me)要说一个中文给外国人(Foreigners)，外国人是听不懂中文的。</li>
-<li>所以我们可以找一个代理者(ProxyPerson)，此代理者拥有翻译的方法,并且经过代理者翻译之后，由代理者转述给外国人(Foreigners)。</li>
-<li>此时外国人就可以听懂了</li>
-<li>站在 Foreigners（外国人）的角度，Foreigners被 ProxyPerson 代理，来获得合法的数据，保证了自己能听懂（稳定性）。</li>
-<li>站在 Me（我）的角度，Me寻找 ProxyPerson（代理者）之后,Me只关系自己说的内容，附加操作均由代理者完成。</li>
-<li>站在 ProxyPerson（代理者）的角度，ProxyPerson完全代理Foreigners来执行Foreigners的操作。</li>
-</ul>
-<hr>
-<p>感谢查阅</p>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【设计模式】Singleton  Pattern 单例模式</title>
     <url>/Pattern-Singleton/</url>
     <content><![CDATA[<pre><code>工厂模式理解剖析以及应用
@@ -2061,6 +2087,68 @@ Circle.java<figure class="highlight java"><table><tr><td class="code"><pre><span
 
 <hr>
 <h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1><p>一般情况下，建议使用饿汉方式。<br>只有在要明确实现 lazy loading 效果时，才会使用登记方式。<br>如果涉及到反序列化创建对象时，可以尝试使用枚举方式。<br>如果有其他特殊的需求，可以考虑使用双检锁方式。</p>
+]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【设计模式】Proxy Pattern 代理模式</title>
+    <url>/Pattern-Proxy-Pattern/</url>
+    <content><![CDATA[<pre><code>代理模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Proxy-Pattern/Uml1.png" class="">
+<span id="more"></span>
+<h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><p>代理模式——就是给某一个对象提供一个代理，并由代理对象控制对原对象的引用。<br>在一些情况下，一个客户不想或者不能直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。<br>例如电脑桌面的快捷方式就是一个代理对象，快捷方式是它所引用的程序的一个代理。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在某种情况下，有些对象会由于各种原因的障碍，以至于不能直接访问，或直接访问此类对象会对系统带来风险。<br>此时只需要在系统与目标对象之间创建一个中间层，让中间层去代理目标对象，系统只需要访问中间层即可</p>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ul>
+<li>远程代理（Remote）：为一个位于不同的地址空间的对象提供一个局域代表对象。这个不同的地址空间可以是本电脑中，也可以在另一台电脑中。最典型的例子就是——客户端调用Web服务或WCF服务。</li>
+<li>虚拟代理（Virtual）：根据需要创建一个资源消耗较大的对象，使得对象只在需要时才会被真正创建。<ul>
+<li>Copy-on-Write代理：虚拟代理的一种，把复制（或者叫克隆）拖延到只有在客户端需要时，才真正采取行动。</li>
+</ul>
+</li>
+<li>保护代理（Protect or Access）：控制一个对象的访问，可以给不同的用户提供不同级别的使用权限。</li>
+<li>防火墙（Firewall）代理：保护目标不让恶意用户接近。</li>
+<li>智能引用（Smart Reference）代理：当一个对象被引用时，提供一些额外的操作，比如将对此对象调用的次数记录下来等。</li>
+<li>Cache代理：为某一个目标操作的结果提供临时的存储空间，以便多个客户端可以这些结果。</li>
+</ul>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>代理模式能够将调用用于真正被调用的对象隔离，在一定程度上降低了系统的耦合度；</li>
+<li>理对象在客户端和目标对象之间起到一个中介的作用，这样可以起到对目标对象的保护。 </li>
+<li>代理对象可以在对目标对象发出请求之前进行一个额外的操作，例如权限检查等。</li>
+<li>职责清晰:真实角色的操作更加纯粹，不必再关注一些杂七杂八的业务。</li>
+<li>高扩展性：发生业务扩展的时候方便集中管理</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>代码量会翻倍，开发效率变低</li>
+<li>由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 </li>
+<li>实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</li>
+</ol>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Proxy-Pattern/Uml1.png" class="">
+
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ol>
+<li>接口<br>Person.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>真实角色<br>Foreigners.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Foreigners</span> <span class="keyword">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;听到的是：&quot;</span> + number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>代理角色<br>ProxyPerson.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyPerson</span> <span class="keyword">implements</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Foreigners foreigners;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">listenNumber</span><span class="params">(String number)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建真实的对象</span></span><br><span class="line">        <span class="keyword">if</span> (foreigners == <span class="keyword">null</span>) &#123;</span><br><span class="line">            foreigners = <span class="keyword">new</span> Foreigners();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//翻译成数字（代理操作）</span></span><br><span class="line">        String result =  translate(number);</span><br><span class="line">        <span class="comment">//代理给真实的对象</span></span><br><span class="line">        foreigners.listenNumber(result);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数字翻译</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">translate</span><span class="params">(String number)</span></span>&#123;</span><br><span class="line">        String result ;</span><br><span class="line">        <span class="keyword">switch</span> (number) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;一&quot;</span> : result = <span class="string">&quot;1&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;二&quot;</span> : result = <span class="string">&quot;2&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;三&quot;</span> : result = <span class="string">&quot;3&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;四&quot;</span> : result = <span class="string">&quot;4&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;五&quot;</span> : result = <span class="string">&quot;5&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;六&quot;</span> : result = <span class="string">&quot;6&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;七&quot;</span> : result = <span class="string">&quot;7&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;八&quot;</span> : result = <span class="string">&quot;8&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;九&quot;</span> : result = <span class="string">&quot;9&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;十&quot;</span> : result = <span class="string">&quot;10&quot;</span>; <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>: result = <span class="string">&quot;不知道&quot;</span> ;<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>调用者<br>Me.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Me</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;一&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;二&quot;</span>);</span><br><span class="line">        <span class="keyword">new</span> Me().sayNumber(<span class="string">&quot;九&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayNumber</span><span class="params">(String number)</span></span>&#123;</span><br><span class="line">        Person person = <span class="keyword">new</span> ProxyPerson();</span><br><span class="line">        person.listenNumber(number);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>结果<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">听到的是：1</span><br><span class="line">听到的是：2</span><br><span class="line">听到的是：9</span><br></pre></td></tr></table></figure>
+此示例的大致结构如下<img src="/Pattern-Proxy-Pattern/Uml2.png" class="">
+如图所示</li>
+</ol>
+<ul>
+<li>我(Me)要说一个中文给外国人(Foreigners)，外国人是听不懂中文的。</li>
+<li>所以我们可以找一个代理者(ProxyPerson)，此代理者拥有翻译的方法,并且经过代理者翻译之后，由代理者转述给外国人(Foreigners)。</li>
+<li>此时外国人就可以听懂了</li>
+<li>站在 Foreigners（外国人）的角度，Foreigners被 ProxyPerson 代理，来获得合法的数据，保证了自己能听懂（稳定性）。</li>
+<li>站在 Me（我）的角度，Me寻找 ProxyPerson（代理者）之后,Me只关系自己说的内容，附加操作均由代理者完成。</li>
+<li>站在 ProxyPerson（代理者）的角度，ProxyPerson完全代理Foreigners来执行Foreigners的操作。</li>
+</ul>
+<hr>
+<p>感谢查阅</p>
 ]]></content>
       <categories>
         <category>设计模式</category>
@@ -2865,7 +2953,7 @@ public class test &#123;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;wx.98@qq.com&gt;</span><br></pre></td></tr></table></figure>
 <p>效果↓</p>
 <blockquote>
-<p><a href="mailto:&#119;&#x78;&#x2e;&#57;&#56;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;">&#119;&#x78;&#x2e;&#57;&#56;&#x40;&#x71;&#113;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p><a href="mailto:&#119;&#120;&#46;&#x39;&#56;&#x40;&#x71;&#113;&#x2e;&#x63;&#x6f;&#109;">&#119;&#120;&#46;&#x39;&#56;&#x40;&#x71;&#113;&#x2e;&#x63;&#x6f;&#109;</a></p>
 </blockquote>
 <h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，<br>例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\\   反斜线</span><br><span class="line">\&#96;   反引号</span><br><span class="line">\*   星号</span><br><span class="line">\_   底线</span><br><span class="line">\&#123;&#125;  花括号</span><br><span class="line">\[]  方括号</span><br><span class="line">\()  括弧</span><br><span class="line">\#   井字号</span><br><span class="line">\+   加号</span><br><span class="line">\-   减号</span><br><span class="line">\.   英文句点</span><br><span class="line">\!   惊叹号</span><br></pre></td></tr></table></figure>

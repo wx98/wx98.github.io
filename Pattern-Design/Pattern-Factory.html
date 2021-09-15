@@ -1,0 +1,223 @@
+<hr>
+<p>title: 【设计模式】Factory Pattern 工厂模式<br>date: 2019-03-05 13:36:06<br>updated: 2019-03-17 11:30:06<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>工厂模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Factory/Uml1.png">
+<!--more-->
+
+<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>工厂模式（Factory Pattern）是 Java 中最常用的设计模式之一。这种类型的设计模式属于创建型模式，它提供了一种创建对象的最佳方式。</p>
+<p>在工厂模式中，我们在创建对象时不会对客户端暴露创建逻辑，并且是通过使用一个共同的接口来指向新创建的对象。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><ul>
+<li>主要解决接口选择的问题。</li>
+</ul>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>日志记录器：记录可能记录到本地硬盘、系统事件、远程服务器等，用户可以选择记录日志到什么地方。 </li>
+<li>数据库访问，当用户不知道最后系统采用哪一类数据库，以及数据库可能有变化时。</li>
+<li>设计一个连接服务器的框架，需要三个协议，”POP3”、”IMAP”、”HTTP”，可以把这三个作为产品类，共同实现一个接口。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>一个调用者想创建一个对象，只要知道其名称就可以了。 </li>
+<li>扩展性高，如果想增加一个产品，只要扩展一个工厂类就可以。</li>
+<li>屏蔽产品的具体实现，调用者只关心产品的接口。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ul>
+<li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。这并不是什么好事。</li>
+</ul>
+<h1 id="举例理解"><a href="#举例理解" class="headerlink" title="举例理解"></a>举例理解</h1><h2 id="首先我们明确2句不证自明的话"><a href="#首先我们明确2句不证自明的话" class="headerlink" title="首先我们明确2句不证自明的话"></a>首先我们明确2句不证自明的话</h2><ol>
+<li>工厂是生产某一类产品的地方。</li>
+<li>用户给工厂提需求，工厂给用户满足需求的产品。</li>
+</ol>
+<h2 id="如何理解这两句话呢？"><a href="#如何理解这两句话呢？" class="headerlink" title="如何理解这两句话呢？"></a>如何理解这两句话呢？</h2><ol>
+<li>如果你想用小米手机的话，那就去小米厂子买手机，你只需要告诉小米厂子，你需要什么样的手机，什么型号，或者什么配置，小米厂子把手机做出来给你，你只管用就完事了。</li>
+<li>或者手机已经做出来了,比如叫小米10,你直接点名道姓要小米10，工厂给你小米10，不可能你要10给你整个小米6，他要出米11你再买米11。</li>
+<li>反正你完全不用操心手机咋造的，并且你肯定知道手机都能打电话开关机拍照等 <del>(除非小米傻了不做打这些功能)</del>.</li>
+<li>那如果你想买华为就去华为厂子要，想买oppo就去oppo厂子要。</li>
+</ol>
+<h2 id="接着我们抽象一下这个场景。"><a href="#接着我们抽象一下这个场景。" class="headerlink" title="接着我们抽象一下这个场景。"></a>接着我们抽象一下这个场景。</h2><p>产品/手机 <del>(对象)</del> 为用户所需的东西，工厂就是专门创建 <del>(new)</del> 产品 <del>(对象)</del> 地方，</p>
+<p>用户只需要告诉工厂机型/配置 <del>(传参)</del> ，产品 <del>(对象)</del> 的创建 <del>(new)</del> 完全由工厂进行，</p>
+<p>用户不需要知道产品 <del>(对象)</del> 创建 <del>(new)</del> 的过程，用户只负责使用 <del>(调用)</del>。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="Uml1.png">
+# 实现
+
+<ul>
+<li><p>首先我们做一个接口来规范手机的基本功能<br>MobilePhone.java</p>
+<pre><code class="java">public interface MobilePhone {
+  /**
+   * 打电话
+   */
+  public void phone();
+
+  /**
+   * 拍照
+   */
+  public void photograph();
+
+  /**
+   * 开机
+   */
+  public void startUp();
+
+  /**
+   * 关机
+   */
+  public void shutDown();
+}
+</code></pre>
+</li>
+<li><p>然后我们实现这个接口，作为手机 <del>(产品)</del> 的类型。<br>Mi6.java</p>
+<pre><code class="java">public class Mi6 implements MobilePhone {
+  @Override
+  public void phone() {
+      System.out.println(this.getClass() + &quot;打电话&quot;);
+  }
+
+  @Override
+  public void photograph() {
+      System.out.println(this.getClass() + &quot;拍照&quot;);
+  }
+
+  @Override
+  public void startUp() {
+      System.out.println(this.getClass() + &quot;开机&quot;);
+  }
+
+  @Override
+  public void shutDown() {
+      System.out.println(this.getClass() + &quot;关机&quot;);
+  }
+}
+</code></pre>
+<p>Mi8.java<br>```java<br>public class Mi8 implements MobilePhone {<br>  @Override<br>  public void phone() {</p>
+<pre><code>  System.out.println(this.getClass() + &quot;打电话&quot;);
+</code></pre>
+<p>  }</p>
+<p>  @Override<br>  public void photograph() {</p>
+<pre><code>  System.out.println(this.getClass() + &quot;拍照&quot;);
+</code></pre>
+<p>  }</p>
+<p>  @Override<br>  public void startUp() {</p>
+<pre><code>  System.out.println(this.getClass() + &quot;开机&quot;);
+</code></pre>
+<p>  }</p>
+<p>  @Override<br>  public void shutDown() {</p>
+<pre><code>  System.out.println(this.getClass() + &quot;关机&quot;);
+</code></pre>
+<p>  }<br>}</p>
+</li>
+</ul>
+<pre><code>Mi10.java
+```java
+package designPattern.creationalPatterns.factory.firm.xiaomi;
+
+import designPattern.creationalPatterns.factory.firm.MobilePhone;
+
+public class Mi10 implements MobilePhone {
+    @Override
+    public void phone() {
+        System.out.println(this.getClass() + &quot;打电话&quot;);
+    }
+
+    @Override
+    public void photograph() {
+        System.out.println(this.getClass() + &quot;拍照&quot;);
+    }
+
+    @Override
+    public void startUp() {
+        System.out.println(this.getClass() + &quot;开机&quot;);
+    }
+
+    @Override
+    public void shutDown() {
+        System.out.println(this.getClass() + &quot;关机&quot;);
+    }
+}
+</code></pre>
+<ul>
+<li><p>现在我们已经有产品类型了，需要一个工厂把产品制造出来给用户<br>```java<br>/**</p>
+</li>
+<li><p>手机工厂</p>
+</li>
+<li><p>/<br>public class MobileFactory {</p>
+<p>  /**</p>
+<ul>
+<li>用户调用此方法得到手机</li>
+<li></li>
+<li>@param model - 手机型号</li>
+<li>@return</li>
+<li>/<br>public MobilePhone BuyMobilePhone(String model) throws Exception {<br>  if (model == null) {<pre><code>  throw new Exception(&quot;手机型号为空&quot;);
+</code></pre>
+  }<br>  if (“MI6”.equalsIgnoreCase(model)) {<pre><code>  return new Mi6();
+</code></pre>
+  } else if (“MI8”.equalsIgnoreCase(model)) {<pre><code>  return new Mi8();
+</code></pre>
+  } else if (“MI10”.equalsIgnoreCase(model)) {<pre><code>  return new Mi10();
+</code></pre>
+  } else {<pre><code>  throw new Exception(&quot;手机型号不存在&quot;);
+</code></pre>
+  }<br>}<br>}<br>```</li>
+</ul>
+</li>
+<li><p>这样以来工厂模式代码就结束了，现在只需要用户得到并使用对象就行了<br>比如：<br>```java<br>/**</p>
+</li>
+<li><p>工厂模式的用户调用实例</p>
+</li>
+<li><p>/<br>public class Demo {</p>
+<p>  public static void main(String[] args) throws Exception {</p>
+<pre><code>  //1.我们需要一个手机
+  MobilePhone mobilePhone;
+
+  //2，我们需要得到一个手机工厂才能得到手机
+  MobileFactory mobileFactory = new MobileFactory();
+
+  //3.然后我们可以通过型号买手机了
+  mobileFactory.BuyMobilePhone(&quot;MI6&quot;);
+
+  //4.比如我们购买MI6后用它打电话,拍照等
+  mobilePhone = mobileFactory.BuyMobilePhone(&quot;MI6&quot;);
+  mobilePhone.startUp();
+  mobilePhone.phone();
+  mobilePhone.photograph();
+  mobilePhone.shutDown();
+
+  //或者我们得到一个MI10用MI10打电话,拍照等
+  mobilePhone = mobileFactory.BuyMobilePhone(&quot;MI10&quot;);
+  mobilePhone.startUp();
+  mobilePhone.phone();
+  mobilePhone.photograph();
+  mobilePhone.shutDown();
+</code></pre>
+<p>  }<br>}<br>```</p>
+</li>
+</ul>
+<p>1.我们需要一个手机</p>
+<pre><code>MobilePhone mobilePhone;
+</code></pre>
+<p>2.我们需要得到一个手机工厂才能得到手机</p>
+<pre><code>MobileFactory mobileFactory = new MobileFactory();
+</code></pre>
+<p>3.然后我们可以通过型号买手机了</p>
+<pre><code>mobileFactory.BuyMobilePhone(&quot;MI6&quot;);
+</code></pre>
+<p>4.比如我们购买MI6后用它打电话,拍照等</p>
+<pre><code>mobilePhone = mobileFactory.BuyMobilePhone(&quot;MI6&quot;);
+mobilePhone.startUp();
+mobilePhone.phone();
+mobilePhone.photograph();
+mobilePhone.shutDown();
+</code></pre>
+<p>5.或者我们得到一个MI10用MI10打电话,拍照等</p>
+<pre><code>mobilePhone = mobileFactory.BuyMobilePhone(&quot;MI10&quot;);
+mobilePhone.startUp();
+mobilePhone.phone();
+mobilePhone.photograph();
+mobilePhone.shutDown();
+</code></pre>
+<hr>
+<p>感谢查阅</p>

@@ -1,0 +1,190 @@
+<hr>
+<p>title: 【设计模式】Command Pattern 命令模式<br>date: 2019-03-08 13:11:00<br>updated: 2019-03-17 18:10:00<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>命令模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Command/1.gif">
+<!--more-->
+
+<h1 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h1><p>命令模式是一种数据驱动的设计模式，它属于行为型模式。<br>命令模式将一个请求封装为一个对象，使发出请求的责任和执行请求的责任分割开。这样两者之间通过命令对象进行沟通，方便将命令对象进行储存、传递、调用、增加与管理。<br><del>命令模式请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令。</del></p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>将一个请求封装成一个对象，从而使您可以用不同的请求对客户进行参数化。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在软件系统中，行为请求者与行为实现者通常是一种紧耦合的关系，但某些场合，比如需要对行为进行记录、撤销或重做、事务等处理时，这种无法抵御变化的紧耦合的设计就不太合适。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><p>在某些场合，比如要对行为进行”记录、撤销/重做、事务”等处理，这种无法抵御变化的紧耦合是不合适的。在这种情况下，如何将”行为请求者”与”行为实现者”解耦？将一组行为抽象为对象，可以实现二者之间的松耦合。</p>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>GUI 中每一个按钮都是一条命令。</li>
+<li>模拟 CMD。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>通过引入中间件（抽象接口）降低系统的耦合度。</li>
+<li>扩展性良好，增加或删除命令非常方便。采用命令模式增加与删除命令不会影响其他类，且满足“开闭原则”。</li>
+<li>可以实现宏命令。命令模式可以与组合模式结合，将多个命令装配成一个组合命令，即宏命令。</li>
+<li>方便实现 Undo 和 Redo 操作。命令模式可以与后面介绍的备忘录模式结合，实现命令的撤销与恢复。</li>
+<li>可以在现有命令的基础上，增加额外功能。比如日志记录，结合装饰器模式会更加灵活。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>可能产生大量具体的命令类。因为每一个具体操作都需要设计一个具体命令类，这会增加系统的复杂性。</li>
+<li>令模式的结果其实就是接收方的执行结果，但是为了以命令的形式进行架构、解耦请求与实现，引入了额外类型结构（引入了请求方与抽象命令接口），增加了理解上的困难。不过这也是设计模式的通病，抽象必然会额外增加类的数量，代码抽离肯定比代码聚合更加难理解。</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>系统需要支持命令的撤销(Undo)操作和恢复(Redo)操作，也可以考虑使用命令模式</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+
+<ul>
+<li>抽象命令类（Command）角色：声明执行命令的接口，拥有执行命令的抽象方法 execute()。</li>
+<li>具体命令类（Concrete Command）角色：是抽象命令类的具体实现类，它拥有接收者对象，并通过调用接收者的功能来完成命令要执行的操作。</li>
+<li>实现者/接收者（Receiver）角色：执行命令功能的相关操作，是具体命令对象业务的真正实现者。</li>
+<li>调用者/请求者（Invoker）角色：是请求的发送者，它通常拥有很多的命令对象，并通过访问命令对象来执行相关请求，它不直接访问接收者。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>调用者</p>
+<pre><code class="java">class Invoker {
+  private Command command;
+
+  public Invoker(Command command) {
+      this.command = command;
+  }
+
+  public void setCommand(Command command) {
+      this.command = command;
+  }
+
+  public void call() {
+      System.out.println(&quot;调用者执行命令command...&quot;);
+      command.execute();
+  }
+}
+</code></pre>
+</li>
+<li><p>抽象命令<br>```java<br>interface Command {<br>  public abstract void execute();<br>}</p>
+</li>
+</ul>
+<pre><code>* 具体命令
+```java
+class ConcreteCommand implements Command {
+    private Receiver receiver;
+
+    ConcreteCommand() {
+        receiver = new Receiver();
+    }
+
+    public void execute() {
+        receiver.action();
+    }
+}
+</code></pre>
+<ul>
+<li>接收者<pre><code class="java">class Receiver {
+  public void action() {
+      System.out.println(&quot;接收者的action()方法被调用...&quot;);
+  }
+}
+</code></pre>
+</li>
+<li>测试<pre><code class="java">public class CommandPattern {
+  public static void main(String[] args) {
+      Command cmd = new ConcreteCommand();
+      Invoker ir = new Invoker(cmd);
+      System.out.println(&quot;客户访问调用者的call()方法...&quot;);
+      ir.call();
+  }
+}
+</code></pre>
+结果：<pre><code class="text">客户访问调用者的call()方法...
+调用者执行命令command...
+接收者的action()方法被调用...
+</code></pre>
+</li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="2.svg">
+1. 创建作为命令的接口 Order，然后创建作为请求的 Stock 类。
+1. 实体命令类 BuyStock 和 SellStock，实现了 Order 接口，将执行实际的命令处理。
+1. 创建作为调用对象的类 Broker，它接受订单并能下订单。
+1. Broker 对象使用命令模式，基于命令的类型确定哪个对象执行哪个命令。
+1. CommandPatternDemo 类使用 Broker 类来演示命令模式。
+
+
+
+<ul>
+<li><p>创建一个命令接口。<br>Order.java</p>
+<pre><code class="java">public interface Order {
+ void execute();
+}
+</code></pre>
+</li>
+<li><p>创建一个请求类。<br>Stock.java</p>
+<pre><code class="java">//具体实例
+public class Stock {
+ private String name = &quot;ABC&quot;;
+ private int quantity = 10;
+ public void buy(){
+    System.out.println(&quot;Stock [ Name: &quot;+name+&quot;, Quantity: &quot; + quantity +&quot; ] bought&quot;);
+ }
+
+ public void sell(){
+    System.out.println(&quot;Stock [ Name: &quot;+name+&quot;, Quantity: &quot; + quantity +&quot; ] sold&quot;);
+ }
+}
+</code></pre>
+</li>
+<li><p>创建实现了 Order 接口的实体类。<br>BuyStock.java</p>
+<pre><code class="java">public class BuyStock implements Order {
+ private Stock abcStock;
+
+ public BuyStock(Stock abcStock){
+    this.abcStock = abcStock;
+ }
+
+ public void execute() {
+    abcStock.buy();
+ }
+}
+</code></pre>
+<p>SellStock.java</p>
+<pre><code class="java">public class SellStock implements Order {
+ private Stock abcStock;
+
+ public SellStock(Stock abcStock){
+    this.abcStock = abcStock;
+ }
+
+ public void execute() {
+    abcStock.sell();
+ }
+}
+</code></pre>
+</li>
+<li><p>创建命令调用类<br>Broker.java<br>```java<br>import java.util.ArrayList;<br>import java.util.List;</p>
+</li>
+</ul>
+<p>public class Broker {<br>   private List<Order> orderList = new ArrayList<Order>(); </p>
+<p>   public void takeOrder(Order order){<br>      orderList.add(order);<br>   }<br>   // 逐一执行命令行<br>   public void placeOrders(){<br>      for (Order order : orderList) {<br>         order.execute();<br>      }<br>      orderList.clear();<br>   }<br>}</p>
+<pre><code>* 使用 Broker 类来接受并执行命令。
+CommandPatternDemo.java
+```java
+public class CommandPatternDemo {
+   public static void main(String[] args) {
+      Stock abcStock = new Stock();
+ 
+      BuyStock buyStockOrder = new BuyStock(abcStock);
+      SellStock sellStockOrder = new SellStock(abcStock);
+ 
+      Broker broker = new Broker();
+      broker.takeOrder(buyStockOrder);
+      broker.takeOrder(sellStockOrder);
+ 
+      broker.placeOrders();
+   }
+}
+</code></pre>
+<p>结果：</p>
+<pre><code>Stock [ Name: ABC, Quantity: 10 ] bought
+Stock [ Name: ABC, Quantity: 10 ] sold
+</code></pre>
+<hr>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>

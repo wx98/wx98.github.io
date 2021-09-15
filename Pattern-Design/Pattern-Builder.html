@@ -1,0 +1,294 @@
+<hr>
+<p>title: 【设计模式】Builder  Pattern 建造者模式<br>date: 2019-03-05 21:30:00<br>updated: 2019-03-17 16:40:36<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>建造者模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Builder/uml2.gif">
+<!--more-->
+
+<h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><p>将一个复杂对象的构造与它的表示分离，使同样的构建过程可以创建不同的表示，这样的设计模式被称为建造者模式。<br>它是将一个复杂的对象分解为多个简单的对象，然后一步一步构建而成。<br>它将变与不变相分离，即产品的组成部分是不变的，但每一部分是可以灵活选择的。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>将一个复杂的构建与其表示相分离，使得同样的构建过程可以创建不同表示。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><ol>
+<li>需要生成的对象具有复杂的内部结构。 </li>
+<li>需要生成的对象内部属性本身相互依赖。</li>
+</ol>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><p>一些基本部件不会变，而其组合经常变化的时候。<br>当一个类的构造函数参数个数超过4个，而且这些参数有些是可选的参数，考虑使用构造者模式。</p>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>去肯德基，汉堡、可乐、薯条、炸鸡翅等食物为不变的，而其组合是经常变化的，生成出所谓的”套餐”。 </li>
+<li>JAVA 中的 StringBuilder。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>封装性好，构建和表示分离。</li>
+<li>扩展性好，各个具体的建造者相互独立，有利于系统的解耦。</li>
+<li>建造者独立，易扩展。 </li>
+<li>便于控制细节风险。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>产品必须有共同点，范围有限制。</li>
+<li>如内部变化复杂，会有很多的建造类，如果产品内部发生变化，则建造者也要同步修改，后期维护成本较大。</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>与工厂模式的区别是：建造者模式注重零部件的组装过程，而工厂方法模式更注重零部件的创建过程，但两者可以结合使用。</p>
+<h1 id="类图-理解"><a href="#类图-理解" class="headerlink" title="类图 / 理解"></a>类图 / 理解</h1><img src="uml2.gif">
+
+<ul>
+<li>产品角色（Product）：<br>它是包含多个组成部件的复杂对象，由具体建造者来创建其各个零部件。</li>
+<li>抽象建造者（Builder）：<br>它是一个包含创建产品各个子部件的抽象方法的接口，通常还包含一个返回复杂产品的方法 getResult()。</li>
+<li>具体建造者(Concrete Builder）：<br>实现 Builder 接口，完成复杂产品的各个部件的具体创建方法。</li>
+<li>指挥者（Director）：<br>它调用建造者对象中的部件构造与装配方法完成复杂对象的创建，在指挥者中不涉及具体产品的信息。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>产品角色：包含多个组成部件的复杂对象。</p>
+<pre><code class="java">class Product {
+  private String partA;
+  private String partB;
+  private String partC;
+
+  public void setPartA(String partA) {
+      this.partA = partA;
+  }
+
+  public void setPartB(String partB) {
+      this.partB = partB;
+  }
+
+  public void setPartC(String partC) {
+      this.partC = partC;
+  }
+
+  public void show() {
+      //显示产品的特性
+  }
+}
+</code></pre>
+</li>
+<li><p>抽象建造者：包含创建产品各个子部件的抽象方法。</p>
+<pre><code class="java">abstract class Builder {
+  //创建产品对象
+  protected Product product = new Product();
+  public abstract void buildPartA();
+  public abstract void buildPartB();
+  public abstract void buildPartC();
+  //返回产品对象
+  public Product getResult() {
+      return product;
+  }
+}
+</code></pre>
+</li>
+<li><p>具体建造者：实现了抽象建造者接口。</p>
+<pre><code class="java">public class ConcreteBuilder extends Builder {
+  public void buildPartA() {
+      product.setPartA(&quot;建造 PartA&quot;);
+  }
+
+  public void buildPartB() {
+      product.setPartB(&quot;建造 PartB&quot;);
+  }
+
+  public void buildPartC() {
+      product.setPartC(&quot;建造 PartC&quot;);
+  }
+}
+</code></pre>
+</li>
+<li><p>指挥者：调用建造者中的方法完成复杂对象的创建。</p>
+<pre><code class="java">class Director {
+  private Builder builder;
+  public Director(Builder builder) {
+      this.builder = builder;
+  }
+  //产品构建与组装方法
+  public Product construct() {
+      builder.buildPartA();
+      builder.buildPartB();
+      builder.buildPartC();
+      return builder.getResult();
+  }
+}
+</code></pre>
+</li>
+<li><p>客户类</p>
+<pre><code class="java">public class Client {
+  public static void main(String[] args) {
+      Builder builder = new ConcreteBuilder();
+      Director director = new Director(builder);
+      Product product = director.construct();
+      product.show();
+  }
+}
+</code></pre>
+</li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="Uml1.svg">
+
+<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><p>我们假设一个快餐店的商业案例，其中，一个典型的套餐可以是一个汉堡（Burger）和一杯冷饮（Cold drink）。</p>
+<ul>
+<li>汉堡（Burger）可以是素食汉堡（Veg Burger）或鸡肉汉堡（Chicken Burger），它们是包在纸盒中。</li>
+<li>冷饮（Cold drink）可以是可口可乐（coke）或百事可乐（pepsi），它们是装在瓶子中。</li>
+</ul>
+<p>我们将创建<br>一个<strong>表示食物条目的 Item 接口</strong> 和 <strong>实现 Item 接口的实体类</strong><br>以及<br>一个<strong>表示食物包装的 Packing 接口</strong> 和 <strong>实现 Packing 接口的实体类</strong>，<br>汉堡是包在纸盒中，冷饮是装在瓶子中。<br>然后我们创建<br>一个 Meal 类，带有 Item 的 ArrayList 和一个通过结合 Item 来创建不同类型的 Meal 对象的 MealBuilder。<br>BuilderPatternDemo 类使用 MealBuilder 来创建一个 Meal。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><ul>
+<li>创建一个表示食物条目和食物包装的接口。<br>Item.java 食物项目<pre><code class="java">public interface Item {
+ public String name();    //名称
+ public Packing packing();//包装方法
+ public float price();    //价格
+}
+</code></pre>
+Packing.java 打包<pre><code class="java">public interface Packing {
+ public String pack();    //
+}
+</code></pre>
+</li>
+<li>创建实现 Packing 接口的实体类。<br>Wrapper.java 包装纸<pre><code class="java">public class Wrapper implements Packing {
+
+ @Override
+ public String pack() {
+    return &quot;Wrapper&quot;;    
+ }
+}
+</code></pre>
+Bottle.java 瓶子<pre><code class="java">public class Bottle implements Packing {
+
+ @Override
+ public String pack() {
+    return &quot;Bottle&quot;;    
+ }
+}
+</code></pre>
+</li>
+<li>创建实现 Item 接口的抽象类，该类提供了默认的功能。<br>Burger.java 汉堡<pre><code class="java">public abstract class Burger implements Item {
+
+ @Override
+ public Packing packing() {
+    return new Wrapper();
+ }
+
+ @Override
+ public abstract float price();
+}
+</code></pre>
+ColdDrink.java 冷饮<pre><code class="java">public abstract class ColdDrink implements Item {
+
+  @Override
+  public Packing packing() {
+     return new Bottle();
+  }
+
+  @Override
+  public abstract float price();
+}
+</code></pre>
+</li>
+<li>创建扩展了 Burger 和 ColdDrink 的实体类。<br>VegBurger.java 素食汉堡<pre><code class="java">public class VegBurger extends Burger {
+
+ @Override
+ public float price() {
+    return 25.0f;
+ }
+
+ @Override
+ public String name() {
+    return &quot;Veg Burger&quot;;
+ }
+}
+</code></pre>
+ChickenBurger.java 鸡肉汉堡包<pre><code class="java">public class ChickenBurger extends Burger {
+
+ @Override
+ public float price() {
+    return 50.5f;
+ }
+
+ @Override
+ public String name() {
+    return &quot;Chicken Burger&quot;;
+ }
+}
+</code></pre>
+Coke.java 可乐<pre><code class="java">public class Coke extends ColdDrink {
+
+ @Override
+ public float price() {
+    return 30.0f;
+ }
+
+ @Override
+ public String name() {
+    return &quot;Coke&quot;;
+ }
+}
+</code></pre>
+Pepsi.java 百事可乐<pre><code class="java">public class Pepsi extends ColdDrink {
+
+ @Override
+ public float price() {
+    return 35.0f;
+ }
+
+ @Override
+ public String name() {
+    return &quot;Pepsi&quot;;
+ }
+}
+</code></pre>
+</li>
+<li>创建一个 Meal 类，带有上面定义的 Item 对象。<br>Meal.java 一次点餐<br>```java<br>import java.util.ArrayList;<br>import java.util.List;</li>
+</ul>
+<p>public class Meal {<br>   private List<Item> items = new ArrayList<Item>();    </p>
+<p>   public void addItem(Item item){<br>      items.add(item);<br>   }</p>
+<p>   public float getCost(){<br>      float cost = 0.0f;<br>      for (Item item : items) {<br>         cost += item.price();<br>      }<br>      return cost;<br>   }</p>
+<p>   public void showItems(){<br>      for (Item item : items) {<br>         System.out.print(“Item : “+item.name());<br>         System.out.print(“, Packing : “+item.packing().pack());<br>         System.out.println(“, Price : “+item.price());<br>      }<br>   }<br>}</p>
+<pre><code>* 创建一个 MealBuilder 类，实际的 builder 类负责创建 Meal 对象。
+MealBuilder.java 构建点餐
+```java
+public class MealBuilder {
+ 
+   public Meal prepareVegMeal (){
+      Meal meal = new Meal();
+      meal.addItem(new VegBurger());
+      meal.addItem(new Coke());
+      return meal;
+   }   
+ 
+   public Meal prepareNonVegMeal (){
+      Meal meal = new Meal();
+      meal.addItem(new ChickenBurger());
+      meal.addItem(new Pepsi());
+      return meal;
+   }
+}
+</code></pre>
+<ul>
+<li>BuiderPatternDemo 使用 MealBuilder 来演示建造者模式（Builder Pattern）。<br>BuilderPatternDemo.java<pre><code class="java">public class BuilderPatternDemo {
+ public static void main(String[] args) {
+    MealBuilder mealBuilder = new MealBuilder();
+
+    Meal vegMeal = mealBuilder.prepareVegMeal();
+    System.out.println(&quot;Veg Meal&quot;);
+    vegMeal.showItems();
+    System.out.println(&quot;Total Cost: &quot; +vegMeal.getCost());
+
+    Meal nonVegMeal = mealBuilder.prepareNonVegMeal();
+    System.out.println(&quot;\n\nNon-Veg Meal&quot;);
+    nonVegMeal.showItems();
+    System.out.println(&quot;Total Cost: &quot; +nonVegMeal.getCost());
+ }
+}
+</code></pre>
+</li>
+</ul>
+<hr>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1><p>建议参考<br><a href="https://zhuanlan.zhihu.com/p/58093669">另一种理解方式</a><br><a href="http://c.biancheng.net/view/1354.html">这篇文章</a></p>
+<!--
+[《建造者模式实现链式赋值》](http://c.biancheng.net/view/vip_8404.html)
+[《使用静态内部类实现建造者模式》](http://c.biancheng.net/view/vip_8409.html)
+[《使用建造者模式构建动态SQL语句》](http://c.biancheng.net/view/vip_8415.html)
+[《建造者模式在框架源码中的应用》](http://c.biancheng.net/view/vip_8420.html)
+ -->

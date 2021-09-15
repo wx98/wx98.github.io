@@ -1,0 +1,176 @@
+<hr>
+<p>title: 【设计模式】Mediator   Pattern 中介者模式<br>date: 2019-03-08 19:25:00<br>updated: 2019-03-17 19:45:09<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>中介者模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Mediator/1.gif">
+<!--more-->
+
+<h1 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h1><p>定义一个中介对象来封装一系列对象之间的交互，使原有对象之间的耦合松散，且可以独立地改变它们之间的交互。中介者模式又叫调停模式，它是迪米特法则的典型应用。</p>
+<p><del>中介者模式是用来降低多个对象和类之间的通信复杂性。这种模式提供了一个中介类，该类通常处理不同类之间的通信，并支持松耦合，使代码易于维护。</del><br>中介者模式属于行为型模式。 </p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>用一个中介对象来封装一系列的对象交互，中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>对象与对象之间存在大量的关联关系，这样势必会导致系统的结构变得很复杂，同时若一个对象发生改变，我们也需要跟踪与之相关联的对象，同时做出相应的处理。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><p>多个类相互耦合，形成了网状结构。</p>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>中国加入 WTO 之前是各个国家相互贸易，结构复杂，现在是各个国家通过 WTO 来互相贸易。 </li>
+<li>机场调度系统。</li>
+<li>MVC 框架，其中C（控制器）就是 M（模型）和 V（视图）的中介者。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>类之间各司其职，符合迪米特法则。</li>
+<li>降低了对象之间的耦合性，使得对象易于独立地被复用。</li>
+<li>将对象间的一对多关联转变为一对一的关联，提高系统的灵活性，使得系统易于维护和扩展。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>中介者会庞大，变得复杂难以维护。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+
+<ul>
+<li>抽象中介者（Mediator）角色：它是中介者的接口，提供了同事对象注册与转发同事对象信息的抽象方法。</li>
+<li>具体中介者（Concrete Mediator）角色：实现中介者接口，定义一个 List 来管理同事对象，协调各个同事角色之间的交互关系，因此它依赖于同事角色。</li>
+<li>抽象同事类（Colleague）角色：定义同事类的接口，保存中介者对象，提供同事对象交互的抽象方法，实现所有相互影响的同事类的公共功能。</li>
+<li>具体同事类（Concrete Colleague）角色：是抽象同事类的实现者，当需要与其他同事对象交互时，由中介者对象负责后续的交互。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>抽象中介者</p>
+<pre><code class="java">abstract class Mediator {
+  public abstract void register(Colleague colleague);
+  public abstract void relay(Colleague cl); //转发
+}
+</code></pre>
+</li>
+<li><p>具体中介者</p>
+<pre><code class="java">import java.util.*;
+class ConcreteMediator extends Mediator {
+  private List&lt;Colleague&gt; colleagues = new ArrayList&lt;Colleague&gt;();
+
+  public void register(Colleague colleague) {
+      if (!colleagues.contains(colleague)) {
+          colleagues.add(colleague);
+          colleague.setMedium(this);
+      }
+  }
+
+  public void relay(Colleague cl) {
+      for (Colleague ob : colleagues) {
+          if (!ob.equals(cl)) {
+              ((Colleague) ob).receive();
+          }
+      }
+  }
+}
+</code></pre>
+</li>
+<li><p>抽象同事类</p>
+<pre><code class="java">abstract class Colleague {
+  protected Mediator mediator;
+  public void setMedium(Mediator mediator) {
+      this.mediator = mediator;
+  }
+  public abstract void receive();
+  public abstract void send();
+}
+</code></pre>
+</li>
+<li><p>具体同事类<br>```java<br>class ConcreteColleague1 extends Colleague {<br>  public void receive() {</p>
+<pre><code>  System.out.println(&quot;具体同事类1收到请求。&quot;);
+</code></pre>
+<p>  }</p>
+<p>  public void send() {</p>
+<pre><code>  System.out.println(&quot;具体同事类1发出请求。&quot;);
+  mediator.relay(this); //请中介者转发
+</code></pre>
+<p>  }<br>}</p>
+</li>
+</ul>
+<pre><code>* 具体同事类
+```java
+class ConcreteColleague2 extends Colleague {
+    public void receive() {
+        System.out.println(&quot;具体同事类2收到请求。&quot;);
+    }
+
+    public void send() {
+        System.out.println(&quot;具体同事类2发出请求。&quot;);
+        mediator.relay(this); //请中介者转发
+    }
+}
+</code></pre>
+<ul>
+<li>测试<pre><code class="java">public class MediatorPattern {
+  public static void main(String[] args) {
+      Mediator md = new ConcreteMediator();
+      Colleague c1, c2;
+      c1 = new ConcreteColleague1();
+      c2 = new ConcreteColleague2();
+      md.register(c1);
+      md.register(c2);
+      c1.send();
+      System.out.println(&quot;-------------&quot;);
+      c2.send();
+  }
+}
+</code></pre>
+结果：<br>```text<br>具体同事类1发出请求。<br>具体同事类2收到请求。</li>
+</ul>
+<hr>
+<p>具体同事类2发出请求。<br>具体同事类1收到请求。</p>
+<pre><code>
+# 实例
+多个用户可以向聊天室发送消息，聊天室向所有的用户显示消息。
+我们将创建两个类 ChatRoom 和 User。
+User 对象使用 ChatRoom 方法来分享他们的消息。
+MediatorPatternDemo，我们的演示类使用 User 对象来显示他们之间的通信。
+
+&lt;img src=&quot;2.jpg&quot;&gt;
+
+* 创建中介类
+ChatRoom.java
+```java
+import java.util.Date;
+ 
+public class ChatRoom {
+   public static void showMessage(User user, String message){
+      System.out.println(new Date().toString()  + &quot; [&quot; + user.getName() +&quot;] : &quot; + message);
+   }
+}
+</code></pre>
+<ul>
+<li><p>创建 user 类<br>User.java</p>
+<pre><code class="java">public class User {
+ private String name;
+
+ public String getName() { return name; }
+ public void setName(String name) { this.name = name; }
+ public User(String name){ this.name  = name; }
+
+ public void sendMessage(String message){
+    ChatRoom.showMessage(this,message);
+ }
+}
+</code></pre>
+</li>
+<li><p>测试<br>MediatorPatternDemo.java</p>
+<pre><code class="java">public class MediatorPatternDemo {
+ public static void main(String[] args) {
+    User robert = new User(&quot;Robert&quot;);
+    User john = new User(&quot;John&quot;);
+
+    robert.sendMessage(&quot;Hi! John!&quot;);
+    john.sendMessage(&quot;Hello! Robert!&quot;);
+ }
+}
+</code></pre>
+<p>结果</p>
+<pre><code class="text">Thu Jan 31 16:05:46 IST 2013 [Robert] : Hi! John!
+Thu Jan 31 16:05:46 IST 2013 [John] : Hello! Robert!
+</code></pre>
+</li>
+</ul>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>

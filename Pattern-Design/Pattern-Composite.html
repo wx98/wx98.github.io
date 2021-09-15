@@ -1,0 +1,245 @@
+<hr>
+<p>title: 【设计模式】Composite Pattern 组合模式<br>date: 2019-03-06 17:11:00<br>updated: 2019-03-17 16:56:16<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>组合模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Composite/1-1.gif">
+<!--more-->
+
+<h1 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h1><p>组合模式（Composite Pattern），有时又叫作整体-部分（Part-Whole）模式，是用于把一组相似的对象当作一个单一的对象。<br>组合模式依据树形结构来组合对象，用来表示部分以及整体层次。<br>这种类型的设计模式属于结构型模式，它创建了对象组的树形结构。<br>这种模式创建了一个包含自己对象组的类。该类提供了修改相同对象组的方式。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>将对象组合成树形结构以表示”部分-整体”的层次结构。组合模式使得用户对单个对象和组合对象的使用具有一致性。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>它在我们树型结构的问题中，模糊了简单元素和复杂元素的概念，客户程序可以像处理简单元素一样来处理复杂元素，从而使得客户程序与复杂元素的内部结构解耦。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>您想表示对象的部分-整体层次结构（树形结构）。 </li>
+<li>您希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>算术表达式包括操作数、操作符和另一个操作数，其中，另一个操作数也可以是操作数、操作符和另一个操作数。</li>
+<li>在 JAVA AWT 和 SWING 中，对于 Button 和 Checkbox 是树叶，Container 是树枝。</li>
+<li>部分、整体场景，如树形菜单，文件、文件夹的管理。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>高层模块调用简单。 </li>
+<li>节点自由增加。</li>
+<li>组合模式使得客户端代码可以一致地处理单个对象和组合对象，无须关心自己处理的是单个对象，还是组合对象，这简化了客户端代码；</li>
+<li>更容易在组合体内加入新的对象，客户端不会因为加入了新的对象而更改源代码，满足“开闭原则”；</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>在使用组合模式时，其叶子和树枝的声明都是实现类，而不是接口，违反了依赖倒置原则</li>
+<li>设计较复杂，客户端需要花更多时间理清类之间的层次关系</li>
+<li>不容易限制容器中的构件</li>
+<li>不容易用继承的方法来增加构件的新功能</li>
+</ol>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><ul>
+<li>抽象构件（Component）角色：<br>它的主要作用是为树叶构件和树枝构件声明公共接口，并实现它们的默认行为。<ul>
+<li>在透明式的组合模式中抽象构件还声明访问和管理子类的接口；</li>
+<li>在安全式的组合模式中不声明访问和管理子类的接口，管理工作由树枝构件完成。<br>（总的抽象类或接口，定义一些通用的方法，比如新增、删除）</li>
+</ul>
+</li>
+<li>树叶构件（Leaf）角色：<br>是组合中的叶节点对象，它没有子节点，用于继承或实现抽象构件。</li>
+<li>树枝构件（Composite）角色 / 中间构件：<br>是组合中的分支节点对象，它有子节点，用于继承和实现抽象构件。它的主要作用是存储和管理子部件，通常包含 Add()、Remove()、GetChild() 等方法。</li>
+</ul>
+<h2 id="透明方式"><a href="#透明方式" class="headerlink" title="透明方式"></a>透明方式</h2><img src="1-1.gif">
+
+<ul>
+<li>在该方式中，由于抽象构件声明了所有子类中的全部方法，所以客户端无须区别树叶对象和树枝对象，对客户端来说是透明的。’</li>
+<li>但其缺点是：树叶构件本来没有 Add()、Remove() 及 GetChild() 方法，却要实现它们（空实现或抛异常），这样会带来一些安全性问题。</li>
+</ul>
+<h2 id="安全方式"><a href="#安全方式" class="headerlink" title="安全方式"></a>安全方式</h2><img src="1-2.gif">
+
+<ul>
+<li>在该方式中，将管理子构件的方法移到树枝构件中，抽象构件和树叶构件没有对子对象的管理方法，这样就避免了上一种方式的安全性问题，</li>
+<li>但由于叶子和分支有不同的接口，客户端在调用时要知道树叶对象和树枝对象的存在，所以失去了透明性。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>假如要访问集合 c0={leaf1,{leaf2,leaf3}} 中的元素，其对应的树状图如图所示。<br><img src="3.gif"></p>
+<h2 id="透明组合模式"><a href="#透明组合模式" class="headerlink" title="透明组合模式"></a>透明组合模式</h2><ul>
+<li>抽象构件<pre><code class="java">interface Component {
+  public void add(Component c);
+  public void remove(Component c);
+  public Component getChild(int i);
+  public void operation();
+}
+</code></pre>
+</li>
+<li>树叶构件<br>```java<br>class Leaf implements Component {<br>  //成员<br>  private String name;<br>  public Leaf(String name) {<pre><code>  this.name = name;
+</code></pre>
+  }<br>  //实现接口方法<br>  public void add(Component c) {}<br>  public void remove(Component c) {}<br>  public Component getChild(int i) {return null;}<br>  public void operation() {<pre><code>  System.out.println(&quot;树叶&quot; + name + &quot;：被访问！&quot;);
+</code></pre>
+  }<br>}</li>
+</ul>
+<pre><code>* 树枝构件
+```java
+import java.util.ArrayList;
+
+class Composite implements Component {
+    private ArrayList&lt;Component&gt; children = new ArrayList&lt;Component&gt;();
+
+    public void add(Component c) {
+        children.add(c);
+    }
+
+    public void remove(Component c) {
+        children.remove(c);
+    }
+
+    public Component getChild(int i) {
+        return children.get(i);
+    }
+
+    public void operation() {
+        for (Object obj : children) {
+            ((Component) obj).operation();
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>测试<pre><code class="java">public class CompositePattern {
+  public static void main(String[] args) {
+      Component c0 = new Composite();
+      Component c1 = new Composite();
+      Component leaf1 = new Leaf(&quot;1&quot;);
+      Component leaf2 = new Leaf(&quot;2&quot;);
+      Component leaf3 = new Leaf(&quot;3&quot;);
+      c0.add(c1);
+      c0.add(leaf1);
+      c1.add(leaf2);
+      c1.add(leaf3);
+      c0.operation();
+  }
+}
+</code></pre>
+结果：<pre><code class="text">树叶1：被访问！
+树叶2：被访问！
+树叶3：被访问！
+</code></pre>
+</li>
+</ul>
+<h2 id="安全组合模式"><a href="#安全组合模式" class="headerlink" title="安全组合模式"></a>安全组合模式</h2><p>安全式的组合模式与透明式组合模式的实现代码类似，抽象构件只保留层次的公共行为。</p>
+<ul>
+<li>抽象构件<pre><code class="java">interface Component {
+  //只保留层次的公共行为。
+  public void operation();
+}
+</code></pre>
+</li>
+<li>树叶构件<br>```java<br>class Leaf implements Component {<br>  //成员<br>  private String name;<br>  public Leaf(String name) {<pre><code>  this.name = name;
+</code></pre>
+  }<br>  public void operation() {<pre><code>  System.out.println(&quot;树叶&quot; + name + &quot;：被访问！&quot;);
+</code></pre>
+  }<br>}</li>
+</ul>
+<pre><code>* 树枝构件
+```java
+import java.util.ArrayList;
+
+class Composite implements Component {
+    private ArrayList&lt;Component&gt; children = new ArrayList&lt;Component&gt;();
+
+    public void add(Component c) {
+        children.add(c);
+    }
+
+    public void remove(Component c) {
+        children.remove(c);
+    }
+
+    public Component getChild(int i) {
+        return children.get(i);
+    }
+
+    public void operation() {
+        for (Object obj : children) {
+            ((Component) obj).operation();
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>测试<pre><code class="java">public class CompositePattern {
+  public static void main(String[] args) {
+      //将树枝构件类型更改为 Composite 类型，以便获取管理子类操作的方法。
+      Composite c0 = new Composite();
+      Composite c1 = new Composite();
+      //树叶构件还是 Component 类型
+      Component leaf1 = new Leaf(&quot;1&quot;);
+      Component leaf2 = new Leaf(&quot;2&quot;);
+      Component leaf3 = new Leaf(&quot;3&quot;);
+      c0.add(c1);
+      c0.add(leaf1);
+      c1.add(leaf2);
+      c1.add(leaf3);
+      c0.operation();
+  }
+}
+</code></pre>
+</li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="2.svg">
+我们有一个类 Employee，该类被当作组合模型类。
+CompositePatternDemo 类使用 Employee 类来添加部门层次结构，并打印所有员工
+
+<ul>
+<li>创建 Employee 类，该类带有 Employee 对象的列表。<br>Employee.java<br>```java<br>import java.util.ArrayList;<br>import java.util.List;</li>
+</ul>
+<p>public class Employee {<br>   private String name;<br>   private String dept;<br>   private int salary;<br>   private List<Employee> subordinates;</p>
+<p>   //构造函数<br>   public Employee(String name,String dept, int sal) {<br>      this.name = name;<br>      this.dept = dept;<br>      this.salary = sal;<br>      subordinates = new ArrayList<Employee>();<br>   }</p>
+<p>   public void add(Employee e) {<br>      subordinates.add(e);<br>   }</p>
+<p>   public void remove(Employee e) {<br>      subordinates.remove(e);<br>   }</p>
+<p>   public List<Employee> getSubordinates(){<br>     return subordinates;<br>   }</p>
+<p>   public String toString(){<br>      return (“Employee :[ Name : “+ name +”, dept : “+ dept + “, salary :”+ salary+” ]”);<br>   }<br>}</p>
+<pre><code>* 使用 Employee 类来创建和打印员工的层次结构。
+```java
+public class CompositePatternDemo {
+   public static void main(String[] args) {
+
+      Employee CEO = new Employee(&quot;John&quot;,&quot;CEO&quot;, 30000);
+
+      Employee headSales = new Employee(&quot;Robert&quot;,&quot;Head Sales&quot;, 20000);
+      Employee headMarketing = new Employee(&quot;Michel&quot;,&quot;Head Marketing&quot;, 20000);
+
+      Employee clerk1 = new Employee(&quot;Laura&quot;,&quot;Marketing&quot;, 10000);
+      Employee clerk2 = new Employee(&quot;Bob&quot;,&quot;Marketing&quot;, 10000);
+ 
+      Employee salesExecutive1 = new Employee(&quot;Richard&quot;,&quot;Sales&quot;, 10000);
+      Employee salesExecutive2 = new Employee(&quot;Rob&quot;,&quot;Sales&quot;, 10000);
+ 
+ 
+      CEO.add(headSales);
+      CEO.add(headMarketing);
+
+      headSales.add(salesExecutive1);
+      headSales.add(salesExecutive2);
+ 
+      headMarketing.add(clerk1);
+      headMarketing.add(clerk2);
+ 
+      //打印该组织的所有员工
+      System.out.println(CEO); 
+      for (Employee headEmployee : CEO.getSubordinates()) {
+         System.out.println(headEmployee);
+         for (Employee employee : headEmployee.getSubordinates()) {
+            System.out.println(employee);
+         }
+      }        
+   }
+}
+</code></pre>
+<p>结果：</p>
+<pre><code class="text">Employee :[ Name : John, dept : CEO, salary :30000 ]
+Employee :[ Name : Robert, dept : Head Sales, salary :20000 ]
+Employee :[ Name : Richard, dept : Sales, salary :10000 ]
+Employee :[ Name : Rob, dept : Sales, salary :10000 ]
+Employee :[ Name : Michel, dept : Head Marketing, salary :20000 ]
+Employee :[ Name : Laura, dept : Marketing, salary :10000 ]
+Employee :[ Name : Bob, dept : Marketing, salary :10000 ]
+</code></pre>
+<hr>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>

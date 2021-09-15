@@ -1,0 +1,263 @@
+<hr>
+<p>title: 【设计模式】Visitor Pattern 访问者模式<br>date: 2019-03-09 11:25:31<br>updated: 2019-03-19 09:20:19<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>访问者模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Visitor/1.gif">
+<!--more-->
+
+<h1 id="访问者模式"><a href="#访问者模式" class="headerlink" title="访问者模式"></a>访问者模式</h1><p>将作用于某种数据结构中的各元素的操作分离出来封装成独立的类，使其在不改变数据结构的前提下可以添加作用于这些元素的新的操作，为数据结构中的每个元素提供多种访问方式。它将对数据的操作与数据结构进行分离，是行为类模式中最复杂的一种模式。</p>
+<p><del>在访问者模式中，我们使用了一个访问者类，它改变了元素类的执行算法。通过这种方式，元素的执行算法可以随着访问者改变而改变。这种类型的设计模式属于行为型模式。根据模式，元素对象已接受访问者对象，这样访问者对象就可以处理元素对象上的操作。</del></p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>主要将数据结构与数据操作分离。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>稳定的数据结构和易变的操作耦合问题。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>对象结构中对象对应的类很少改变，但经常需要在此对象结构上定义新的操作。 </li>
+<li>需要对一个对象结构中的对象进行很多不同的并且不相关的操作，而需要避免让这些操作”污染”这些对象的类，也不希望在增加新操作时修改这些类。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>您在朋友家做客，您是访问者，朋友接受您的访问，您通过朋友的描述，然后对朋友的描述做出一个判断，这就是访问者模式。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>复用性好。可以通过访问者来定义整个对象结构通用的功能，从而提高系统的复用程度。</li>
+<li>扩展性好。能够在不修改对象结构中的元素的情况下，为对象结构中的元素添加新的功能。</li>
+<li>符合单一职责原则。访问者模式把相关的行为封装在一起，构成一个访问者，使每一个访问者的功能都比较单一。</li>
+<li>灵活性好。访问者模式将数据结构与作用于结构上的操作解耦，使得操作集合可相对自由地演化而不影响系统的数据结构。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>具体元素变更比较困难。 </li>
+<li>具体元素对访问者公布细节，违反了迪米特原则。 </li>
+<li>违反了依赖倒置原则。访问者模式依赖了具体类，而没有依赖抽象类。</li>
+<li>破坏封装。访问者模式中具体元素对访问者公布细节，这破坏了对象的封装性。</li>
+<li>增加新的元素类很困难。在访问者模式中，每增加一个新的元素类，都要在每一个具体访问者类中增加相应的具体操作，这违背了“开闭原则”。</li>
+</ol>
+<h1 id="注意E"><a href="#注意E" class="headerlink" title="注意E"></a>注意E</h1><p>访问者可以对功能进行统一，可以做报表、UI、拦截器与过滤器。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+
+<ul>
+<li>抽象访问者（Visitor）角色：定义一个访问具体元素的接口，为每个具体元素类对应一个访问操作 visit() ，该操作中的参数类型标识了被访问的具体元素。</li>
+<li>具体访问者（ConcreteVisitor）角色：实现抽象访问者角色中声明的各个访问操作，确定访问者访问一个元素时该做什么。</li>
+<li>抽象元素（Element）角色：声明一个包含接受操作 accept() 的接口，被接受的访问者对象作为 accept() 方法的参数。</li>
+<li>具体元素（ConcreteElement）角色：实现抽象元素角色提供的 accept() 操作，其方法体通常都是 visitor.visit(this) ，另外具体元素中可能还包含本身业务逻辑的相关操作。</li>
+<li>对象结构（Object Structure）角色：是一个包含元素角色的容器，提供让访问者对象遍历容器中的所有元素的方法，通常由 List、Set、Map 等聚合类实现。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>抽象访问者</p>
+<pre><code class="java">interface Visitor {
+  void visit(ConcreteElementA element);
+
+  void visit(ConcreteElementB element);
+}
+</code></pre>
+</li>
+<li><p>具体访问者A类</p>
+<pre><code class="java">class ConcreteVisitorA implements Visitor {
+  public void visit(ConcreteElementA element) {
+      System.out.println(&quot;具体访问者A访问--&gt;&quot; + element.operationA());
+  }
+
+  public void visit(ConcreteElementB element) {
+      System.out.println(&quot;具体访问者A访问--&gt;&quot; + element.operationB());
+  }
+}
+</code></pre>
+</li>
+<li><p>具体访问者B类</p>
+<pre><code class="java">class ConcreteVisitorB implements Visitor {
+  public void visit(ConcreteElementA element) {
+      System.out.println(&quot;具体访问者B访问--&gt;&quot; + element.operationA());
+  }
+
+  public void visit(ConcreteElementB element) {
+      System.out.println(&quot;具体访问者B访问--&gt;&quot; + element.operationB());
+  }
+}
+</code></pre>
+</li>
+<li><p>抽象元素类</p>
+<pre><code class="java">interface Element {
+  void accept(Visitor visitor);
+}
+</code></pre>
+</li>
+<li><p>具体元素A类</p>
+<pre><code class="java">class ConcreteElementA implements Element {
+  public void accept(Visitor visitor) {
+      visitor.visit(this);
+  }
+
+  public String operationA() {
+      return &quot;具体元素A的操作。&quot;;
+  }
+}
+</code></pre>
+</li>
+<li><p>具体元素B类</p>
+<pre><code class="java">class ConcreteElementB implements Element {
+  public void accept(Visitor visitor) {
+      visitor.visit(this);
+  }
+
+  public String operationB() {
+      return &quot;具体元素B的操作。&quot;;
+  }
+}
+</code></pre>
+</li>
+<li><p>对象结构角色</p>
+<pre><code class="java">import java.util.*;
+class ObjectStructure {
+  private List&lt;Element&gt; list = new ArrayList&lt;Element&gt;();
+
+  public void accept(Visitor visitor) {
+      Iterator&lt;Element&gt; i = list.iterator();
+      while (i.hasNext()) {
+          ((Element) i.next()).accept(visitor);
+      }
+  }
+
+  public void add(Element element) {
+      list.add(element);
+  }
+
+  public void remove(Element element) {
+      list.remove(element);
+  }
+}
+</code></pre>
+</li>
+<li><p>测试</p>
+<pre><code class="java">public class VisitorPattern {
+  public static void main(String[] args) {
+      ObjectStructure os = new ObjectStructure();
+      os.add(new ConcreteElementA());
+      os.add(new ConcreteElementB());
+      Visitor visitor = new ConcreteVisitorA();
+      os.accept(visitor);
+      System.out.println(&quot;------------------------&quot;);
+      visitor = new ConcreteVisitorB();
+      os.accept(visitor);
+  }
+}
+</code></pre>
+<p>结果<br>```text<br>具体访问者A访问–&gt;具体元素A的操作。<br>具体访问者A访问–&gt;具体元素B的操作。</p>
+</li>
+</ul>
+<hr>
+<p>具体访问者B访问–&gt;具体元素A的操作。<br>具体访问者B访问–&gt;具体元素B的操作。</p>
+<pre><code>
+# 实现
+创建一个定义接受操作的 ComputerPart 接口。
+Keyboard、Mouse、Monitor 和 Computer 是实现了 ComputerPart 接口的实体类。
+定义另一个接口 ComputerPartVisitor，它定义了访问者类的操作。
+Computer 使用实体访问者来执行相应的动作。
+
+VisitorPatternDemo使用 Computer、ComputerPartVisitor 类来演示访问者模式的用法。
+
+&lt;img src=&quot;2.jpg&quot;&gt;
+
+* 定义一个表示元素的接口。
+ComputerPart.java
+```java
+public interface ComputerPart {
+   public void accept(ComputerPartVisitor computerPartVisitor);
+}
+</code></pre>
+<ul>
+<li>创建扩展了上述类的实体类。<br>Keyboard.java<pre><code class="java">public class Keyboard  implements ComputerPart {
+
+ @Override
+ public void accept(ComputerPartVisitor computerPartVisitor) {
+    computerPartVisitor.visit(this);
+ }
+}
+</code></pre>
+Monitor.java<pre><code class="java">public class Monitor  implements ComputerPart {
+
+ @Override
+ public void accept(ComputerPartVisitor computerPartVisitor) {
+    computerPartVisitor.visit(this);
+ }
+}
+</code></pre>
+Mouse.java<pre><code class="java">public class Mouse  implements ComputerPart {
+
+ @Override
+ public void accept(ComputerPartVisitor computerPartVisitor) {
+    computerPartVisitor.visit(this);
+ }
+}
+</code></pre>
+Computer.java<pre><code class="java">public class Computer implements ComputerPart {
+ 
+ ComputerPart[] parts;
+
+ public Computer(){
+    parts = new ComputerPart[] {new Mouse(), new Keyboard(), new Monitor()};      
+ } 
+
+
+ @Override
+ public void accept(ComputerPartVisitor computerPartVisitor) {
+    for (int i = 0; i &lt; parts.length; i++) {
+       parts[i].accept(computerPartVisitor);
+    }
+    computerPartVisitor.visit(this);
+ }
+}
+</code></pre>
+</li>
+<li>定义一个表示访问者的接口。<br>ComputerPartVisitor.java<pre><code class="java">public interface ComputerPartVisitor {
+ public void visit(Computer computer);
+ public void visit(Mouse mouse);
+ public void visit(Keyboard keyboard);
+ public void visit(Monitor monitor);
+}
+</code></pre>
+</li>
+<li>创建实现了上述类的实体访问者。<br>ComputerPartDisplayVisitor.java<pre><code class="java">public class ComputerPartDisplayVisitor implements ComputerPartVisitor {
+
+ @Override
+ public void visit(Computer computer) {
+    System.out.println(&quot;Displaying Computer.&quot;);
+ }
+
+ @Override
+ public void visit(Mouse mouse) {
+    System.out.println(&quot;Displaying Mouse.&quot;);
+ }
+
+ @Override
+ public void visit(Keyboard keyboard) {
+    System.out.println(&quot;Displaying Keyboard.&quot;);
+ }
+
+ @Override
+ public void visit(Monitor monitor) {
+    System.out.println(&quot;Displaying Monitor.&quot;);
+ }
+}
+</code></pre>
+</li>
+<li>测试<br>使用 ComputerPartDisplayVisitor 来显示 Computer 的组成部分。<br>VisitorPatternDemo.java<pre><code class="java">public class VisitorPatternDemo {
+ public static void main(String[] args) {
+
+    ComputerPart computer = new Computer();
+    computer.accept(new ComputerPartDisplayVisitor());
+ }
+}
+</code></pre>
+结果<pre><code class="text">Displaying Mouse.
+Displaying Keyboard.
+Displaying Monitor.
+Displaying Computer.
+</code></pre>
+</li>
+</ul>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>

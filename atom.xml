@@ -6,7 +6,7 @@
   <link href="https://www.wx1998.cn/atom.xml" rel="self"/>
   
   <link href="https://www.wx1998.cn/"/>
-  <updated>2021-08-12T03:46:17.209Z</updated>
+  <updated>2021-09-15T09:47:59.108Z</updated>
   <id>https://www.wx1998.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://www.wx1998.cn/NodeJs-Notes/"/>
     <id>https://www.wx1998.cn/NodeJs-Notes/</id>
     <published>2021-07-13T07:40:37.000Z</published>
-    <updated>2021-08-12T03:46:17.209Z</updated>
+    <updated>2021-09-15T09:47:59.108Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;NodeJs学习笔记
@@ -123,15 +123,15 @@
   
   <entry>
     <title>【设计模式】Dynamic Proxy Pattern动态代理模式/JDK代理</title>
-    <link href="https://www.wx1998.cn/Pattern-Dynamic-Proxy/"/>
-    <id>https://www.wx1998.cn/Pattern-Dynamic-Proxy/</id>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/</id>
     <published>2021-07-06T05:44:45.000Z</published>
-    <updated>2021-09-09T13:18:47.317Z</updated>
+    <updated>2021-09-15T09:48:58.167Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;动态代理模式的理解以及使用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Dynamic-Proxy/Uml1.png&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Proxy-Pattern/Uml1.png&quot;&gt;</summary>
     
     
     
@@ -148,15 +148,15 @@
   
   <entry>
     <title>【设计模式】Proxy Pattern 代理模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Proxy-Pattern/"/>
-    <id>https://www.wx1998.cn/Pattern-Proxy-Pattern/</id>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Proxy-Pattern/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Proxy-Pattern/</id>
     <published>2021-07-06T05:36:06.000Z</published>
-    <updated>2021-09-09T13:18:26.506Z</updated>
+    <updated>2021-09-15T09:51:55.082Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;代理模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Proxy-Pattern/Uml1.png&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Proxy-Pattern/Uml1.png&quot;&gt;</summary>
     
     
     
@@ -284,7 +284,7 @@
     <link href="https://www.wx1998.cn/hello-hexo/"/>
     <id>https://www.wx1998.cn/hello-hexo/</id>
     <published>2020-11-06T23:51:01.000Z</published>
-    <updated>2021-07-06T11:33:32.389Z</updated>
+    <updated>2021-09-15T08:46:58.411Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;本篇为常用的《hexo命令》笔记
@@ -378,16 +378,48 @@
   </entry>
   
   <entry>
-    <title>【设计模式】Visitor Pattern 访问者模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Visitor/"/>
-    <id>https://www.wx1998.cn/Pattern-Visitor/</id>
+    <title>【设计模式】设计模式目录</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/</id>
+    <published>2019-03-19T14:55:00.000Z</published>
+    <updated>2019-03-19T15:55:22.000Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;table&gt;
+     &lt;tr&gt;
+        &lt;td width=&quot;10%&quot;&gt;序号&lt;/td&gt;
+        &lt;td width=&quot;15%&quot;&gt;模式&lt;/td&gt;
+        &lt;td width=&quot;35%&quot; &gt;概述&lt;/td&gt;
+        &lt;td width=&quot;40%&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【设计模式】业务代表模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Business-Delegate/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Business-Delegate/</id>
     <published>2019-03-09T03:25:31.000Z</published>
     <updated>2019-03-19T01:20:19.000Z</updated>
     
     
-    <summary type="html">&lt;pre&gt;&lt;code&gt;访问者模式理解剖析以及应用
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Visitor/1.gif&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Business-Delegate/1.svg&quot;&gt;</summary>
     
     
     
@@ -401,16 +433,16 @@
   </entry>
   
   <entry>
-    <title>【设计模式】Template Pattern 模板模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Template/"/>
-    <id>https://www.wx1998.cn/Pattern-Template/</id>
-    <published>2019-03-09T01:15:08.000Z</published>
-    <updated>2019-03-17T16:40:19.000Z</updated>
+    <title>【设计模式】组合实体模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Composite-Entity-Pattern/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Composite-Entity-Pattern/</id>
+    <published>2019-03-09T03:25:31.000Z</published>
+    <updated>2019-03-19T01:20:19.000Z</updated>
     
     
-    <summary type="html">&lt;pre&gt;&lt;code&gt;模板模式理解剖析以及应用
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Template/1.gif&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Composite-Entity-Pattern/1.jpg&quot;&gt;</summary>
     
     
     
@@ -424,16 +456,16 @@
   </entry>
   
   <entry>
-    <title>【设计模式】Strategy Pattern 策略模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Strategy/"/>
-    <id>https://www.wx1998.cn/Pattern-Strategy/</id>
-    <published>2019-03-08T15:45:08.000Z</published>
-    <updated>2019-03-17T16:25:19.000Z</updated>
+    <title>【设计模式】数据访问对象模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Data-Access-Object/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Data-Access-Object/</id>
+    <published>2019-03-09T03:25:31.000Z</published>
+    <updated>2019-03-19T01:20:19.000Z</updated>
     
     
-    <summary type="html">&lt;pre&gt;&lt;code&gt;策略模式理解剖析以及应用
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Strategy/1.gif&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Data-Access-Object/1.jpg&quot;&gt;</summary>
     
     
     
@@ -447,16 +479,16 @@
   </entry>
   
   <entry>
-    <title>【设计模式】State Pattern 状态模式</title>
-    <link href="https://www.wx1998.cn/Pattern-State/"/>
-    <id>https://www.wx1998.cn/Pattern-State/</id>
-    <published>2019-03-08T14:55:00.000Z</published>
-    <updated>2019-03-17T15:55:09.000Z</updated>
+    <title>【设计模式】前端控制器模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Front-Controller/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Front-Controller/</id>
+    <published>2019-03-09T03:25:31.000Z</published>
+    <updated>2019-03-19T01:20:19.000Z</updated>
     
     
-    <summary type="html">&lt;pre&gt;&lt;code&gt;状态模式理解剖析以及应用
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-State/1.gif&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Front-Controller/1.jpg&quot;&gt;</summary>
     
     
     
@@ -470,39 +502,16 @@
   </entry>
   
   <entry>
-    <title>【设计模式】Observer Pattern 观察者模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Observer/"/>
-    <id>https://www.wx1998.cn/Pattern-Observer/</id>
-    <published>2019-03-08T12:55:00.000Z</published>
-    <updated>2019-03-17T13:55:09.000Z</updated>
+    <title>【设计模式】拦截过滤器模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Intercepting-Filter/"/>
+    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Intercepting-Filter/</id>
+    <published>2019-03-09T03:25:31.000Z</published>
+    <updated>2019-03-19T01:20:19.000Z</updated>
     
     
-    <summary type="html">&lt;pre&gt;&lt;code&gt;观察者模式理解剖析以及应用
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Observer/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Memento Pattern 备忘录模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Memento/"/>
-    <id>https://www.wx1998.cn/Pattern-Memento/</id>
-    <published>2019-03-08T11:55:00.000Z</published>
-    <updated>2019-03-17T11:55:09.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;备忘录模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Memento/1.gif&quot; class=&quot;&quot;&gt;</summary>
+&lt;img src=&quot;/Pattern-Design/Pattern-Intercepting-Filter/1.gif&quot;&gt;</summary>
     
     
     

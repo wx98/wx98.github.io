@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Filter&Criteria/</loc>
-    <lastmod>2021-09-11</lastmod>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Proxy-Pattern/</loc>
+    <lastmod>2021-09-15</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Dynamic-Proxy/</loc>
-    <lastmod>2021-09-09</lastmod>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/</loc>
+    <lastmod>2021-09-15</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Proxy-Pattern/</loc>
-    <lastmod>2021-09-09</lastmod>
+    <loc>https://www.wx1998.cn/NodeJs-Notes/</loc>
+    <lastmod>2021-09-15</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Filter&Criteria/</loc>
+    <lastmod>2021-09-15</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/hello-hexo/</loc>
+    <lastmod>2021-09-15</lastmod>
   </url>
   <url>
     <loc>https://www.wx1998.cn/Vue-notes/</loc>
@@ -30,10 +38,6 @@
   </url>
   <url>
     <loc>https://www.wx1998.cn/Spring-MVC/</loc>
-    <lastmod>2021-08-12</lastmod>
-  </url>
-  <url>
-    <loc>https://www.wx1998.cn/NodeJs-Notes/</loc>
     <lastmod>2021-08-12</lastmod>
   </url>
   <url>
@@ -73,95 +77,127 @@
     <lastmod>2021-07-06</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/hello-hexo/</loc>
-    <lastmod>2021-07-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.wx1998.cn/Pattern-Decorator/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Decorator/</loc>
     <lastmod>2019-03-22</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Visitor/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/</loc>
     <lastmod>2019-03-19</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Template/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Business-Delegate/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Composite-Entity-Pattern/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Data-Access-Object/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Front-Controller/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Intercepting-Filter/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Model-View-Controller/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Service-Locator/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Transfer-Object/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Visitor/</loc>
+    <lastmod>2019-03-19</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Template/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Strategy/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Strategy/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-State/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-State/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Observer/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Observer/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Memento/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Memento/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Mediator/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Mediator/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Iterator/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Iterator/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Singleton/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Singleton/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Interpreter/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Interpreter/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Command/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Command/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Prototype/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Prototype/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-ChainOfResponsibility/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-ChainOfResponsibility/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Composite/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Composite/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Builder/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Builder/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Bridge/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Bridge/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Adapter/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Adapter/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Flyweight/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Flyweight/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Facade/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Facade/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Abstract-Factory/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Abstract-Factory/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/Pattern-Factory/</loc>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Factory/</loc>
     <lastmod>2019-03-17</lastmod>
   </url>
 </urlset> 

@@ -1,0 +1,184 @@
+<hr>
+<p>title: 【设计模式】Template Pattern 模板模式<br>date: 2019-03-09 09:15:08<br>updated: 2019-03-18 00:40:19<br>tags:</p>
+<ul>
+<li>Java</li>
+<li>设计模式<br>categories:</li>
+<li>[设计模式]</li>
+</ul>
+<hr>
+<pre><code>模板模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Design/Pattern-Template/1.gif">
+<!--more-->
+
+<h1 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h1><p>定义一个操作中的算法骨架，而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。</p>
+<p>在模板模式中，一个抽象类公开定义了执行它的方法的方式/模板。它的子类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。这种类型的设计模式属于行为型模式。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>一些方法通用，却在每一个子类都重新写了这一方法。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>有多个子类共有的方法，且逻辑相同。 </li>
+<li>重要的、复杂的方法，可以考虑作为模板方法。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>在造房子的时候，地基、走线、水管都一样，只有在建筑的后期才有加壁橱加栅栏等差异。 </li>
+<li>西游记里面菩萨定好的 81 难，这就是一个顶层的逻辑骨架。 </li>
+<li>spring 中对 Hibernate 的支持，将一些已经定好的方法封装起来，比如开启事务、获取 Session、关闭 Session 等，程序员不重复写那些已经规范好的代码，直接丢一个实体就可以保存。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>它封装了不变部分，扩展可变部分。它把认为是不变部分的算法封装到父类中实现，而把可变部分算法由子类继承实现，便于子类继续扩展。</li>
+<li>提取公共代码，便于维护。便于代码复用。</li>
+<li>行为由父类控制，子类实现。</li>
+<li>部分方法是由子类实现的，因此子类可以通过扩展方式增加相应的功能，符合开闭原则。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>对每个不同的实现都需要定义一个子类，这会导致类的个数增加，系统更加庞大，设计也更加抽象，间接地增加了系统实现的复杂度。</li>
+<li>父类中的抽象方法由子类实现，子类执行的结果会影响父类的结果，这导致一种反向的控制结构，它提高了代码阅读的难度。</li>
+<li>由于继承关系自身的缺点，如果父类添加新的抽象方法，则所有子类都要改一遍。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>为防止恶意操作，一般模板方法都加上 final 关键词。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+
+<ol>
+<li>抽象类/抽象模板（Abstract Class）<br>抽象模板类，负责给出一个算法的轮廓和骨架。它由一个模板方法和若干个基本方法构成。这些方法的定义如下。<ol>
+<li>定义了算法的骨架，按某种顺序调用其包含的基本方法。</li>
+<li>基本方法：是整个算法中的一个步骤，包含以下几种类型。<ul>
+<li>抽象方法：在抽象类中声明，由具体子类实现。</li>
+<li>具体方法：在抽象类中已经实现，在具体子类中可以继承或重写它。</li>
+<li>钩子方法：在抽象类中已经实现，包括用于判断的逻辑方法和需要子类重写的空方法两种。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>具体子类/具体实现（Concrete Class）<br>具体实现类，实现抽象类中所定义的抽象方法和钩子方法，它们是一个顶级逻辑的一个组成步骤。</li>
+</ol>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>抽象类</p>
+<pre><code class="java">abstract class AbstractClass {
+  //模板方法
+  public void TemplateMethod() {
+      SpecificMethod();
+      abstractMethod1();
+      abstractMethod2();
+  }
+
+  //具体方法
+  public void SpecificMethod() {
+      System.out.println(&quot;抽象类中的具体方法被调用...&quot;);
+  }
+
+  //抽象方法1
+  public abstract void abstractMethod1();
+
+  //抽象方法2
+  public abstract void abstractMethod2();
+}
+</code></pre>
+</li>
+<li><p>具体子类</p>
+<pre><code class="java">class ConcreteClass extends AbstractClass {
+  public void abstractMethod1() {
+      System.out.println(&quot;抽象方法1的实现被调用...&quot;);
+  }
+
+  public void abstractMethod2() {
+      System.out.println(&quot;抽象方法2的实现被调用...&quot;);
+  }
+}
+</code></pre>
+</li>
+<li><p>测试</p>
+<pre><code class="java">public class TemplateMethodPattern {
+  public static void main(String[] args) {
+      AbstractClass tm = new ConcreteClass();
+      tm.TemplateMethod();
+  }
+}
+</code></pre>
+<p>结果：</p>
+<pre><code class="text">抽象类中的具体方法被调用...
+抽象方法1的实现被调用...
+抽象方法2的实现被调用...
+</code></pre>
+</li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="2.jpg">
+创建一个定义操作的 Game 抽象类，其中，模板方法设置为 final，这样它就不会被重写。
+Cricket 和 Football 是扩展了 Game 的实体类，它们重写了抽象类的方法。
+TemplatePatternDemo使用 Game 来演示模板模式的用法。
+
+<ul>
+<li>创建一个抽象类，它的模板方法被设置为 final。<br>Game.java<pre><code class="java">public abstract class Game {
+ abstract void initialize();
+ abstract void startPlay();
+ abstract void endPlay();
+
+ //模板
+ public final void play(){
+
+    //初始化游戏
+    initialize();
+
+    //开始游戏
+    startPlay();
+
+    //结束游戏
+    endPlay();
+ }
+}
+</code></pre>
+</li>
+<li>创建扩展了上述类的实体类。<br>Cricket.java<pre><code class="java">public class Cricket extends Game {
+
+ @Override
+ void endPlay() {
+    System.out.println(&quot;Cricket Game Finished!&quot;);
+ }
+
+ @Override
+ void initialize() {
+    System.out.println(&quot;Cricket Game Initialized! Start playing.&quot;);
+ }
+
+ @Override
+ void startPlay() {
+    System.out.println(&quot;Cricket Game Started. Enjoy the game!&quot;);
+ }
+}
+</code></pre>
+Football.java<pre><code class="java">public class Football extends Game {
+
+ @Override
+ void endPlay() {
+    System.out.println(&quot;Football Game Finished!&quot;);
+ }
+
+ @Override
+ void initialize() {
+    System.out.println(&quot;Football Game Initialized! Start playing.&quot;);
+ }
+
+ @Override
+ void startPlay() {
+    System.out.println(&quot;Football Game Started. Enjoy the game!&quot;);
+ }
+}
+</code></pre>
+</li>
+<li>测试<br>TemplatePatternDemo.java<pre><code class="java">public class TemplatePatternDemo {
+ public static void main(String[] args) {
+
+    Game game = new Cricket();
+    game.play();
+    System.out.println();
+    game = new Football();
+    game.play();      
+ }
+}
+</code></pre>
+结果<br>```text<br>Cricket Game Initialized! Start playing.<br>Cricket Game Started. Enjoy the game!<br>Cricket Game Finished!</li>
+</ul>
+<p>Football Game Initialized! Start playing.<br>Football Game Started. Enjoy the game!<br>Football Game Finished!</p>
+<p>```</p>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>

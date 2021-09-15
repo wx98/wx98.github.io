@@ -378,6 +378,29 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Strategy Pattern 策略模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Strategy/"/>
+    <id>https://www.wx1998.cn/Pattern-Strategy/</id>
+    <published>2019-03-08T15:45:08.000Z</published>
+    <updated>2019-03-17T16:25:19.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;策略模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Strategy/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】State Pattern 状态模式</title>
     <link href="https://www.wx1998.cn/Pattern-State/"/>
     <id>https://www.wx1998.cn/Pattern-State/</id>
@@ -480,29 +503,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;迭代器模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Iterator/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Interpreter Pattern 解释器模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Interpreter/"/>
-    <id>https://www.wx1998.cn/Pattern-Interpreter/</id>
-    <published>2019-03-08T07:25:00.000Z</published>
-    <updated>2019-03-17T10:12:00.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;解释器模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Interpreter/1.gif&quot; class=&quot;&quot;&gt;</summary>
     
     
     

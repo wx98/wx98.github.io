@@ -37,11 +37,11 @@
     <lastmod>2021-08-12</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/create-github-pages/</loc>
+    <loc>https://www.wx1998.cn/basic-dos-command/</loc>
     <lastmod>2021-08-11</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/basic-dos-command/</loc>
+    <loc>https://www.wx1998.cn/create-github-pages/</loc>
     <lastmod>2021-08-11</lastmod>
   </url>
   <url>
@@ -79,6 +79,10 @@
   <url>
     <loc>https://www.wx1998.cn/Pattern-Decorator/</loc>
     <lastmod>2019-03-22</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/Pattern-Strategy/</loc>
+    <lastmod>2019-03-17</lastmod>
   </url>
   <url>
     <loc>https://www.wx1998.cn/Pattern-State/</loc>

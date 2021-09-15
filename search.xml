@@ -724,62 +724,6 @@ repo直接粘贴即可<img src="/Hexo-build-project/git-repo.png" class=""></li>
       </tags>
   </entry>
   <entry>
-    <title>【OpenCV】使用 OpenCv 进行图片模板匹配</title>
-    <url>/OpenCV-matchTemplate/</url>
-    <content><![CDATA[<pre><code>使用OpenCv在输入图片中匹配模板图片的位置
-</code></pre>
-<img src="/OpenCV-matchTemplate/OpenCV_matchTemplate.png" class="">
-<span id="more"></span>
-<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;做一个项目需要在Android中定位目标位置，现已经可以得到Android屏幕状态，于是需要一个方法来实现这个定位功能，自己也写过1个定位的方法奈何反应太慢，在网上找资料时发现OpenCv已经实现此功能，可以直接使用，欣喜若狂，特此记录一下。</p>
-<h1 id="OpenCv是什么？"><a href="#OpenCv是什么？" class="headerlink" title="OpenCv是什么？"></a>OpenCv是什么？</h1><ul>
-<li>OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉和机器学习软件库。</li>
-<li>OpenCV是用于图像处理、分析、机器视觉方面的开源函数库.</li>
-</ul>
-<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h2 id="随便找个图片作为输入"><a href="#随便找个图片作为输入" class="headerlink" title="随便找个图片作为输入"></a>随便找个图片作为输入</h2><img src="/OpenCV-matchTemplate/input.png" class="">
-<h2 id="随便截取一部分作为模板"><a href="#随便截取一部分作为模板" class="headerlink" title="随便截取一部分作为模板"></a>随便截取一部分作为模板</h2><img src="/OpenCV-matchTemplate/template.png" class="">
-<h1 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h1><p>至此我们需求为<strong>在输入图片中匹配寻找模板图片</strong>，如下图：</p>
-<img src="/OpenCV-matchTemplate/OpenCV_matchTemplate.png" class="">
-
-<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><h2 id="拿到Mat实例"><a href="#拿到Mat实例" class="headerlink" title="拿到Mat实例"></a>拿到Mat实例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Mat m_input = Imgcodecs.imread(input_path);<span class="comment">//输入</span></span><br><span class="line">Mat m_template = Imgcodecs.imread(template_path);<span class="comment">//模板</span></span><br></pre></td></tr></table></figure>
-<h2 id="创建比较结果图"><a href="#创建比较结果图" class="headerlink" title="创建比较结果图"></a>创建比较结果图</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> result_rows = m_input.rows() - m_template.rows() + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> result_cols = m_input.cols() - m_template.cols() + <span class="number">1</span>;</span><br><span class="line">Mat g_result = <span class="keyword">new</span> Mat(result_rows, result_cols, CvType.CV_32FC1);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>此处参考<a href="https://docs.opencv.org/4.5.2/df/dfb/group__imgproc__object.html#ga586ebfb0a7fb604b35a23d85391329be">官方匹配方法文档</a><img src="/OpenCV-matchTemplate/matchTemplate_doc.png" class=""></li>
-</ul>
-<h2 id="调用-matchTemplate-进行模板匹配"><a href="#调用-matchTemplate-进行模板匹配" class="headerlink" title="调用 matchTemplate() 进行模板匹配"></a>调用 matchTemplate() 进行模板匹配</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Imgproc.matchTemplate(m_target, m_template, g_result, Imgproc.TM_CCORR_NORMED);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>此处含有多种匹配模式<a href="https://docs.opencv.org/4.5.2/df/dfb/group__imgproc__object.html#ga3a7850640f1fe1f58fe91a2d7583695d">详见文档</a></li>
-</ul>
-<h2 id="将结果图进行归一化"><a href="#将结果图进行归一化" class="headerlink" title="将结果图进行归一化"></a>将结果图进行归一化</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Core.normalize(g_result, g_result, <span class="number">0</span>, <span class="number">1</span>, Core.NORM_MINMAX, -<span class="number">1</span>, <span class="keyword">new</span> Mat());</span><br></pre></td></tr></table></figure>
-<ul>
-<li>归一化就是要把需要处理的数据经过处理后（通过某种算法）限制在你需要的一定范围内。</li>
-<li>归一化是<strong>为了后面数据处理的方便</strong>，其次是<strong>保证程序运行时收敛加快</strong>。</li>
-<li>归一化的具体<strong>作用是归纳统一样本的统计分布性</strong>。</li>
-<li>归一化在0-1之间是统计的概率分布，归一化在某个区间上是统计的坐标分布。</li>
-<li>归一化有同一、统一和合一的意思。</li>
-<li>归一化的目的，是<strong>使得没有可比性的数据变得具有可比性</strong>，<strong>同时又保持相比较的两个数据之间的相对关系</strong>，如大小关系；或是为了作图，原来很难在一张图上作出来，归一化后就可以很方便的给出图上的相对位置等。</li>
-</ul>
-<h2 id="得到模板位置"><a href="#得到模板位置" class="headerlink" title="得到模板位置"></a>得到模板位置</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Core.MinMaxLocResult mmlr = Core.minMaxLoc(g_result);</span><br><span class="line">Point matchLocation = mmlr.maxLoc; <span class="comment">// 此处使用maxLoc还是minLoc取决于使用的匹配算法</span></span><br><span class="line">System.out.println(matchLocation.x + <span class="string">&quot;-----&quot;</span> + matchLocation.y);</span><br></pre></td></tr></table></figure>
-
-<h2 id="返回模板的中间坐标"><a href="#返回模板的中间坐标" class="headerlink" title="返回模板的中间坐标"></a>返回模板的中间坐标</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> x = matchLocation.x + (m_template.cols() / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">double</span> y = matchLocation.y + (m_template.rows() / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">double</span>[] tile = &#123;x, y&#125;;</span><br><span class="line"><span class="keyword">return</span> tile;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h1><p>OpenCv环境搭建移步此文章</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.opencv.core.Core;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.CvType;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.Mat;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.Point;</span><br><span class="line"><span class="keyword">import</span> org.opencv.imgcodecs.Imgcodecs;</span><br><span class="line"><span class="keyword">import</span> org.opencv.imgproc.Imgproc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FindTileCoordinates</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在目标图片中寻找模板图片</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> input_path    输入</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> template_path 模板</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[] searchFor(String input_path, String template_path) &#123;</span><br><span class="line">        Mat m_input = Imgcodecs.imread(input_path);</span><br><span class="line">        Mat m_template = Imgcodecs.imread(template_path);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> result_rows = m_input.rows() - m_template.rows() + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> result_cols = m_input.cols() - m_template.cols() + <span class="number">1</span>;</span><br><span class="line">        Mat g_result = <span class="keyword">new</span> Mat(result_rows, result_cols, CvType.CV_32FC1);</span><br><span class="line">        </span><br><span class="line">        Imgproc.matchTemplate(m_input, m_template, g_result, Imgproc.TM_CCORR_NORMED);</span><br><span class="line">        </span><br><span class="line">        Core.normalize(g_result, g_result, <span class="number">0</span>, <span class="number">1</span>, Core.NORM_MINMAX, -<span class="number">1</span>, <span class="keyword">new</span> Mat());</span><br><span class="line">        Core.MinMaxLocResult mmlr = Core.minMaxLoc(g_result);</span><br><span class="line">        Point matchLocation = mmlr.maxLoc;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> x = matchLocation.x + (m_template.cols() / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">double</span> y = matchLocation.y + (m_template.rows() / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">double</span>[] tile = &#123;x, y&#125;;</span><br><span class="line">        <span class="keyword">return</span> tile;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">double</span>[] doubles = <span class="keyword">new</span> FindTileCoordinates().searchFor(</span><br><span class="line">                <span class="string">&quot;input.png&quot;</span>,</span><br><span class="line">                <span class="string">&quot;template.png&quot;</span></span><br><span class="line">        );</span><br><span class="line">        System.out.println(doubles[<span class="number">0</span>] + <span class="string">&quot;-----&quot;</span> + doubles[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><img src="/OpenCV-matchTemplate/result.png" class="">
-<p>符合要求</p>
-<img src="/OpenCV-matchTemplate/result_end.png" class="">
-<hr>
-<p><strong>文章到此就结束啦，感谢查阅。</strong></p>
-]]></content>
-      <categories>
-        <category>Java</category>
-        <category>OpenCV</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>OpenCV</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【Node.js】NodeJs学习笔记</title>
     <url>/NodeJs-Notes/</url>
     <content><![CDATA[<pre><code>NodeJs学习笔记
@@ -942,6 +886,62 @@ presets字段设定转码规则，将es2015规则加入 .babelrc：<figure class
         <tag>Ndoe.js</tag>
         <tag>NPM</tag>
         <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【OpenCV】使用 OpenCv 进行图片模板匹配</title>
+    <url>/OpenCV-matchTemplate/</url>
+    <content><![CDATA[<pre><code>使用OpenCv在输入图片中匹配模板图片的位置
+</code></pre>
+<img src="/OpenCV-matchTemplate/OpenCV_matchTemplate.png" class="">
+<span id="more"></span>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>&emsp;&emsp;做一个项目需要在Android中定位目标位置，现已经可以得到Android屏幕状态，于是需要一个方法来实现这个定位功能，自己也写过1个定位的方法奈何反应太慢，在网上找资料时发现OpenCv已经实现此功能，可以直接使用，欣喜若狂，特此记录一下。</p>
+<h1 id="OpenCv是什么？"><a href="#OpenCv是什么？" class="headerlink" title="OpenCv是什么？"></a>OpenCv是什么？</h1><ul>
+<li>OpenCV是一个基于BSD许可（开源）发行的跨平台计算机视觉和机器学习软件库。</li>
+<li>OpenCV是用于图像处理、分析、机器视觉方面的开源函数库.</li>
+</ul>
+<h1 id="测试用例"><a href="#测试用例" class="headerlink" title="测试用例"></a>测试用例</h1><h2 id="随便找个图片作为输入"><a href="#随便找个图片作为输入" class="headerlink" title="随便找个图片作为输入"></a>随便找个图片作为输入</h2><img src="/OpenCV-matchTemplate/input.png" class="">
+<h2 id="随便截取一部分作为模板"><a href="#随便截取一部分作为模板" class="headerlink" title="随便截取一部分作为模板"></a>随便截取一部分作为模板</h2><img src="/OpenCV-matchTemplate/template.png" class="">
+<h1 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h1><p>至此我们需求为<strong>在输入图片中匹配寻找模板图片</strong>，如下图：</p>
+<img src="/OpenCV-matchTemplate/OpenCV_matchTemplate.png" class="">
+
+<h1 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h1><h2 id="拿到Mat实例"><a href="#拿到Mat实例" class="headerlink" title="拿到Mat实例"></a>拿到Mat实例</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Mat m_input = Imgcodecs.imread(input_path);<span class="comment">//输入</span></span><br><span class="line">Mat m_template = Imgcodecs.imread(template_path);<span class="comment">//模板</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建比较结果图"><a href="#创建比较结果图" class="headerlink" title="创建比较结果图"></a>创建比较结果图</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> result_rows = m_input.rows() - m_template.rows() + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> result_cols = m_input.cols() - m_template.cols() + <span class="number">1</span>;</span><br><span class="line">Mat g_result = <span class="keyword">new</span> Mat(result_rows, result_cols, CvType.CV_32FC1);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此处参考<a href="https://docs.opencv.org/4.5.2/df/dfb/group__imgproc__object.html#ga586ebfb0a7fb604b35a23d85391329be">官方匹配方法文档</a><img src="/OpenCV-matchTemplate/matchTemplate_doc.png" class=""></li>
+</ul>
+<h2 id="调用-matchTemplate-进行模板匹配"><a href="#调用-matchTemplate-进行模板匹配" class="headerlink" title="调用 matchTemplate() 进行模板匹配"></a>调用 matchTemplate() 进行模板匹配</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Imgproc.matchTemplate(m_target, m_template, g_result, Imgproc.TM_CCORR_NORMED);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此处含有多种匹配模式<a href="https://docs.opencv.org/4.5.2/df/dfb/group__imgproc__object.html#ga3a7850640f1fe1f58fe91a2d7583695d">详见文档</a></li>
+</ul>
+<h2 id="将结果图进行归一化"><a href="#将结果图进行归一化" class="headerlink" title="将结果图进行归一化"></a>将结果图进行归一化</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Core.normalize(g_result, g_result, <span class="number">0</span>, <span class="number">1</span>, Core.NORM_MINMAX, -<span class="number">1</span>, <span class="keyword">new</span> Mat());</span><br></pre></td></tr></table></figure>
+<ul>
+<li>归一化就是要把需要处理的数据经过处理后（通过某种算法）限制在你需要的一定范围内。</li>
+<li>归一化是<strong>为了后面数据处理的方便</strong>，其次是<strong>保证程序运行时收敛加快</strong>。</li>
+<li>归一化的具体<strong>作用是归纳统一样本的统计分布性</strong>。</li>
+<li>归一化在0-1之间是统计的概率分布，归一化在某个区间上是统计的坐标分布。</li>
+<li>归一化有同一、统一和合一的意思。</li>
+<li>归一化的目的，是<strong>使得没有可比性的数据变得具有可比性</strong>，<strong>同时又保持相比较的两个数据之间的相对关系</strong>，如大小关系；或是为了作图，原来很难在一张图上作出来，归一化后就可以很方便的给出图上的相对位置等。</li>
+</ul>
+<h2 id="得到模板位置"><a href="#得到模板位置" class="headerlink" title="得到模板位置"></a>得到模板位置</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Core.MinMaxLocResult mmlr = Core.minMaxLoc(g_result);</span><br><span class="line">Point matchLocation = mmlr.maxLoc; <span class="comment">// 此处使用maxLoc还是minLoc取决于使用的匹配算法</span></span><br><span class="line">System.out.println(matchLocation.x + <span class="string">&quot;-----&quot;</span> + matchLocation.y);</span><br></pre></td></tr></table></figure>
+
+<h2 id="返回模板的中间坐标"><a href="#返回模板的中间坐标" class="headerlink" title="返回模板的中间坐标"></a>返回模板的中间坐标</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">double</span> x = matchLocation.x + (m_template.cols() / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">double</span> y = matchLocation.y + (m_template.rows() / <span class="number">2</span>);</span><br><span class="line"><span class="keyword">double</span>[] tile = &#123;x, y&#125;;</span><br><span class="line"><span class="keyword">return</span> tile;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code:"></a>Code:</h1><p>OpenCv环境搭建移步此文章</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.opencv.core.Core;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.CvType;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.Mat;</span><br><span class="line"><span class="keyword">import</span> org.opencv.core.Point;</span><br><span class="line"><span class="keyword">import</span> org.opencv.imgcodecs.Imgcodecs;</span><br><span class="line"><span class="keyword">import</span> org.opencv.imgproc.Imgproc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FindTileCoordinates</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在目标图片中寻找模板图片</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> input_path    输入</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> template_path 模板</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">double</span>[] searchFor(String input_path, String template_path) &#123;</span><br><span class="line">        Mat m_input = Imgcodecs.imread(input_path);</span><br><span class="line">        Mat m_template = Imgcodecs.imread(template_path);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span> result_rows = m_input.rows() - m_template.rows() + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> result_cols = m_input.cols() - m_template.cols() + <span class="number">1</span>;</span><br><span class="line">        Mat g_result = <span class="keyword">new</span> Mat(result_rows, result_cols, CvType.CV_32FC1);</span><br><span class="line">        </span><br><span class="line">        Imgproc.matchTemplate(m_input, m_template, g_result, Imgproc.TM_CCORR_NORMED);</span><br><span class="line">        </span><br><span class="line">        Core.normalize(g_result, g_result, <span class="number">0</span>, <span class="number">1</span>, Core.NORM_MINMAX, -<span class="number">1</span>, <span class="keyword">new</span> Mat());</span><br><span class="line">        Core.MinMaxLocResult mmlr = Core.minMaxLoc(g_result);</span><br><span class="line">        Point matchLocation = mmlr.maxLoc;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">double</span> x = matchLocation.x + (m_template.cols() / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">double</span> y = matchLocation.y + (m_template.rows() / <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">double</span>[] tile = &#123;x, y&#125;;</span><br><span class="line">        <span class="keyword">return</span> tile;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">double</span>[] doubles = <span class="keyword">new</span> FindTileCoordinates().searchFor(</span><br><span class="line">                <span class="string">&quot;input.png&quot;</span>,</span><br><span class="line">                <span class="string">&quot;template.png&quot;</span></span><br><span class="line">        );</span><br><span class="line">        System.out.println(doubles[<span class="number">0</span>] + <span class="string">&quot;-----&quot;</span> + doubles[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><img src="/OpenCV-matchTemplate/result.png" class="">
+<p>符合要求</p>
+<img src="/OpenCV-matchTemplate/result_end.png" class="">
+<hr>
+<p><strong>文章到此就结束啦，感谢查阅。</strong></p>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>OpenCV</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>OpenCV</tag>
       </tags>
   </entry>
   <entry>
@@ -2671,53 +2671,124 @@ StopState.java<figure class="highlight java"><table><tr><td class="code"><pre><s
       </tags>
   </entry>
   <entry>
-    <title>【Flag】Android中间件模块-使用反编译注入自定义代码</title>
-    <url>/android-middleware-module/</url>
-    <content><![CDATA[<pre><code>根据Android反编译技术，
-将不同代码以及功能，批量注入到目标软件中，
-批量生成附带不同功能（定制功能）的各自的安装包
+    <title>【设计模式】Strategy Pattern 策略模式</title>
+    <url>/Pattern-Strategy/</url>
+    <content><![CDATA[<pre><code>策略模式理解剖析以及应用
 </code></pre>
-<img src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
+<img src="/Pattern-Strategy/1.gif" class="">
 <span id="more"></span>
-<p><strong><em>呃。。回过头看发现废话有点多，若只想了解方案实现请直接</em></strong> <strong><a href="#%E6%96%B9%E6%A1%88">跳转至方案</a></strong></p>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;在刚进入互联网行业时，进了一家小型运营公司，公司主要业务是将开发者或开发公司开发完成的Android软件分发到各个渠道牟利。 我当时负责公司Android部分的全部工作内容，好不容易掌握技术原理，将编程之外的所有工作脚本化， 准备开始享受工作，可因为公司运营几次决策失误，导致资方撤资，公司被迫关闭运营。<br>&emsp;&emsp;虽然公司没了，但这个解决方案还是很有趣的，方案具体实现<strong>开发者只需接入一次</strong>我方Sdk，我方就可以生产<strong>所有已接入我方渠道渠道</strong>的渠道包，将任何渠道的代码功能注入到开发者的Android包中，真正意义上实现<strong>一次接入批量生产</strong>。故以写此文章分享给大家。</p>
-<hr>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
-<p>软件开发者或开发公司统称为<strong>开发方</strong>，我方公司统称为<strong>中间方</strong>，分发渠道统称为<strong>渠道方</strong></p>
-<ul>
-<li>软件内容完全由开发方提供，中间方提供接入包(Sdk)供开发方接入中间方</li>
-<li>软件的运营由<strong>开发者与中间方</strong>共同进行，中间方<strong>确定新运营需求</strong>，开发者<strong>实现运营需求</strong></li>
-<li>宣发等内容完全由渠道方进行，用户支付由渠道方进行</li>
+
+<h1 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h1><p>该模式定义了一系列算法，并将每个算法封装起来，使它们可以相互替换，且算法的变化不会影响使用算法的客户。策略模式属于对象行为模式，它通过对算法进行封装，把使用算法的责任和算法的实现分割开来，并委派给不同的对象对这些算法进行管理。<br><del>在策略模式中，一个类的行为或其算法可以在运行时更改<br>在策略模式中，我们创建表示各种策略的对象和一个行为随着策略对象改变而改变的 context 对象。策略对象改变 context 对象的执行算法。</del></p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>定义一系列的算法,把它们一个个封装起来, 并且使它们可相互替换。</li>
 </ul>
-<p>至此我们可以大致总结：<em>开发方开发软件，交给中间方运营，中间方将软件分发给渠道，渠道下发给用户下载使用</em></p>
-<h2 id="大致需求"><a href="#大致需求" class="headerlink" title="大致需求"></a>大致需求</h2><p>由三方关系我们可以得出对产品得出以下大致需求：  </p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>如果在一个系统里面有许多类，它们之间的区别仅在于它们的行为，那么使用策略模式可以动态地让一个对象在许多行为中选择一种行为。 </li>
+<li>一个系统需要动态地在几种算法中选择一种。 </li>
+<li>如果一个对象有很多的行为，如果不用恰当的模式，这些行为就只好使用多重的条件选择语句来实现。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>诸葛亮的锦囊妙计，每一个锦囊就是一个策略。</li>
+<li>旅行的出游方式，选择骑自行车、坐汽车，每一种旅行方式都是一个策略。 </li>
+<li>JAVA AWT 中的 LayoutManager。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>算法可以自由切换。 </li>
+<li>扩展性良好。</li>
+<li>多重条件语句不易维护，而使用策略模式可以避免使用多重条件语句，如 if…else 语句、switch…case 语句。</li>
+<li>策略模式提供了一系列的可供重用的算法族，恰当使用继承可以把算法族的公共代码转移到父类里面，从而避免重复的代码。</li>
+<li>策略模式可以提供相同行为的不同实现，客户可以根据不同时间或空间要求选择不同的。</li>
+<li>策略模式提供了对开闭原则的完美支持，可以在不修改原代码的情况下，灵活增加新算法。</li>
+<li>策略模式把算法的使用放到环境类中，而算法的实现移到具体策略类中，实现了二者的分离。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>策略类会增多。 </li>
+<li>所有策略类都需要对外暴露。</li>
+<li>客户端必须理解所有策略算法的区别，以便适时选择恰当的算法类。</li>
+<li>策略模式造成很多的策略类，增加维护难度。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>如果一个系统的策略多于四个，就需要考虑使用混合模式，解决策略类膨胀的问题。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Strategy/1.gif" class="">
 <ul>
-<li>开发方接入我方Sdk需要简便快捷,中间方Sdk不影响原有软件功能</li>
-<li>中间方接入新渠道简单</li>
-<li>中间方完全控制渠道方软件的关键功能（例如支付等）</li>
-<li>中间方可批量化注入渠道代码生成渠道包</li>
-<li>中间方统计关键部分所有数据以便跟双方交接</li>
+<li>抽象策略（Strategy）类：定义了一个公共接口，各种不同的算法以不同的方式实现这个接口，环境角色使用这个接口调用不同的算法，一般使用接口或抽象类实现。</li>
+<li>具体策略（Concrete Strategy）类：实现了抽象策略定义的接口，提供具体的算法实现。</li>
+<li>环境（Context）类：持有一个策略类的引用，最终给客户端调用。</li>
 </ul>
-<p>大致描述需求：<br>&emsp;&emsp;因为中间方不实现软件内容，只负责提供开发者接入的Sdk开发，故我们需要供开发者接入的SDK以及此SDK的网页后台。开发方接入中间方Sdk也需要简单易操作。 因为中间方需要避免某方毁约行为，所以需要SDK具备控制关键内容的能力。<br>中间方使用已接入的软件包作为<strong>母包</strong>批量生成渠道使用的包<strong>渠道包</strong>需要快速便捷。</p>
-<hr>
-<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="项目关系分析"><a href="#项目关系分析" class="headerlink" title="项目关系分析"></a>项目关系分析</h2><p>这里整个png一下代码数据传输的关系</p>
-<h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><p>正在整理</p>
-<h2 id="SDK方案"><a href="#SDK方案" class="headerlink" title="SDK方案"></a>SDK方案</h2><p>正在整理</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="android中间方SDK"><a href="#android中间方SDK" class="headerlink" title="android中间方SDK"></a>android中间方SDK</h2><p>正在整理</p>
-<h2 id="Web中间方SDK后台"><a href="#Web中间方SDK后台" class="headerlink" title="Web中间方SDK后台"></a>Web中间方SDK后台</h2><p>正在整理</p>
-<h2 id="渠道SDK接入工程"><a href="#渠道SDK接入工程" class="headerlink" title="渠道SDK接入工程"></a>渠道SDK接入工程</h2><p>正在整理</p>
-<h2 id="生成渠道SDK打包工程"><a href="#生成渠道SDK打包工程" class="headerlink" title="生成渠道SDK打包工程"></a>生成渠道SDK打包工程</h2><p>正在整理</p>
-]]></content>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li><p>抽象策略类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Strategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">strategyMethod</span><span class="params">()</span></span>;    <span class="comment">//策略方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>具体策略类A</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyA</span> <span class="keyword">implements</span> <span class="title">Strategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">strategyMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体策略A的策略方法被访问！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>具体策略类B</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteStrategyB</span> <span class="keyword">implements</span> <span class="title">Strategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">strategyMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体策略B的策略方法被访问！&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>环境类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Strategy strategy;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Strategy <span class="title">getStrategy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStrategy</span><span class="params">(Strategy strategy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.strategy = strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">strategyMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        strategy.strategyMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>测试</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StrategyPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Context c = <span class="keyword">new</span> Context();</span><br><span class="line">        Strategy s = <span class="keyword">new</span> ConcreteStrategyA();</span><br><span class="line">        c.setStrategy(s);</span><br><span class="line">        c.strategyMethod();</span><br><span class="line">        System.out.println(<span class="string">&quot;-----------------&quot;</span>);</span><br><span class="line">        s = <span class="keyword">new</span> ConcreteStrategyB();</span><br><span class="line">        c.setStrategy(s);</span><br><span class="line">        c.strategyMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">具体策略A的策略方法被访问！</span><br><span class="line">-----------------</span><br><span class="line">具体策略B的策略方法被访问！</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>创建一个定义活动的 Strategy 接口和实现了 Strategy 接口的实体策略类。<br>Context 是一个使用了某种策略的类。<br>StrategyPatternDemo使用 Context 和策略对象来演示 Context 在它所配置或使用的策略改变时的行为变化。</p>
+<img src="/Pattern-Strategy/2.jpg" class="">
+
+<ul>
+<li><p>创建一个接口。<br>Strategy.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Strategy</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doOperation</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建实现接口的实体类。<br>OperationAdd.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OperationAdd</span> <span class="keyword">implements</span> <span class="title">Strategy</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doOperation</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> num1 + num2;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OperationSubtract.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OperationSubtract</span> <span class="keyword">implements</span> <span class="title">Strategy</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doOperation</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> num1 - num2;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OperationMultiply.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OperationMultiply</span> <span class="keyword">implements</span> <span class="title">Strategy</span></span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">doOperation</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> num1 * num2;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>创建 Context 类。<br>Context.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Context</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> Strategy strategy;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Context</span><span class="params">(Strategy strategy)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.strategy = strategy;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">executeStrategy</span><span class="params">(<span class="keyword">int</span> num1, <span class="keyword">int</span> num2)</span></span>&#123;</span><br><span class="line">      <span class="keyword">return</span> strategy.doOperation(num1, num2);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>使用 Context 来查看当它改变策略 Strategy 时的行为变化。<br>StrategyPatternDemo.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StrategyPatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Context context = <span class="keyword">new</span> Context(<span class="keyword">new</span> OperationAdd());    </span><br><span class="line">      System.out.println(<span class="string">&quot;10 + 5 = &quot;</span> + context.executeStrategy(<span class="number">10</span>, <span class="number">5</span>));</span><br><span class="line"> </span><br><span class="line">      context = <span class="keyword">new</span> Context(<span class="keyword">new</span> OperationSubtract());      </span><br><span class="line">      System.out.println(<span class="string">&quot;10 - 5 = &quot;</span> + context.executeStrategy(<span class="number">10</span>, <span class="number">5</span>));</span><br><span class="line"> </span><br><span class="line">      context = <span class="keyword">new</span> Context(<span class="keyword">new</span> OperationMultiply());    </span><br><span class="line">      System.out.println(<span class="string">&quot;10 * 5 = &quot;</span> + context.executeStrategy(<span class="number">10</span>, <span class="number">5</span>));</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">10 + 5 = 15</span><br><span class="line">10 - 5 = 5</span><br><span class="line">10 * 5 = 50</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>]]></content>
       <categories>
-        <category>Android</category>
-        <category>反编译</category>
-        <category>自定义中间件</category>
+        <category>设计模式</category>
       </categories>
       <tags>
-        <tag>Spring</tag>
-        <tag>Android</tag>
-        <tag>Android反编译</tag>
-        <tag>Python</tag>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Dos命令】基础Dos命令随笔</title>
+    <url>/basic-dos-command/</url>
+    <content><![CDATA[<h1 id="本文为-Dos命令随笔"><a href="#本文为-Dos命令随笔" class="headerlink" title="本文为 Dos命令随笔"></a>本文为 Dos命令随笔</h1><span id="more"></span>
+<h1 id="盘符切换"><a href="#盘符切换" class="headerlink" title="盘符切换"></a>盘符切换</h1><p>切到D盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:</span><br></pre></td></tr></table></figure>
+<p>切到C盘</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:</span><br></pre></td></tr></table></figure>
+
+<h1 id="查看当前目录"><a href="#查看当前目录" class="headerlink" title="查看当前目录"></a>查看当前目录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir</span><br></pre></td></tr></table></figure>
+
+<h1 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h1><p>切换到某一目录</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd \d &lt;path&gt;</span><br></pre></td></tr></table></figure>
+<p>返回上一级</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
+
+<h1 id="清理屏幕"><a href="#清理屏幕" class="headerlink" title="清理屏幕"></a>清理屏幕</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cls</span><br></pre></td></tr></table></figure>
+
+<h1 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
+
+<h1 id="查本机IP"><a href="#查本机IP" class="headerlink" title="查本机IP"></a>查本机IP</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
+
+<h1 id="ping-某些网站得到ip"><a href="#ping-某些网站得到ip" class="headerlink" title="ping 某些网站得到ip"></a>ping 某些网站得到ip</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ping www.wx1998.cn</span><br></pre></td></tr></table></figure>
+<p>一般测试网站是否链接</p>
+<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">md 目录</span><br><span class="line">rd 目录</span><br><span class="line">cd&gt;文件名</span><br><span class="line">del 文件名</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Windows</category>
+        <category>doc命令</category>
+      </categories>
+      <tags>
+        <tag>Dos命令</tag>
+        <tag>命令</tag>
       </tags>
   </entry>
   <entry>
@@ -2781,37 +2852,53 @@ StopState.java<figure class="highlight java"><table><tr><td class="code"><pre><s
       </tags>
   </entry>
   <entry>
-    <title>【Dos命令】基础Dos命令随笔</title>
-    <url>/basic-dos-command/</url>
-    <content><![CDATA[<h1 id="本文为-Dos命令随笔"><a href="#本文为-Dos命令随笔" class="headerlink" title="本文为 Dos命令随笔"></a>本文为 Dos命令随笔</h1><span id="more"></span>
-<h1 id="盘符切换"><a href="#盘符切换" class="headerlink" title="盘符切换"></a>盘符切换</h1><p>切到D盘</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:</span><br></pre></td></tr></table></figure>
-<p>切到C盘</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:</span><br></pre></td></tr></table></figure>
-
-<h1 id="查看当前目录"><a href="#查看当前目录" class="headerlink" title="查看当前目录"></a>查看当前目录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">dir</span><br></pre></td></tr></table></figure>
-
-<h1 id="切换目录"><a href="#切换目录" class="headerlink" title="切换目录"></a>切换目录</h1><p>切换到某一目录</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd \d &lt;path&gt;</span><br></pre></td></tr></table></figure>
-<p>返回上一级</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd ..</span><br></pre></td></tr></table></figure>
-
-<h1 id="清理屏幕"><a href="#清理屏幕" class="headerlink" title="清理屏幕"></a>清理屏幕</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cls</span><br></pre></td></tr></table></figure>
-
-<h1 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">exit</span><br></pre></td></tr></table></figure>
-
-<h1 id="查本机IP"><a href="#查本机IP" class="headerlink" title="查本机IP"></a>查本机IP</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ipconfig</span><br></pre></td></tr></table></figure>
-
-<h1 id="ping-某些网站得到ip"><a href="#ping-某些网站得到ip" class="headerlink" title="ping 某些网站得到ip"></a>ping 某些网站得到ip</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ping www.wx1998.cn</span><br></pre></td></tr></table></figure>
-<p>一般测试网站是否链接</p>
-<h1 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">md 目录</span><br><span class="line">rd 目录</span><br><span class="line">cd&gt;文件名</span><br><span class="line">del 文件名</span><br></pre></td></tr></table></figure>]]></content>
+    <title>【Flag】Android中间件模块-使用反编译注入自定义代码</title>
+    <url>/android-middleware-module/</url>
+    <content><![CDATA[<pre><code>根据Android反编译技术，
+将不同代码以及功能，批量注入到目标软件中，
+批量生成附带不同功能（定制功能）的各自的安装包
+</code></pre>
+<img src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
+<span id="more"></span>
+<p><strong><em>呃。。回过头看发现废话有点多，若只想了解方案实现请直接</em></strong> <strong><a href="#%E6%96%B9%E6%A1%88">跳转至方案</a></strong></p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;在刚进入互联网行业时，进了一家小型运营公司，公司主要业务是将开发者或开发公司开发完成的Android软件分发到各个渠道牟利。 我当时负责公司Android部分的全部工作内容，好不容易掌握技术原理，将编程之外的所有工作脚本化， 准备开始享受工作，可因为公司运营几次决策失误，导致资方撤资，公司被迫关闭运营。<br>&emsp;&emsp;虽然公司没了，但这个解决方案还是很有趣的，方案具体实现<strong>开发者只需接入一次</strong>我方Sdk，我方就可以生产<strong>所有已接入我方渠道渠道</strong>的渠道包，将任何渠道的代码功能注入到开发者的Android包中，真正意义上实现<strong>一次接入批量生产</strong>。故以写此文章分享给大家。</p>
+<hr>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
+<p>软件开发者或开发公司统称为<strong>开发方</strong>，我方公司统称为<strong>中间方</strong>，分发渠道统称为<strong>渠道方</strong></p>
+<ul>
+<li>软件内容完全由开发方提供，中间方提供接入包(Sdk)供开发方接入中间方</li>
+<li>软件的运营由<strong>开发者与中间方</strong>共同进行，中间方<strong>确定新运营需求</strong>，开发者<strong>实现运营需求</strong></li>
+<li>宣发等内容完全由渠道方进行，用户支付由渠道方进行</li>
+</ul>
+<p>至此我们可以大致总结：<em>开发方开发软件，交给中间方运营，中间方将软件分发给渠道，渠道下发给用户下载使用</em></p>
+<h2 id="大致需求"><a href="#大致需求" class="headerlink" title="大致需求"></a>大致需求</h2><p>由三方关系我们可以得出对产品得出以下大致需求：  </p>
+<ul>
+<li>开发方接入我方Sdk需要简便快捷,中间方Sdk不影响原有软件功能</li>
+<li>中间方接入新渠道简单</li>
+<li>中间方完全控制渠道方软件的关键功能（例如支付等）</li>
+<li>中间方可批量化注入渠道代码生成渠道包</li>
+<li>中间方统计关键部分所有数据以便跟双方交接</li>
+</ul>
+<p>大致描述需求：<br>&emsp;&emsp;因为中间方不实现软件内容，只负责提供开发者接入的Sdk开发，故我们需要供开发者接入的SDK以及此SDK的网页后台。开发方接入中间方Sdk也需要简单易操作。 因为中间方需要避免某方毁约行为，所以需要SDK具备控制关键内容的能力。<br>中间方使用已接入的软件包作为<strong>母包</strong>批量生成渠道使用的包<strong>渠道包</strong>需要快速便捷。</p>
+<hr>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="项目关系分析"><a href="#项目关系分析" class="headerlink" title="项目关系分析"></a>项目关系分析</h2><p>这里整个png一下代码数据传输的关系</p>
+<h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><p>正在整理</p>
+<h2 id="SDK方案"><a href="#SDK方案" class="headerlink" title="SDK方案"></a>SDK方案</h2><p>正在整理</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="android中间方SDK"><a href="#android中间方SDK" class="headerlink" title="android中间方SDK"></a>android中间方SDK</h2><p>正在整理</p>
+<h2 id="Web中间方SDK后台"><a href="#Web中间方SDK后台" class="headerlink" title="Web中间方SDK后台"></a>Web中间方SDK后台</h2><p>正在整理</p>
+<h2 id="渠道SDK接入工程"><a href="#渠道SDK接入工程" class="headerlink" title="渠道SDK接入工程"></a>渠道SDK接入工程</h2><p>正在整理</p>
+<h2 id="生成渠道SDK打包工程"><a href="#生成渠道SDK打包工程" class="headerlink" title="生成渠道SDK打包工程"></a>生成渠道SDK打包工程</h2><p>正在整理</p>
+]]></content>
       <categories>
-        <category>Windows</category>
-        <category>doc命令</category>
+        <category>Android</category>
+        <category>反编译</category>
+        <category>自定义中间件</category>
       </categories>
       <tags>
-        <tag>Dos命令</tag>
-        <tag>命令</tag>
+        <tag>Spring</tag>
+        <tag>Android</tag>
+        <tag>Android反编译</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -3465,7 +3552,7 @@ public class test &#123;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;wx.98@qq.com&gt;</span><br></pre></td></tr></table></figure>
 <p>效果↓</p>
 <blockquote>
-<p><a href="mailto:&#119;&#120;&#x2e;&#57;&#x38;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#x6d;">&#119;&#120;&#x2e;&#57;&#x38;&#x40;&#x71;&#x71;&#46;&#99;&#111;&#x6d;</a></p>
+<p><a href="mailto:&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
 </blockquote>
 <h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，<br>例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\\   反斜线</span><br><span class="line">\&#96;   反引号</span><br><span class="line">\*   星号</span><br><span class="line">\_   底线</span><br><span class="line">\&#123;&#125;  花括号</span><br><span class="line">\[]  方括号</span><br><span class="line">\()  括弧</span><br><span class="line">\#   井字号</span><br><span class="line">\+   加号</span><br><span class="line">\-   减号</span><br><span class="line">\.   英文句点</span><br><span class="line">\!   惊叹号</span><br></pre></td></tr></table></figure>

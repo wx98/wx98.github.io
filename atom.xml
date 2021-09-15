@@ -378,6 +378,29 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Template Pattern 模板模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Template/"/>
+    <id>https://www.wx1998.cn/Pattern-Template/</id>
+    <published>2019-03-09T01:15:08.000Z</published>
+    <updated>2019-03-17T16:40:19.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;模板模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Template/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】Strategy Pattern 策略模式</title>
     <link href="https://www.wx1998.cn/Pattern-Strategy/"/>
     <id>https://www.wx1998.cn/Pattern-Strategy/</id>
@@ -480,29 +503,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;中介者模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Mediator/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Iterator  Pattern 迭代器模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Iterator/"/>
-    <id>https://www.wx1998.cn/Pattern-Iterator/</id>
-    <published>2019-03-08T09:25:00.000Z</published>
-    <updated>2019-03-17T11:21:00.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;迭代器模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Iterator/1.gif&quot; class=&quot;&quot;&gt;</summary>
     
     
     

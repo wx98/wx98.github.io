@@ -1116,72 +1116,6 @@ presets字段设定转码规则，将es2015规则加入 .babelrc：<figure class
       </tags>
   </entry>
   <entry>
-    <title>【设计模式】Bridge Pattern 桥接模式</title>
-    <url>/Pattern-Bridge/</url>
-    <content><![CDATA[<pre><code>桥接模式理解剖析以及应用
-</code></pre>
-<img src="/Pattern-Bridge/1.gif" class="">
-<span id="more"></span>
-
-<h1 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h1><p>桥接是用于把抽象化与实现化解耦，使得二者可以独立变化。<br>这种类型的设计模式属于结构型模式，它通过提供抽象化和实现化之间的桥接结构，来实现二者的解耦。<br>这种模式涉及到一个作为桥接的接口，使得实体类的功能独立于接口实现类。这两种类型的类可被结构化改变而互不影响。</p>
-<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
-<li>将抽象部分与实现部分分离，使它们都可以独立的变化。</li>
-</ul>
-<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在有多种可能会变化的情况下，用继承会造成类爆炸问题，扩展起来不灵活。</p>
-<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
-<li>如果一个系统需要在构件的抽象化角色和具体化角色之间增加更多的灵活性，避免在两个层次之间建立静态的继承联系，通过桥接模式可以使它们在抽象层建立一个关联关系。 </li>
-<li>对于那些不希望使用继承或因为多层次继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。 </li>
-<li>一个类存在两个独立变化的维度，且这两个维度都需要进行扩展。</li>
-</ol>
-<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
-<li>墙上的开关，可以看到的开关是抽象的，不用管里面具体怎么实现的。</li>
-</ol>
-<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
-<li>抽象和实现的分离。 </li>
-<li>优秀的扩展能力。 </li>
-<li>实现细节对客户透明。</li>
-<li>抽象与实现分离，扩展能力强</li>
-<li>符合开闭原则</li>
-<li>符合合成复用原则</li>
-</ol>
-<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，能正确地识别出系统中两个独立变化的维度，这增加了系统的理解与设计难度。</p>
-<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>对于两个独立变化的维度，使用桥接模式再适合不过了。</p>
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Bridge/1.gif" class="">
-<ul>
-<li>抽象化（Abstraction）角色：定义抽象类，并包含一个对实现化对象的引用。</li>
-<li>扩展抽象化（Refined Abstraction）角色：是抽象化角色的子类，实现父类中的业务方法，并通过组合关系调用实现化角色中的业务方法。</li>
-<li>实现化（Implementor）角色：定义实现化角色的接口，供扩展抽象化角色调用。</li>
-<li>具体实现化（Concrete Implementor）角色：给出实现化角色接口的具体实现。</li>
-</ul>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实现化角色</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Implementor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OperationImpl</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现化角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteImplementorA</span> <span class="keyword">implements</span> <span class="title">Implementor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OperationImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体实现化(Concrete Implementor)角色被访问&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象化角色</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Abstraction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> Implementor imple;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Abstraction</span><span class="params">(Implementor imple)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.imple = imple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Operation</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展抽象化角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RefinedAbstraction</span> <span class="keyword">extends</span> <span class="title">Abstraction</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">RefinedAbstraction</span><span class="params">(Implementor imple)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(imple);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;扩展抽象化(Refined Abstraction)角色被访问&quot;</span>);</span><br><span class="line">        imple.OperationImpl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Implementor imple = <span class="keyword">new</span> ConcreteImplementorA();</span><br><span class="line">        Abstraction abs = <span class="keyword">new</span> RefinedAbstraction(imple);</span><br><span class="line">        abs.Operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="/Pattern-Bridge/2.svg" class="">
-
-<p>我们有一个作为桥接实现的 DrawAPI 接口 和 实现了 DrawAPI 接口的实体类 RedCircle、GreenCircle。<br>Shape 是一个抽象类，将使用 DrawAPI 的对象。<br>BridgePatternDemo 类使用 Shape 类来画出不同颜色的圆。</p>
-<ul>
-<li>创建桥接实现接口。<br>DrawAPI.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>创建实现了 DrawAPI 接口的实体桥接实现类。<br>RedCircle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedCircle</span> <span class="keyword">implements</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Drawing Circle[ color: red, radius: &quot;</span></span><br><span class="line">         + radius +<span class="string">&quot;, x: &quot;</span> +x+<span class="string">&quot;, &quot;</span>+ y +<span class="string">&quot;]&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-GreenCircle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GreenCircle</span> <span class="keyword">implements</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Drawing Circle[ color: green, radius: &quot;</span></span><br><span class="line">         + radius +<span class="string">&quot;, x: &quot;</span> +x+<span class="string">&quot;, &quot;</span>+ y +<span class="string">&quot;]&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>使用 DrawAPI 接口创建抽象类 Shape。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> DrawAPI drawAPI;</span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="title">Shape</span><span class="params">(DrawAPI drawAPI)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.drawAPI = drawAPI;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-Circle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> x, y, radius;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Circle</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> radius, DrawAPI drawAPI)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(drawAPI);</span><br><span class="line">      <span class="keyword">this</span>.x = x;  </span><br><span class="line">      <span class="keyword">this</span>.y = y;  </span><br><span class="line">      <span class="keyword">this</span>.radius = radius;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      drawAPI.drawCircle(radius,x,y);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>使用 Shape 和 DrawAPI 类画出不同颜色的圆。<br>BridgePatternDemo.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> Circle(<span class="number">100</span>,<span class="number">100</span>, <span class="number">10</span>, <span class="keyword">new</span> RedCircle());</span><br><span class="line">      Shape greenCircle = <span class="keyword">new</span> Circle(<span class="number">100</span>,<span class="number">100</span>, <span class="number">10</span>, <span class="keyword">new</span> GreenCircle());</span><br><span class="line"> </span><br><span class="line">      redCircle.draw();</span><br><span class="line">      greenCircle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1><p>建议参考 </p>
-<div name = "http://c.biancheng.net/view/vip_8379.html"></div>
-<div name = "http://c.biancheng.net/view/vip_8382.html"></div>
-<div name = "http://c.biancheng.net/view/vip_8379.html"></div>
-<div name = "http://c.biancheng.net/view/vip_8383.html"></div>
-]]></content>
-      <categories>
-        <category>设计模式</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>设计模式</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【设计模式】Builder  Pattern 建造者模式</title>
     <url>/Pattern-Builder/</url>
     <content><![CDATA[<pre><code>建造者模式理解剖析以及应用
@@ -1258,6 +1192,72 @@ Pepsi.java 百事可乐<figure class="highlight java"><table><tr><td class="code
 [《使用建造者模式构建动态SQL语句》](http://c.biancheng.net/view/vip_8415.html)
 [《建造者模式在框架源码中的应用》](http://c.biancheng.net/view/vip_8420.html)
  -->]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【设计模式】Bridge Pattern 桥接模式</title>
+    <url>/Pattern-Bridge/</url>
+    <content><![CDATA[<pre><code>桥接模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Bridge/1.gif" class="">
+<span id="more"></span>
+
+<h1 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h1><p>桥接是用于把抽象化与实现化解耦，使得二者可以独立变化。<br>这种类型的设计模式属于结构型模式，它通过提供抽象化和实现化之间的桥接结构，来实现二者的解耦。<br>这种模式涉及到一个作为桥接的接口，使得实体类的功能独立于接口实现类。这两种类型的类可被结构化改变而互不影响。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>将抽象部分与实现部分分离，使它们都可以独立的变化。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>在有多种可能会变化的情况下，用继承会造成类爆炸问题，扩展起来不灵活。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>如果一个系统需要在构件的抽象化角色和具体化角色之间增加更多的灵活性，避免在两个层次之间建立静态的继承联系，通过桥接模式可以使它们在抽象层建立一个关联关系。 </li>
+<li>对于那些不希望使用继承或因为多层次继承导致系统类的个数急剧增加的系统，桥接模式尤为适用。 </li>
+<li>一个类存在两个独立变化的维度，且这两个维度都需要进行扩展。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>墙上的开关，可以看到的开关是抽象的，不用管里面具体怎么实现的。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>抽象和实现的分离。 </li>
+<li>优秀的扩展能力。 </li>
+<li>实现细节对客户透明。</li>
+<li>抽象与实现分离，扩展能力强</li>
+<li>符合开闭原则</li>
+<li>符合合成复用原则</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>由于聚合关系建立在抽象层，要求开发者针对抽象化进行设计与编程，能正确地识别出系统中两个独立变化的维度，这增加了系统的理解与设计难度。</p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>对于两个独立变化的维度，使用桥接模式再适合不过了。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Bridge/1.gif" class="">
+<ul>
+<li>抽象化（Abstraction）角色：定义抽象类，并包含一个对实现化对象的引用。</li>
+<li>扩展抽象化（Refined Abstraction）角色：是抽象化角色的子类，实现父类中的业务方法，并通过组合关系调用实现化角色中的业务方法。</li>
+<li>实现化（Implementor）角色：定义实现化角色的接口，供扩展抽象化角色调用。</li>
+<li>具体实现化（Concrete Implementor）角色：给出实现化角色接口的具体实现。</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//实现化角色</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Implementor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OperationImpl</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//具体实现化角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteImplementorA</span> <span class="keyword">implements</span> <span class="title">Implementor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OperationImpl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;具体实现化(Concrete Implementor)角色被访问&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//抽象化角色</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Abstraction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> Implementor imple;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Abstraction</span><span class="params">(Implementor imple)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.imple = imple;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Operation</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展抽象化角色</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RefinedAbstraction</span> <span class="keyword">extends</span> <span class="title">Abstraction</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">RefinedAbstraction</span><span class="params">(Implementor imple)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(imple);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Operation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;扩展抽象化(Refined Abstraction)角色被访问&quot;</span>);</span><br><span class="line">        imple.OperationImpl();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Implementor imple = <span class="keyword">new</span> ConcreteImplementorA();</span><br><span class="line">        Abstraction abs = <span class="keyword">new</span> RefinedAbstraction(imple);</span><br><span class="line">        abs.Operation();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="/Pattern-Bridge/2.svg" class="">
+
+<p>我们有一个作为桥接实现的 DrawAPI 接口 和 实现了 DrawAPI 接口的实体类 RedCircle、GreenCircle。<br>Shape 是一个抽象类，将使用 DrawAPI 的对象。<br>BridgePatternDemo 类使用 Shape 类来画出不同颜色的圆。</p>
+<ul>
+<li>创建桥接实现接口。<br>DrawAPI.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建实现了 DrawAPI 接口的实体桥接实现类。<br>RedCircle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedCircle</span> <span class="keyword">implements</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Drawing Circle[ color: red, radius: &quot;</span></span><br><span class="line">         + radius +<span class="string">&quot;, x: &quot;</span> +x+<span class="string">&quot;, &quot;</span>+ y +<span class="string">&quot;]&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+GreenCircle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GreenCircle</span> <span class="keyword">implements</span> <span class="title">DrawAPI</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drawCircle</span><span class="params">(<span class="keyword">int</span> radius, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Drawing Circle[ color: green, radius: &quot;</span></span><br><span class="line">         + radius +<span class="string">&quot;, x: &quot;</span> +x+<span class="string">&quot;, &quot;</span>+ y +<span class="string">&quot;]&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用 DrawAPI 接口创建抽象类 Shape。<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">protected</span> DrawAPI drawAPI;</span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="title">Shape</span><span class="params">(DrawAPI drawAPI)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.drawAPI = drawAPI;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+Circle.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">extends</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">int</span> x, y, radius;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="title">Circle</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> radius, DrawAPI drawAPI)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">super</span>(drawAPI);</span><br><span class="line">      <span class="keyword">this</span>.x = x;  </span><br><span class="line">      <span class="keyword">this</span>.y = y;  </span><br><span class="line">      <span class="keyword">this</span>.radius = radius;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      drawAPI.drawCircle(radius,x,y);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>使用 Shape 和 DrawAPI 类画出不同颜色的圆。<br>BridgePatternDemo.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      Shape redCircle = <span class="keyword">new</span> Circle(<span class="number">100</span>,<span class="number">100</span>, <span class="number">10</span>, <span class="keyword">new</span> RedCircle());</span><br><span class="line">      Shape greenCircle = <span class="keyword">new</span> Circle(<span class="number">100</span>,<span class="number">100</span>, <span class="number">10</span>, <span class="keyword">new</span> GreenCircle());</span><br><span class="line"> </span><br><span class="line">      redCircle.draw();</span><br><span class="line">      greenCircle.draw();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1><p>建议参考 </p>
+<div name = "http://c.biancheng.net/view/vip_8379.html"></div>
+<div name = "http://c.biancheng.net/view/vip_8382.html"></div>
+<div name = "http://c.biancheng.net/view/vip_8379.html"></div>
+<div name = "http://c.biancheng.net/view/vip_8383.html"></div>
+]]></content>
       <categories>
         <category>设计模式</category>
       </categories>
@@ -2758,6 +2758,130 @@ StopState.java<figure class="highlight java"><table><tr><td class="code"><pre><s
       </tags>
   </entry>
   <entry>
+    <title>【设计模式】Template Pattern 模板模式</title>
+    <url>/Pattern-Template/</url>
+    <content><![CDATA[<pre><code>模板模式理解剖析以及应用
+</code></pre>
+<img src="/Pattern-Template/1.gif" class="">
+<span id="more"></span>
+
+<h1 id="模板模式"><a href="#模板模式" class="headerlink" title="模板模式"></a>模板模式</h1><p>定义一个操作中的算法骨架，而将算法的一些步骤延迟到子类中，使得子类可以不改变该算法结构的情况下重定义该算法的某些特定步骤。</p>
+<p>在模板模式中，一个抽象类公开定义了执行它的方法的方式/模板。它的子类可以按需要重写方法实现，但调用将以抽象类中定义的方式进行。这种类型的设计模式属于行为型模式。</p>
+<h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><ul>
+<li>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模板方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</li>
+</ul>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>一些方法通用，却在每一个子类都重新写了这一方法。</p>
+<h2 id="何时使用？"><a href="#何时使用？" class="headerlink" title="何时使用？"></a>何时使用？</h2><ol>
+<li>有多个子类共有的方法，且逻辑相同。 </li>
+<li>重要的、复杂的方法，可以考虑作为模板方法。</li>
+</ol>
+<h2 id="应用环境举例"><a href="#应用环境举例" class="headerlink" title="应用环境举例"></a>应用环境举例</h2><ol>
+<li>在造房子的时候，地基、走线、水管都一样，只有在建筑的后期才有加壁橱加栅栏等差异。 </li>
+<li>西游记里面菩萨定好的 81 难，这就是一个顶层的逻辑骨架。 </li>
+<li>spring 中对 Hibernate 的支持，将一些已经定好的方法封装起来，比如开启事务、获取 Session、关闭 Session 等，程序员不重复写那些已经规范好的代码，直接丢一个实体就可以保存。</li>
+</ol>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ol>
+<li>它封装了不变部分，扩展可变部分。它把认为是不变部分的算法封装到父类中实现，而把可变部分算法由子类继承实现，便于子类继续扩展。</li>
+<li>提取公共代码，便于维护。便于代码复用。</li>
+<li>行为由父类控制，子类实现。</li>
+<li>部分方法是由子类实现的，因此子类可以通过扩展方式增加相应的功能，符合开闭原则。</li>
+</ol>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><ol>
+<li>对每个不同的实现都需要定义一个子类，这会导致类的个数增加，系统更加庞大，设计也更加抽象，间接地增加了系统实现的复杂度。</li>
+<li>父类中的抽象方法由子类实现，子类执行的结果会影响父类的结果，这导致一种反向的控制结构，它提高了代码阅读的难度。</li>
+<li>由于继承关系自身的缺点，如果父类添加新的抽象方法，则所有子类都要改一遍。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><p>为防止恶意操作，一般模板方法都加上 final 关键词。</p>
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="/Pattern-Template/1.gif" class="">
+
+<ol>
+<li>抽象类/抽象模板（Abstract Class）<br>抽象模板类，负责给出一个算法的轮廓和骨架。它由一个模板方法和若干个基本方法构成。这些方法的定义如下。<ol>
+<li>定义了算法的骨架，按某种顺序调用其包含的基本方法。</li>
+<li>基本方法：是整个算法中的一个步骤，包含以下几种类型。<ul>
+<li>抽象方法：在抽象类中声明，由具体子类实现。</li>
+<li>具体方法：在抽象类中已经实现，在具体子类中可以继承或重写它。</li>
+<li>钩子方法：在抽象类中已经实现，包括用于判断的逻辑方法和需要子类重写的空方法两种。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>具体子类/具体实现（Concrete Class）<br>具体实现类，实现抽象类中所定义的抽象方法和钩子方法，它们是一个顶级逻辑的一个组成步骤。</li>
+</ol>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><ul>
+<li>抽象类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractClass</span> </span>&#123;</span><br><span class="line">    <span class="comment">//模板方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        SpecificMethod();</span><br><span class="line">        abstractMethod1();</span><br><span class="line">        abstractMethod2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//具体方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SpecificMethod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;抽象类中的具体方法被调用...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//抽象方法1</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">abstractMethod1</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//抽象方法2</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">abstractMethod2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>具体子类<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConcreteClass</span> <span class="keyword">extends</span> <span class="title">AbstractClass</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">abstractMethod1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;抽象方法1的实现被调用...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">abstractMethod2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;抽象方法2的实现被调用...&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplateMethodPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractClass tm = <span class="keyword">new</span> ConcreteClass();</span><br><span class="line">        tm.TemplateMethod();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+结果：<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">抽象类中的具体方法被调用...</span><br><span class="line">抽象方法1的实现被调用...</span><br><span class="line">抽象方法2的实现被调用...</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="/Pattern-Template/2.jpg" class="">
+<p>创建一个定义操作的 Game 抽象类，其中，模板方法设置为 final，这样它就不会被重写。<br>Cricket 和 Football 是扩展了 Game 的实体类，它们重写了抽象类的方法。<br>TemplatePatternDemo使用 Game 来演示模板模式的用法。</p>
+<ul>
+<li>创建一个抽象类，它的模板方法被设置为 final。<br>Game.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span></span>;</span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span></span>;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//模板</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span>&#123;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//初始化游戏</span></span><br><span class="line">      initialize();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//开始游戏</span></span><br><span class="line">      startPlay();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//结束游戏</span></span><br><span class="line">      endPlay();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建扩展了上述类的实体类。<br>Cricket.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cricket</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Cricket Game Finished!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Cricket Game Initialized! Start playing.&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Cricket Game Started. Enjoy the game!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+Football.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Football</span> <span class="keyword">extends</span> <span class="title">Game</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">endPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Football Game Finished!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">initialize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Football Game Initialized! Start playing.&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="title">startPlay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">&quot;Football Game Started. Enjoy the game!&quot;</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>测试<br>TemplatePatternDemo.java<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplatePatternDemo</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">      Game game = <span class="keyword">new</span> Cricket();</span><br><span class="line">      game.play();</span><br><span class="line">      System.out.println();</span><br><span class="line">      game = <span class="keyword">new</span> Football();</span><br><span class="line">      game.play();      </span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+结果<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Cricket Game Initialized! Start playing.</span><br><span class="line">Cricket Game Started. Enjoy the game!</span><br><span class="line">Cricket Game Finished!</span><br><span class="line"></span><br><span class="line">Football Game Initialized! Start playing.</span><br><span class="line">Football Game Started. Enjoy the game!</span><br><span class="line">Football Game Finished!</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="感谢查阅"><a href="#感谢查阅" class="headerlink" title="感谢查阅"></a>感谢查阅</h1>]]></content>
+      <categories>
+        <category>设计模式</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【Flag】Android中间件模块-使用反编译注入自定义代码</title>
+    <url>/android-middleware-module/</url>
+    <content><![CDATA[<pre><code>根据Android反编译技术，
+将不同代码以及功能，批量注入到目标软件中，
+批量生成附带不同功能（定制功能）的各自的安装包
+</code></pre>
+<img src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
+<span id="more"></span>
+<p><strong><em>呃。。回过头看发现废话有点多，若只想了解方案实现请直接</em></strong> <strong><a href="#%E6%96%B9%E6%A1%88">跳转至方案</a></strong></p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;在刚进入互联网行业时，进了一家小型运营公司，公司主要业务是将开发者或开发公司开发完成的Android软件分发到各个渠道牟利。 我当时负责公司Android部分的全部工作内容，好不容易掌握技术原理，将编程之外的所有工作脚本化， 准备开始享受工作，可因为公司运营几次决策失误，导致资方撤资，公司被迫关闭运营。<br>&emsp;&emsp;虽然公司没了，但这个解决方案还是很有趣的，方案具体实现<strong>开发者只需接入一次</strong>我方Sdk，我方就可以生产<strong>所有已接入我方渠道渠道</strong>的渠道包，将任何渠道的代码功能注入到开发者的Android包中，真正意义上实现<strong>一次接入批量生产</strong>。故以写此文章分享给大家。</p>
+<hr>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
+<p>软件开发者或开发公司统称为<strong>开发方</strong>，我方公司统称为<strong>中间方</strong>，分发渠道统称为<strong>渠道方</strong></p>
+<ul>
+<li>软件内容完全由开发方提供，中间方提供接入包(Sdk)供开发方接入中间方</li>
+<li>软件的运营由<strong>开发者与中间方</strong>共同进行，中间方<strong>确定新运营需求</strong>，开发者<strong>实现运营需求</strong></li>
+<li>宣发等内容完全由渠道方进行，用户支付由渠道方进行</li>
+</ul>
+<p>至此我们可以大致总结：<em>开发方开发软件，交给中间方运营，中间方将软件分发给渠道，渠道下发给用户下载使用</em></p>
+<h2 id="大致需求"><a href="#大致需求" class="headerlink" title="大致需求"></a>大致需求</h2><p>由三方关系我们可以得出对产品得出以下大致需求：  </p>
+<ul>
+<li>开发方接入我方Sdk需要简便快捷,中间方Sdk不影响原有软件功能</li>
+<li>中间方接入新渠道简单</li>
+<li>中间方完全控制渠道方软件的关键功能（例如支付等）</li>
+<li>中间方可批量化注入渠道代码生成渠道包</li>
+<li>中间方统计关键部分所有数据以便跟双方交接</li>
+</ul>
+<p>大致描述需求：<br>&emsp;&emsp;因为中间方不实现软件内容，只负责提供开发者接入的Sdk开发，故我们需要供开发者接入的SDK以及此SDK的网页后台。开发方接入中间方Sdk也需要简单易操作。 因为中间方需要避免某方毁约行为，所以需要SDK具备控制关键内容的能力。<br>中间方使用已接入的软件包作为<strong>母包</strong>批量生成渠道使用的包<strong>渠道包</strong>需要快速便捷。</p>
+<hr>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="项目关系分析"><a href="#项目关系分析" class="headerlink" title="项目关系分析"></a>项目关系分析</h2><p>这里整个png一下代码数据传输的关系</p>
+<h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><p>正在整理</p>
+<h2 id="SDK方案"><a href="#SDK方案" class="headerlink" title="SDK方案"></a>SDK方案</h2><p>正在整理</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="android中间方SDK"><a href="#android中间方SDK" class="headerlink" title="android中间方SDK"></a>android中间方SDK</h2><p>正在整理</p>
+<h2 id="Web中间方SDK后台"><a href="#Web中间方SDK后台" class="headerlink" title="Web中间方SDK后台"></a>Web中间方SDK后台</h2><p>正在整理</p>
+<h2 id="渠道SDK接入工程"><a href="#渠道SDK接入工程" class="headerlink" title="渠道SDK接入工程"></a>渠道SDK接入工程</h2><p>正在整理</p>
+<h2 id="生成渠道SDK打包工程"><a href="#生成渠道SDK打包工程" class="headerlink" title="生成渠道SDK打包工程"></a>生成渠道SDK打包工程</h2><p>正在整理</p>
+]]></content>
+      <categories>
+        <category>Android</category>
+        <category>反编译</category>
+        <category>自定义中间件</category>
+      </categories>
+      <tags>
+        <tag>Spring</tag>
+        <tag>Android</tag>
+        <tag>Android反编译</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【Dos命令】基础Dos命令随笔</title>
     <url>/basic-dos-command/</url>
     <content><![CDATA[<h1 id="本文为-Dos命令随笔"><a href="#本文为-Dos命令随笔" class="headerlink" title="本文为 Dos命令随笔"></a>本文为 Dos命令随笔</h1><span id="more"></span>
@@ -2849,56 +2973,6 @@ StopState.java<figure class="highlight java"><table><tr><td class="code"><pre><s
       <tags>
         <tag>Github</tag>
         <tag>Github Pages</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【Flag】Android中间件模块-使用反编译注入自定义代码</title>
-    <url>/android-middleware-module/</url>
-    <content><![CDATA[<pre><code>根据Android反编译技术，
-将不同代码以及功能，批量注入到目标软件中，
-批量生成附带不同功能（定制功能）的各自的安装包
-</code></pre>
-<img src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
-<span id="more"></span>
-<p><strong><em>呃。。回过头看发现废话有点多，若只想了解方案实现请直接</em></strong> <strong><a href="#%E6%96%B9%E6%A1%88">跳转至方案</a></strong></p>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;在刚进入互联网行业时，进了一家小型运营公司，公司主要业务是将开发者或开发公司开发完成的Android软件分发到各个渠道牟利。 我当时负责公司Android部分的全部工作内容，好不容易掌握技术原理，将编程之外的所有工作脚本化， 准备开始享受工作，可因为公司运营几次决策失误，导致资方撤资，公司被迫关闭运营。<br>&emsp;&emsp;虽然公司没了，但这个解决方案还是很有趣的，方案具体实现<strong>开发者只需接入一次</strong>我方Sdk，我方就可以生产<strong>所有已接入我方渠道渠道</strong>的渠道包，将任何渠道的代码功能注入到开发者的Android包中，真正意义上实现<strong>一次接入批量生产</strong>。故以写此文章分享给大家。</p>
-<hr>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
-<p>软件开发者或开发公司统称为<strong>开发方</strong>，我方公司统称为<strong>中间方</strong>，分发渠道统称为<strong>渠道方</strong></p>
-<ul>
-<li>软件内容完全由开发方提供，中间方提供接入包(Sdk)供开发方接入中间方</li>
-<li>软件的运营由<strong>开发者与中间方</strong>共同进行，中间方<strong>确定新运营需求</strong>，开发者<strong>实现运营需求</strong></li>
-<li>宣发等内容完全由渠道方进行，用户支付由渠道方进行</li>
-</ul>
-<p>至此我们可以大致总结：<em>开发方开发软件，交给中间方运营，中间方将软件分发给渠道，渠道下发给用户下载使用</em></p>
-<h2 id="大致需求"><a href="#大致需求" class="headerlink" title="大致需求"></a>大致需求</h2><p>由三方关系我们可以得出对产品得出以下大致需求：  </p>
-<ul>
-<li>开发方接入我方Sdk需要简便快捷,中间方Sdk不影响原有软件功能</li>
-<li>中间方接入新渠道简单</li>
-<li>中间方完全控制渠道方软件的关键功能（例如支付等）</li>
-<li>中间方可批量化注入渠道代码生成渠道包</li>
-<li>中间方统计关键部分所有数据以便跟双方交接</li>
-</ul>
-<p>大致描述需求：<br>&emsp;&emsp;因为中间方不实现软件内容，只负责提供开发者接入的Sdk开发，故我们需要供开发者接入的SDK以及此SDK的网页后台。开发方接入中间方Sdk也需要简单易操作。 因为中间方需要避免某方毁约行为，所以需要SDK具备控制关键内容的能力。<br>中间方使用已接入的软件包作为<strong>母包</strong>批量生成渠道使用的包<strong>渠道包</strong>需要快速便捷。</p>
-<hr>
-<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><h2 id="项目关系分析"><a href="#项目关系分析" class="headerlink" title="项目关系分析"></a>项目关系分析</h2><p>这里整个png一下代码数据传输的关系</p>
-<h2 id="数据流分析"><a href="#数据流分析" class="headerlink" title="数据流分析"></a>数据流分析</h2><p>正在整理</p>
-<h2 id="SDK方案"><a href="#SDK方案" class="headerlink" title="SDK方案"></a>SDK方案</h2><p>正在整理</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="android中间方SDK"><a href="#android中间方SDK" class="headerlink" title="android中间方SDK"></a>android中间方SDK</h2><p>正在整理</p>
-<h2 id="Web中间方SDK后台"><a href="#Web中间方SDK后台" class="headerlink" title="Web中间方SDK后台"></a>Web中间方SDK后台</h2><p>正在整理</p>
-<h2 id="渠道SDK接入工程"><a href="#渠道SDK接入工程" class="headerlink" title="渠道SDK接入工程"></a>渠道SDK接入工程</h2><p>正在整理</p>
-<h2 id="生成渠道SDK打包工程"><a href="#生成渠道SDK打包工程" class="headerlink" title="生成渠道SDK打包工程"></a>生成渠道SDK打包工程</h2><p>正在整理</p>
-]]></content>
-      <categories>
-        <category>Android</category>
-        <category>反编译</category>
-        <category>自定义中间件</category>
-      </categories>
-      <tags>
-        <tag>Spring</tag>
-        <tag>Android</tag>
-        <tag>Android反编译</tag>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -3552,7 +3626,7 @@ public class test &#123;
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;wx.98@qq.com&gt;</span><br></pre></td></tr></table></figure>
 <p>效果↓</p>
 <blockquote>
-<p><a href="mailto:&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;">&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#x71;&#x71;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<p><a href="mailto:&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;">&#119;&#x78;&#x2e;&#x39;&#56;&#64;&#113;&#x71;&#46;&#x63;&#x6f;&#x6d;</a></p>
 </blockquote>
 <h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，<br>例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">\\   反斜线</span><br><span class="line">\&#96;   反引号</span><br><span class="line">\*   星号</span><br><span class="line">\_   底线</span><br><span class="line">\&#123;&#125;  花括号</span><br><span class="line">\[]  方括号</span><br><span class="line">\()  括弧</span><br><span class="line">\#   井字号</span><br><span class="line">\+   加号</span><br><span class="line">\-   减号</span><br><span class="line">\.   英文句点</span><br><span class="line">\!   惊叹号</span><br></pre></td></tr></table></figure>

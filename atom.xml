@@ -378,6 +378,29 @@
   </entry>
   
   <entry>
+    <title>【设计模式】Visitor Pattern 访问者模式</title>
+    <link href="https://www.wx1998.cn/Pattern-Visitor/"/>
+    <id>https://www.wx1998.cn/Pattern-Visitor/</id>
+    <published>2019-03-09T01:15:08.000Z</published>
+    <updated>2019-03-17T16:40:19.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;访问者模式理解剖析以及应用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img src=&quot;/Pattern-Visitor/1.gif&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】Template Pattern 模板模式</title>
     <link href="https://www.wx1998.cn/Pattern-Template/"/>
     <id>https://www.wx1998.cn/Pattern-Template/</id>
@@ -480,29 +503,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;备忘录模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img src=&quot;/Pattern-Memento/1.gif&quot; class=&quot;&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】Mediator   Pattern 中介者模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Mediator/"/>
-    <id>https://www.wx1998.cn/Pattern-Mediator/</id>
-    <published>2019-03-08T11:25:00.000Z</published>
-    <updated>2019-03-17T11:45:09.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;中介者模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img src=&quot;/Pattern-Mediator/1.gif&quot; class=&quot;&quot;&gt;</summary>
     
     
     

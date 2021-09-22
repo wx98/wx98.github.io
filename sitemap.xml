@@ -396,6 +396,20 @@
 
   
   <url>
+    <loc>https://www.wx1998.cn/tags/Java/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/tags/Spring/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/tags/Hexo/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
@@ -411,13 +425,6 @@
   
   <url>
     <loc>https://www.wx1998.cn/tags/Github-Pages/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/tags/Java/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -487,13 +494,6 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/Spring/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/tags/Python/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
@@ -536,14 +536,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/%E7%88%AC%E8%99%AB/</loc>
+    <loc>https://www.wx1998.cn/tags/Mybatis/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/Mybatis/</loc>
+    <loc>https://www.wx1998.cn/tags/%E7%88%AC%E8%99%AB/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -615,6 +615,27 @@
 
   
   <url>
+    <loc>https://www.wx1998.cn/categories/Java/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/categories/JavaWeb/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/categories/JavaWeb/Spring/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/categories/Hexo/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
@@ -622,7 +643,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Java/</loc>
+    <loc>https://www.wx1998.cn/categories/Java/Java%E6%B3%A8%E8%A7%A3/</loc>
+    <lastmod>2021-09-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/categories/Java/OpenCV/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -643,13 +671,6 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Java/Java%E6%B3%A8%E8%A7%A3/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/categories/Windows/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
@@ -664,7 +685,7 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Java/OpenCV/</loc>
+    <loc>https://www.wx1998.cn/categories/JavaWeb/Mybatis/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -672,13 +693,6 @@
   
   <url>
     <loc>https://www.wx1998.cn/categories/Python/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/categories/JavaWeb/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -706,21 +720,7 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/JavaWeb/Mybatis/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
-    <lastmod>2021-09-22</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/categories/JavaWeb/Spring/</loc>
     <lastmod>2021-09-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

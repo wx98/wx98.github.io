@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="HTML5 学习笔记">
@@ -285,7 +285,7 @@
       
         <pre><code>HTML5 学习笔记
 </code></pre>
-<img src="/htm5-notes/html5.png" class="">
+<img data-src="/htm5-notes/html5.png" class="">
 
 <span id="more"></span>
 <h1 id="Html-概述"><a href="#Html-概述" class="headerlink" title="Html 概述"></a>Html 概述</h1><h2 id="什么是Html"><a href="#什么是Html" class="headerlink" title="什么是Html"></a>什么是Html</h2><ul>
@@ -485,7 +485,7 @@
 </blockquote>
 <h5 id="QQ"><a href="#QQ" class="headerlink" title="QQ"></a>QQ</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span> <span class="attr">href</span>=<span class="string">&quot;http://wpa.qq.com/msgrd?v=3&amp;uin=1262148122&amp;site=qq&amp;menu=yes&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">border</span>=<span class="string">&quot;0&quot;</span> <span class="attr">src</span>=<span class="string">&quot;http://wpa.qq.com/pa?p=2:1262148122:52&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;点击这里给我发消息&quot;</span> <span class="attr">title</span>=<span class="string">&quot;点击这里给我发消息&quot;</span>/&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1262148122:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
+<p><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes"><img border="0" data-src="http://wpa.qq.com/pa?p=2:1262148122:52" alt="点击这里给我发消息" title="点击这里给我发消息"/></a></p>
 </blockquote>
 <h2 id="行内元素-amp-块元素"><a href="#行内元素-amp-块元素" class="headerlink" title="行内元素 &amp; 块元素"></a>行内元素 &amp; 块元素</h2><h3 id="块元素"><a href="#块元素" class="headerlink" title="块元素"></a>块元素</h3><ul>
 <li>无论内容多少，该元素独占一行</li>
@@ -1073,6 +1073,7 @@ input：<input type="text" name="username" hidden>
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="解释器模式理解剖析以及应用">
@@ -284,7 +284,7 @@
       
         <pre><code>解释器模式理解剖析以及应用
 </code></pre>
-<img src="/Pattern-Design/Pattern-Interpreter/1.gif">
+<img data-src="/Pattern-Design/Pattern-Interpreter/1.gif">
 <span id="more"></span>
 
 <h1 id="解释器模式"><a href="#解释器模式" class="headerlink" title="解释器模式"></a>解释器模式</h1><p>给分析对象定义一个语言，并定义该语言的文法表示，再设计一个解析器来解释语言中的句子。<br>也就是说，用编译语言的方式来分析应用中的实例。这种模式实现了文法表达式处理的接口，该接口解释一个特定的上下文。</p>
@@ -330,9 +330,9 @@
 <li>注：这里的符号“::=”表示“定义为”的意思，用“〈”和“〉”括住的是非终结符，没有括住的是终结符。</li>
 </ul>
 <h2 id="句子"><a href="#句子" class="headerlink" title="句子"></a>句子</h2><p>句子是语言的基本单位，是语言集中的一个元素，它由终结符构成，能由“文法”推导出。<br>例如，上述文法可以推出“我是大学生”，所以它是句子。</p>
-<h2 id="语法树"><a href="#语法树" class="headerlink" title="语法树"></a>语法树</h2><p>语法树是句子结构的一种树型表示，它代表了句子的推导结果，它有利于理解句子语法结构的层次。<br>下图所示是“我是大学生”的语法树。<br><img src="2.gif"></p>
+<h2 id="语法树"><a href="#语法树" class="headerlink" title="语法树"></a>语法树</h2><p>语法树是句子结构的一种树型表示，它代表了句子的推导结果，它有利于理解句子语法结构的层次。<br>下图所示是“我是大学生”的语法树。<br><img data-src="2.gif"></p>
 <p>解释器模式的结构与组合模式相似，不过其包含的组成元素比组合模式多，而且组合模式是对象结构型模式，而解释器模式是类行为型模式</p>
-<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+<h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img data-src="1.gif">
 
 <ul>
 <li>抽象表达式（Abstract Expression）角色：定义解释器的接口，约定解释器的解释操作，主要包含解释方法 interpret()。</li>
@@ -358,7 +358,7 @@
 <li>定义一个环境（Context）类，<br>它包含解释器需要的数据，完成对终结符表达式的初始化，并定义一个方法 freeRide(String info) 调用表达式对象的解释方法来对被分析的字符串进行解释。</li>
 </ul>
 </blockquote>
-<p>如下图所示<br><img src="3.gif"></p>
+<p>如下图所示<br><img data-src="3.gif"></p>
 <ul>
 <li>抽象表达式类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Expression</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">interpret</span><span class="params">(String info)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li>终结符表达式类<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TerminalExpression</span> <span class="keyword">implements</span> <span class="title">Expression</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;String&gt; set = <span class="keyword">new</span> HashSet&lt;String&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TerminalExpression</span><span class="params">(String[] data)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//将传入的数据全部去重插入set中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++) set.add(data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 在已有的set中寻找，是否有现有的 info元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">interpret</span><span class="params">(String info)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (set.contains(info)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -368,7 +368,7 @@
 结果：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">您是韶关的老人，您本次乘车免费！</span><br><span class="line">韶关的年轻人，您不是免费人员，本次乘车扣费2元！</span><br><span class="line">您是广州的妇女，您本次乘车免费！</span><br><span class="line">您是广州的儿童，您本次乘车免费！</span><br><span class="line">山东的儿童，您不是免费人员，本次乘车扣费2元！</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h2 id="实例2"><a href="#实例2" class="headerlink" title="实例2"></a>实例2</h2><p>创建一个接口 Expression 和实现了 Expression 接口的实体类。<br>定义作为上下文中主要解释器的 TerminalExpression 类。<br>其他的类 OrExpression、AndExpression 用于创建组合式表达式。<br>InterpreterPatternDemo，我们的演示类使用 Expression 类创建规则和演示表达式的解析。</p>
-<img src="4.jpg">
+<img data-src="4.jpg">
 
 <ul>
 <li>创建一个表达式接口。<br>Expression.java<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Expression</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">interpret</span><span class="params">(String context)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
@@ -611,6 +611,7 @@ AndExpression.java<figure class="highlight java"><table><tr><td class="gutter"><
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

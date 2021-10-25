@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="本文描述了如何用hexo从零开始建立自己的一个博客">
@@ -299,7 +299,7 @@
       
         <pre><code>本文描述了如何用hexo从零开始建立自己的一个博客
 </code></pre>
-<img src="/Hexo-build-project/themes.png" class="">
+<img data-src="/Hexo-build-project/themes.png" class="">
 
 <span id="more"></span>
 
@@ -349,14 +349,14 @@
 <li><p>安装Node.js 请在<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">Node.js官方下载站</a>选择合适自己版本的Node.js进行安装<br>安装完成后请确保npm可以正常使用</p>
 <blockquote>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/npm-v.png" class=""></blockquote>
+<img data-src="/Hexo-build-project/npm-v.png" class=""></blockquote>
 </li>
 <li><p>安装Hexo</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>安装完成后请确保能执行hexo命令</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-v.png" class=""></blockquote>
+<img data-src="/Hexo-build-project/hexo-v.png" class=""></blockquote>
 </li>
 </ul>
 </li>
@@ -367,23 +367,23 @@
 <blockquote>
 <p>name 就是项目名，比如我们的项目名称以<strong>myBlog</strong>为例，则执行如下</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init myblog</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-init.png" class="">
+<img data-src="/Hexo-build-project/hexo-init.png" class="">
 <p>此时会多出一个myblog文件夹里面就是Hexo的初始化文件</p>
-<img src="/Hexo-build-project/initialize-folder.png" class="">
+<img data-src="/Hexo-build-project/initialize-folder.png" class="">
 </blockquote>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>可以看到文件夹内有很多初始文件，我们先不管这些是啥，操作一波再说 接下来我们进入博客项目文件夹里面，然后用 generate 命令 将博客编译成html静态网页</p>
 <blockquote>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd myblog hexo generate</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-generate.png" class="">
+<img data-src="/Hexo-build-project/hexo-generate.png" class="">
 <p><strong>myblog</strong>编译的静态文件保存在<strong>public</strong>文件夹内</p>
-<img src="/Hexo-build-project/public-folder.png" class="">
+<img data-src="/Hexo-build-project/public-folder.png" class="">
 </blockquote>
 <h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><p>这时我们就第一次可以欣赏我们成品了</p>
 <blockquote>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo serve</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-serve.png" class="">
+<img data-src="/Hexo-build-project/hexo-serve.png" class="">
 <p>执行成功后默认访问<a target="_blank" rel="noopener" href="http://localhost:4000/" title="请本地访问">http://localhost:4000/</a>即可预览到博客</p>
-<img src="/Hexo-build-project/view.png" class="">
+<img data-src="/Hexo-build-project/view.png" class="">
 </blockquote>
 <p>至此我们经过初始化、编译、预览这三个命令，就已经有了一个可以在本地运行的博客了</p>
 <h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><p>我们已经有了一个在本地运行的博客，下一波那就是把他放到网上，让全世界都可以来看，那要怎么做呢？ 首先部署命令如下：</p>
@@ -394,14 +394,14 @@
 <p>这里以部署到Github Pages为例。<br>若无Github Pages项目请移步文章【<a href="/create-github-pages/" title="GitHub Pages 静态网站">GitHub Pages 静态网站</a>】新建一个Github Pages再进行部署步骤。</p>
 <ul>
 <li>首先在文件根目录下的 _config.yml文件的Deployment节点下配置以下属性<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">type: git repo:</span> <span class="string">&lt;repository</span> <span class="string">url&gt;</span></span><br><span class="line"><span class="attr">branch:</span> [<span class="string">branch</span>]</span><br><span class="line"><span class="attr">message:</span> [<span class="string">message</span>]</span><br></pre></td></tr></table></figure>
-若部署到我Github Pages配置则为<img src="/Hexo-build-project/deploy-setting.png" class="">
-repo直接粘贴即可<img src="/Hexo-build-project/git-repo.png" class=""></li>
+若部署到我Github Pages配置则为<img data-src="/Hexo-build-project/deploy-setting.png" class="">
+repo直接粘贴即可<img data-src="/Hexo-build-project/git-repo.png" class=""></li>
 <li>然后若配置完成后我们执行部署<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-deploy-error.png" class="">
+<img data-src="/Hexo-build-project/hexo-deploy-error.png" class="">
 报错了！！！！不要慌，我们还需要安装一个git的插件才能部署,执行以下命令安装<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/hexo-deployer-git.png" class="">
-安装好了！！！部署！！！<img src="/Hexo-build-project/hexo-deploy-succsee.png" class="">
-部署成功后再看git仓库就会发现其实部署的内容就是<a href="./public-folder.png" target="_blank">public</a>中的内容<img src="/Hexo-build-project/deploy-info.png" class="">
+<img data-src="/Hexo-build-project/hexo-deployer-git.png" class="">
+安装好了！！！部署！！！<img data-src="/Hexo-build-project/hexo-deploy-succsee.png" class="">
+部署成功后再看git仓库就会发现其实部署的内容就是<a href="./public-folder.png" target="_blank">public</a>中的内容<img data-src="/Hexo-build-project/deploy-info.png" class="">
 这样就部署成功了！！！！恭喜你！！！<a target="_blank" rel="noopener" href="https://luojiutest.github.io/">访问https://{YourUsername}.github.io/</a>可以让所有人看到你的博客啦。</li>
 </ul>
 </blockquote>
@@ -409,13 +409,13 @@ repo直接粘贴即可<img src="/Hexo-build-project/git-repo.png" class=""></li>
 <blockquote>
 <p>首先将next主题的源码clone到本地</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<img src="/Hexo-build-project/clone-next.png" class="">
+<img data-src="/Hexo-build-project/clone-next.png" class="">
 <p>执行完毕之后 Next 主题的源码就会出现在项目的themes/next 文件夹下。</p>
-<img src="/Hexo-build-project/next-file.png" class="">
+<img data-src="/Hexo-build-project/next-file.png" class="">
 <p>接下来只需在<code>_config.yml</code>中配置一下<code>themes</code></p>
-<img src="/Hexo-build-project/theme-setting.png" class="">
+<img data-src="/Hexo-build-project/theme-setting.png" class="">
 <p>再发布就可以发现博客变漂亮了</p>
-<img src="/Hexo-build-project/themes-pages.png" class="">
+<img data-src="/Hexo-build-project/themes-pages.png" class="">
 <p>next 主题内容非常多，如果有需要可以再写一份next的配置教程,<a target="_blank" rel="noopener" href="https://hexo.io/themes/">更多主题详见此网站。</a></p>
 </blockquote>
 <hr>
@@ -994,6 +994,7 @@ repo直接粘贴即可<img src="/Hexo-build-project/git-repo.png" class=""></li>
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

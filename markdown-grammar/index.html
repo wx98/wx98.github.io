@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="此文件整理了Markdown的基本用法。">
@@ -272,7 +272,7 @@
       
         <pre><code>此文件整理了Markdown的基本用法。
 </code></pre>
-<img src="/markdown-grammar/markdown.png" class="">
+<img data-src="/markdown-grammar/markdown.png" class="">
 
 <span id="more"></span>
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;第一次接触到 Markdown 是在大学期间，看别人项目的<code>readme.md</code>时，当时直接以txt文本打开，很乱啊，根本看不懂。后来被老师点拨了一下才知道咋搞的。<br>&emsp;&emsp;其实这个东西也没难度，10分钟就能搞懂，而且用处还蛮多的，经常用来写文档，写博客，很多平台也用的Markdown来渲染文章，例如小红书，csd，语雀。<br>&emsp;&emsp;Markdown可以让作者专注内容而不是排版上，极大的简化了写文章的操作。<br>&emsp;&emsp;总之学了没坏处，建议无论是行内行外人士都学习一下。</p>
@@ -460,8 +460,8 @@ public class test &#123;
 <h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h2><p>Markdown 使用一种和链接很相似的语法来标记图片，同样也允许两种样式： 行内式和参考式。</p>
 <h3 id="行内式-1"><a href="#行内式-1" class="headerlink" title="行内式"></a>行内式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![Alt text](.&#x2F;markdown.png)</span><br><span class="line">![Alt text](markdown.png &quot;可选标题&quot;)</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><img src="./markdown.png" alt="Alt text"></p>
-<p><img src="markdown.png" alt="Alt text" title="可选标题"></p>
+<p><img data-src="./markdown.png" alt="Alt text"></p>
+<p><img data-src="markdown.png" alt="Alt text" title="可选标题"></p>
 </blockquote>
 <h3 id="参考式-1"><a href="#参考式-1" class="headerlink" title="参考式"></a>参考式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![Alt text][id]</span><br></pre></td></tr></table></figure>
 <p>「id」是图片参考的名称，图片参考的定义方式则和连结参考一样：</p>
@@ -474,7 +474,7 @@ public class test &#123;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;wx.98@qq.com&gt;</span><br></pre></td></tr></table></figure>
 <p>效果↓</p>
 <blockquote>
-<p><a href="mailto:&#x77;&#x78;&#46;&#x39;&#x38;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;">&#x77;&#x78;&#46;&#x39;&#x38;&#64;&#x71;&#x71;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p><a href="mailto:&#x77;&#x78;&#x2e;&#57;&#x38;&#x40;&#113;&#113;&#x2e;&#99;&#x6f;&#109;">&#x77;&#x78;&#x2e;&#57;&#x38;&#x40;&#113;&#113;&#x2e;&#99;&#x6f;&#109;</a></p>
 </blockquote>
 <h2 id="反斜杠"><a href="#反斜杠" class="headerlink" title="反斜杠"></a>反斜杠</h2><p>Markdown 可以利用反斜杠来插入一些在语法中有其它意义的符号，<br>例如：如果你想要用星号加在文字旁边的方式来做出强调效果（但不用 <code>&lt;em&gt;</code> 标签），你可以在星号的前面加上反斜杠：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">\\   反斜线</span><br><span class="line">\&#96;   反引号</span><br><span class="line">\*   星号</span><br><span class="line">\_   底线</span><br><span class="line">\&#123;&#125;  花括号</span><br><span class="line">\[]  方括号</span><br><span class="line">\()  括弧</span><br><span class="line">\#   井字号</span><br><span class="line">\+   加号</span><br><span class="line">\-   减号</span><br><span class="line">\.   英文句点</span><br><span class="line">\!   惊叹号</span><br></pre></td></tr></table></figure>
@@ -715,6 +715,7 @@ public class test &#123;
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

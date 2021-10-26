@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="根据Android反编译技术， 将不同代码以及功能，批量注入到目标软件中， 批量生成附带不同功能（定制功能）的各自的安装包">
@@ -33,9 +33,9 @@
 <meta property="article:published_time" content="2021-04-04T14:35:11.000Z">
 <meta property="article:modified_time" content="2021-08-11T06:39:43.441Z">
 <meta property="article:author" content="洛玖">
+<meta property="article:tag" content="Spring">
 <meta property="article:tag" content="Android">
 <meta property="article:tag" content="Android反编译">
-<meta property="article:tag" content="Spring">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.wx1998.cn/android-middleware-module/AndroidDecompilationInjection.png">
@@ -293,12 +293,12 @@
 将不同代码以及功能，批量注入到目标软件中，
 批量生成附带不同功能（定制功能）的各自的安装包
 </code></pre>
-<img data-src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
+<img src="/android-middleware-module/AndroidDecompilationInjection.png" class="">
 <span id="more"></span>
 <p><strong><em>呃。。回过头看发现废话有点多，若只想了解方案实现请直接</em></strong> <strong><a href="#%E6%96%B9%E6%A1%88">跳转至方案</a></strong></p>
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>&emsp;&emsp;在刚进入互联网行业时，进了一家小型运营公司，公司主要业务是将开发者或开发公司开发完成的Android软件分发到各个渠道牟利。 我当时负责公司Android部分的全部工作内容，好不容易掌握技术原理，将编程之外的所有工作脚本化， 准备开始享受工作，可因为公司运营几次决策失误，导致资方撤资，公司被迫关闭运营。<br>&emsp;&emsp;虽然公司没了，但这个解决方案还是很有趣的，方案具体实现<strong>开发者只需接入一次</strong>我方Sdk，我方就可以生产<strong>所有已接入我方渠道渠道</strong>的渠道包，将任何渠道的代码功能注入到开发者的Android包中，真正意义上实现<strong>一次接入批量生产</strong>。故以写此文章分享给大家。</p>
 <hr>
-<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img data-src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="三者的关系"><a href="#三者的关系" class="headerlink" title="三者的关系"></a>三者的关系</h2><img src="/android-middleware-module/CompanyRelations.png" class="" title="公司结构图 image">
 <p>软件开发者或开发公司统称为<strong>开发方</strong>，我方公司统称为<strong>中间方</strong>，分发渠道统称为<strong>渠道方</strong></p>
 <ul>
 <li>软件内容完全由开发方提供，中间方提供接入包(Sdk)供开发方接入中间方</li>
@@ -349,9 +349,9 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
               <a href="/tags/Android/" rel="tag"># Android</a>
               <a href="/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/" rel="tag"># Android反编译</a>
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
               <a href="/tags/Python/" rel="tag"># Python</a>
           </div>
 
@@ -557,7 +557,6 @@
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

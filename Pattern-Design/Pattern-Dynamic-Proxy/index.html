@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="动态代理模式的理解以及使用">
@@ -282,7 +282,7 @@
       
         <pre><code>动态代理模式的理解以及使用
 </code></pre>
-<img data-src="/Pattern-Design/Pattern-Proxy-Pattern/Uml1.png">
+<img src="/Pattern-Design/Pattern-Proxy-Pattern/Uml1.png">
 
 <span id="more"></span>
 
@@ -290,7 +290,7 @@
 <h1 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h1><h2 id="什么是动态代理"><a href="#什么是动态代理" class="headerlink" title="什么是动态代理"></a>什么是动态代理</h2><p>&emsp;&emsp;动态代理就是，在程序运行期，创建目标对象的代理对象，并对目标对象中的方法进行功能性增强的一种技术。在生成代理对象的过程中，目标对象不变，代理对象中的方法是目标对象方法的增强方法。可以理解为运行期间，对象中方法的动态拦截，在拦截方法的前后执行功能操作。</p>
 <h2 id="动态代理对象"><a href="#动态代理对象" class="headerlink" title="动态代理对象"></a>动态代理对象</h2><p>&emsp;&emsp;代理类在程序运行期间，创建的代理对象称之为动态代理对象。这种情况下，创建的代理对象，并不是事先在Java代码中定义好的。而是在运行期间，根据我们在动态代理对象中的“指示”，动态生成的。也就是说，你想获取哪个对象的代理，动态代理就会为你动态的生成这个对象的代理对象。动态代理可以对被代理对象的方法进行功能增强。有了动态代理的技术，那么就可以在不修改方法源码的情况下，增强被代理对象的方法的功能，在方法执行前后做任何你想做的事情。</p>
 <h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p>利用反射机制在运行时创建代理类。</p>
-<h1 id="如何理解"><a href="#如何理解" class="headerlink" title="如何理解"></a>如何理解</h1><img data-src="Uml1.png">
+<h1 id="如何理解"><a href="#如何理解" class="headerlink" title="如何理解"></a>如何理解</h1><img src="Uml1.png">
 动态代理也是遵循[《代理模式类图》](/Pattern-Proxy-Pattern/#类图)中通用的代理模式类图关系，与静态代理相比:
 1. 具体代理类（$Proxy0）的生成是在**运行期动态产生**的，**而非编译期就已经静态存在**；
 2. 具体代理类（$Proxy0）与被代理类的代理关系（$Proxy0持有Target的引用），是Proxy想办法动态注入进入$Proxy0；
@@ -546,7 +546,6 @@
   <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 

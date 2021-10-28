@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="责任链模式理解剖析以及应用">
@@ -284,7 +284,7 @@
       
         <pre><code>责任链模式理解剖析以及应用
 </code></pre>
-<img src="/Pattern-Design/Pattern-ChainOfResponsibility/1.gif">
+<img data-src="/Pattern-Design/Pattern-ChainOfResponsibility/1.gif">
 <span id="more"></span>
 
 <h1 id="责任链模式"><a href="#责任链模式" class="headerlink" title="责任链模式"></a>责任链模式</h1><p>责任链模式（Chain of Responsibility Pattern）为请求创建了一个接收者对象的链。这种模式给予请求的类型，对请求的发送者和接收者进行解耦。这种类型的设计模式属于行为型模式。<br>在这种模式中，通常每个接收者都包含对另一个接收者的引用。如果一个对象不能处理该请求，那么它会把相同的请求传给下一个接收者，依此类推。</p>
@@ -330,14 +330,14 @@
 <li>对比较长的职责链，请求的处理可能涉及多个处理对象，系统性能将受到一定影响。</li>
 <li>职责链建立的合理性要靠客户端来保证，增加了客户端的复杂性，可能会由于职责链的错误设置而导致系统出错，如可能会造成循环调用。</li>
 </ol>
-<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img src="1.gif">
+<h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h1 id="类图"><a href="#类图" class="headerlink" title="类图"></a>类图</h1><img data-src="1.gif">
 
 <ul>
 <li>抽象处理者（Handler）角色：定义一个处理请求的接口，包含抽象处理方法和一个后继连接。</li>
 <li>具体处理者（Concrete Handler）角色：实现抽象处理者的处理方法，判断能否处理本次请求，如果可以处理请求则处理，否则将该请求转给它的后继者。</li>
 <li>客户类（Client）角色：创建处理链，并向链头的具体处理者对象提交请求，它不关心处理细节和请求的传递过程。</li>
 </ul>
-<img src="2.gif">
+<img data-src="2.gif">
 
 <ul>
 <li>责任链模式的本质是解耦请求与处理，让请求在处理链中能进行传递与被处理；</li>
@@ -356,7 +356,7 @@
 <p>结果</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">具体处理者2负责处理该请求！</span><br></pre></td></tr></table></figure>
 <h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>创建抽象类 AbstractLogger，带有详细的日志记录级别。<br>然后我们创建三种类型的记录器，都扩展了 AbstractLogger。<br>每个记录器消息的级别是否属于自己的级别，如果是则相应地打印出来，否则将不打印并把消息传给下一个记录器。</p>
-<img src="3.svg "></li>
+<img data-src="3.svg "></li>
 <li><p>创建抽象的记录器类。<br>AbstractLogger.java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractLogger</span> </span>&#123;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> INFO = <span class="number">1</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> DEBUG = <span class="number">2</span>;</span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> ERROR = <span class="number">3</span>;</span><br><span class="line"> </span><br><span class="line">   <span class="keyword">protected</span> <span class="keyword">int</span> level;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//责任链中的下一个元素</span></span><br><span class="line">   <span class="keyword">protected</span> AbstractLogger nextLogger;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNextLogger</span><span class="params">(AbstractLogger nextLogger)</span></span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.nextLogger = nextLogger;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">logMessage</span><span class="params">(<span class="keyword">int</span> level, String message)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.level &lt;= level)&#123;</span><br><span class="line">         write(message);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(nextLogger !=<span class="keyword">null</span>)&#123;</span><br><span class="line">         nextLogger.logMessage(level, message);</span><br><span class="line">      &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">abstract</span> <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">write</span><span class="params">(String message)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>创建扩展了该记录器类的实体类。<br>ConsoleLogger.java</p>
@@ -368,7 +368,7 @@
 <li><p>测试<br>ChainPatternDemo.java</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChainPatternDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> AbstractLogger <span class="title">getChainOfLoggers</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        AbstractLogger errorLogger = <span class="keyword">new</span> ErrorLogger(AbstractLogger.ERROR);</span><br><span class="line">        AbstractLogger fileLogger = <span class="keyword">new</span> FileLogger(AbstractLogger.DEBUG);</span><br><span class="line">        AbstractLogger consoleLogger = <span class="keyword">new</span> ConsoleLogger(AbstractLogger.INFO);</span><br><span class="line"></span><br><span class="line">        errorLogger.setNextLogger(fileLogger);</span><br><span class="line">        fileLogger.setNextLogger(consoleLogger);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> errorLogger;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        AbstractLogger loggerChain = getChainOfLoggers();</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.INFO, <span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>);</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.DEBUG, <span class="string">&quot;bbbbbbbbbbbbbbbbbbbbbbbbbbbbb&quot;</span>);</span><br><span class="line">        loggerChain.logMessage(AbstractLogger.ERROR, <span class="string">&quot;ccccccccccccccccccccccccccc&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此时对象为</p>
-<img src="Snipaste_2021-09-14_10-42-34.png">
+<img data-src="Snipaste_2021-09-14_10-42-34.png">
 结果：
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Standard Console::Logger: aaaaaaaaaaaaaaaaaaaaaaaa</span><br><span class="line">File::Logger: bbbbbbbbbbbbbbbbbbbbbbbbbbbbb</span><br><span class="line">Standard Console::Logger: bbbbbbbbbbbbbbbbbbbbbbbbbbbbb</span><br><span class="line">Error Console::Logger: ccccccccccccccccccccccccccc</span><br><span class="line">File::Logger: ccccccccccccccccccccccccccc</span><br><span class="line">Standard Console::Logger: ccccccccccccccccccccccccccc</span><br></pre></td></tr></table></figure></li>
 </ul>
@@ -567,7 +567,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -602,8 +602,10 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -616,6 +618,65 @@
 
 
 <script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
 
 
 
@@ -642,6 +703,7 @@
 
 
 
+    <div id="pjax">
   
 
   
@@ -666,5 +728,6 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
 });
 </script>
 
+    </div>
 </body>
 </html>

@@ -6,7 +6,7 @@
   <link href="https://www.wx1998.cn/atom.xml" rel="self"/>
   
   <link href="https://www.wx1998.cn/"/>
-  <updated>2021-11-06T12:15:07.632Z</updated>
+  <updated>2021-11-06T12:20:20.102Z</updated>
   <id>https://www.wx1998.cn/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>【java】图片压缩</title>
+    <title>【Java】图片压缩</title>
     <link href="https://www.wx1998.cn/java-ReduceImg/"/>
     <id>https://www.wx1998.cn/java-ReduceImg/</id>
     <published>2021-11-06T11:44:44.000Z</published>
-    <updated>2021-11-06T12:15:07.632Z</updated>
+    <updated>2021-11-06T12:20:20.102Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;Java环境中,大图片批量压缩，思路实现
@@ -104,9 +104,9 @@
     
     <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
     
-    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
-    
     <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
@@ -298,11 +298,11 @@
     <category term="自定义中间件" scheme="https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
     
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
     <category term="Android" scheme="https://www.wx1998.cn/tags/Android/"/>
     
     <category term="Android反编译" scheme="https://www.wx1998.cn/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
     

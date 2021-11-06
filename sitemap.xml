@@ -9,6 +9,13 @@
   </url>
   
   <url>
+    <loc>https://www.wx1998.cn/java-ReduceImg/</loc>
+    
+    <lastmod>2021-11-06</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/mysql-notes-senior/</loc>
     
     <lastmod>2021-10-28</lastmod>
@@ -459,13 +466,6 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/OpenCV/</loc>
-    <lastmod>2021-11-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/tags/Ndoe-js/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
@@ -487,7 +487,28 @@
   </url>
   
   <url>
+    <loc>https://www.wx1998.cn/tags/OpenCV/</loc>
+    <lastmod>2021-11-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2021-11-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/tags/Dos%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2021-11-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/tags/%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -509,20 +530,6 @@
   
   <url>
     <loc>https://www.wx1998.cn/tags/Python/</loc>
-    <lastmod>2021-11-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/tags/Dos%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2021-11-06</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/tags/%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -678,14 +685,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Android/</loc>
+    <loc>https://www.wx1998.cn/categories/Windows/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Windows/</loc>
+    <loc>https://www.wx1998.cn/categories/Android/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -713,14 +720,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Android/%E5%8F%8D%E7%BC%96%E8%AF%91/</loc>
+    <loc>https://www.wx1998.cn/categories/Windows/doc%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Windows/doc%E5%91%BD%E4%BB%A4/</loc>
+    <loc>https://www.wx1998.cn/categories/Android/%E5%8F%8D%E7%BC%96%E8%AF%91/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

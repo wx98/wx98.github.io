@@ -6,7 +6,7 @@
   <link href="https://www.wx1998.cn/atom.xml" rel="self"/>
   
   <link href="https://www.wx1998.cn/"/>
-  <updated>2021-10-28T10:14:55.295Z</updated>
+  <updated>2021-11-06T12:03:18.306Z</updated>
   <id>https://www.wx1998.cn/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java 图片压缩</title>
+    <link href="https://www.wx1998.cn/java-ReduceImg/"/>
+    <id>https://www.wx1998.cn/java-ReduceImg/</id>
+    <published>2021-11-06T11:44:44.000Z</published>
+    <updated>2021-11-06T12:03:18.306Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;Java环境中,大图片批量压缩，思路实现
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img data-src=&quot;/java-ReduceImg/Snipaste_2021-11-06_19-58-11.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>MySql高级面试八股文笔记</title>
@@ -468,29 +485,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img data-src=&quot;/Pattern-Design/Pattern-Data-Access-Object/1.jpg&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】前端控制器模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Front-Controller/"/>
-    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Front-Controller/</id>
-    <published>2019-03-09T03:25:31.000Z</published>
-    <updated>2019-03-19T01:20:19.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img data-src=&quot;/Pattern-Design/Pattern-Front-Controller/1.jpg&quot;&gt;</summary>
     
     
     

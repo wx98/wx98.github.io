@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.wx1998.cn/java-ReduceImg/</loc>
+    <loc>https://www.wx1998.cn/about/index.html</loc>
     
     <lastmod>2021-11-06</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/about/index.html</loc>
+    <loc>https://www.wx1998.cn/java-ReduceImg/</loc>
     
     <lastmod>2021-11-06</lastmod>
     
@@ -550,14 +550,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/Mybatis/</loc>
+    <loc>https://www.wx1998.cn/tags/Markdown/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/Markdown/</loc>
+    <loc>https://www.wx1998.cn/tags/Mybatis/</loc>
     <lastmod>2021-11-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

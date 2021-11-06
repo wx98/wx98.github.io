@@ -18,7 +18,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null,"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="享元模式理解剖析以及应用">
@@ -282,7 +282,7 @@
       
         <pre><code>享元模式理解剖析以及应用
 </code></pre>
-<img src="/Pattern-Design/Pattern-Flyweight/1.gif">
+<img data-src="/Pattern-Design/Pattern-Flyweight/1.gif">
 <span id="more"></span>
 
 <h1 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h1><p>享元模式（Flyweight Pattern）主要用于减少创建对象的数量，以减少内存占用和提高性能。<br>这种类型的设计模式属于结构型模式，它提供了减少对象数量从而改善应用所需的对象结构的方式。<br>运用共享技术来有效地支持大量细粒度对象的复用。<br>它通过共享已经存在的对象来大幅度减少需要创建的对象数量、避免大量相似类的开销，从而提高系统资源的利用率。</p>
@@ -327,7 +327,7 @@
 <li>非享元（Unsharable Flyweight)角色：是不可以共享的外部状态，它以参数的形式注入具体享元的相关方法中。</li>
 <li>享元工厂（Flyweight Factory）角色：负责创建和管理享元角色。当客户对象请求一个享元对象时，享元工厂检査系统中是否存在符合要求的享元对象，如果存在则提供给客户；如果不存在的话，则创建一个新的享元对象。</li>
 </ul>
-<img src="1.gif">
+<img data-src="1.gif">
 
 <ul>
 <li>UnsharedConcreteFlyweight 是非享元角色，里面包含了非共享的外部状态信息 info；</li>
@@ -344,7 +344,7 @@
 <li>测试<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FlyweightPattern</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FlyweightFactory factory = <span class="keyword">new</span> FlyweightFactory();</span><br><span class="line">        Flyweight f01 = factory.getFlyweight(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">        Flyweight f02 = factory.getFlyweight(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">        Flyweight f03 = factory.getFlyweight(<span class="string">&quot;a&quot;</span>);</span><br><span class="line">        Flyweight f11 = factory.getFlyweight(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">        Flyweight f12 = factory.getFlyweight(<span class="string">&quot;b&quot;</span>);</span><br><span class="line">        f01.operation(<span class="keyword">new</span> UnsharedConcreteFlyweight(<span class="string">&quot;第1次调用a。&quot;</span>));</span><br><span class="line">        f02.operation(<span class="keyword">new</span> UnsharedConcreteFlyweight(<span class="string">&quot;第2次调用a。&quot;</span>));</span><br><span class="line">        f03.operation(<span class="keyword">new</span> UnsharedConcreteFlyweight(<span class="string">&quot;第3次调用a。&quot;</span>));</span><br><span class="line">        f11.operation(<span class="keyword">new</span> UnsharedConcreteFlyweight(<span class="string">&quot;第1次调用b。&quot;</span>));</span><br><span class="line">        f12.operation(<span class="keyword">new</span> UnsharedConcreteFlyweight(<span class="string">&quot;第2次调用b。&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 结果：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">具体享元a被创建！</span><br><span class="line">具体享元a已经存在，被成功获取！</span><br><span class="line">具体享元a已经存在，被成功获取！</span><br><span class="line">具体享元b被创建！</span><br><span class="line">具体享元b已经存在，被成功获取！</span><br><span class="line">具体享元a被调用，非享元信息是:第1次调用a。</span><br><span class="line">具体享元a被调用，非享元信息是:第2次调用a。</span><br><span class="line">具体享元a被调用，非享元信息是:第3次调用a。</span><br><span class="line">具体享元b被调用，非享元信息是:第1次调用b。</span><br><span class="line">具体享元b被调用，非享元信息是:第2次调用b。</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img src="2.svg">
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><img data-src="2.svg">
 创建一个 Shape 接口和实现了 Shape 接口的实体类 Circle。
 下一步是定义工厂类 ShapeFactory。ShapeFactory 有一个 Circle 的 HashMap，其中键名为 Circle 对象的颜色。
 无论何时接收到请求，都会创建一个特定颜色的圆。
@@ -557,7 +557,7 @@ FlyWeightPatternDemo 类使用 ShapeFactory 来获取 Shape 对象。它将向 S
 
         
 <div class="busuanzi-count">
-  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
       <span class="post-meta-item-icon">
         <i class="fa fa-user"></i>
@@ -592,9 +592,9 @@ FlyWeightPatternDemo 类使用 ShapeFactory 来获取 Shape 对象。它将向 S
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/pjax/pjax.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
   <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
@@ -607,65 +607,6 @@ FlyWeightPatternDemo 类使用 ShapeFactory 来获取 Shape 对象。它将向 S
 
 
 <script src="/js/next-boot.js"></script>
-
-  <script>
-var pjax = new Pjax({
-  selectors: [
-    'head title',
-    '#page-configurations',
-    '.content-wrap',
-    '.post-toc-wrap',
-    '.languages',
-    '#pjax'
-  ],
-  switches: {
-    '.post-toc-wrap': Pjax.switches.innerHTML
-  },
-  analytics: false,
-  cacheBust: false,
-  scrollTo : !CONFIG.bookmark.enable
-});
-
-window.addEventListener('pjax:success', () => {
-  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
-    var code = element.text || element.textContent || element.innerHTML || '';
-    var parent = element.parentNode;
-    parent.removeChild(element);
-    var script = document.createElement('script');
-    if (element.id) {
-      script.id = element.id;
-    }
-    if (element.className) {
-      script.className = element.className;
-    }
-    if (element.type) {
-      script.type = element.type;
-    }
-    if (element.src) {
-      script.src = element.src;
-      // Force synchronous loading of peripheral JS.
-      script.async = false;
-    }
-    if (element.dataset.pjax !== undefined) {
-      script.dataset.pjax = '';
-    }
-    if (code !== '') {
-      script.appendChild(document.createTextNode(code));
-    }
-    parent.appendChild(script);
-  });
-  NexT.boot.refresh();
-  // Define Motion Sequence & Bootstrap Motion.
-  if (CONFIG.motion.enable) {
-    NexT.motion.integrator
-      .init()
-      .add(NexT.motion.middleWares.subMenu)
-      .add(NexT.motion.middleWares.postList)
-      .bootstrap();
-  }
-  NexT.utils.updateSidebarPosition();
-});
-</script>
 
 
 
@@ -692,7 +633,6 @@ window.addEventListener('pjax:success', () => {
 
 
 
-    <div id="pjax">
   
 
   
@@ -717,6 +657,5 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
 });
 </script>
 
-    </div>
 </body>
 </html>

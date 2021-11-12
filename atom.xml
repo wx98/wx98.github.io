@@ -93,7 +93,7 @@
     <link href="https://www.wx1998.cn/Spring-MVC-Practice/"/>
     <id>https://www.wx1998.cn/Spring-MVC-Practice/</id>
     <published>2021-07-11T14:36:52.000Z</published>
-    <updated>2021-08-12T03:48:37.998Z</updated>
+    <updated>2021-11-12T07:29:22.902Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;Spring-MVC-项目实战笔记
@@ -111,9 +111,9 @@
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
     
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
     
-    <category term="java" scheme="https://www.wx1998.cn/tags/java/"/>
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/tags/SpringMvc/"/>
     
@@ -126,7 +126,7 @@
     <link href="https://www.wx1998.cn/Spring-MVC/"/>
     <id>https://www.wx1998.cn/Spring-MVC/</id>
     <published>2021-07-08T12:40:31.000Z</published>
-    <updated>2021-08-12T03:48:37.986Z</updated>
+    <updated>2021-11-12T07:29:22.897Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;Spring Mvc 的原理 理解 使用 笔记
@@ -142,9 +142,9 @@
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
     
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
     
-    <category term="java" scheme="https://www.wx1998.cn/tags/java/"/>
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/tags/SpringMvc/"/>
     
@@ -407,6 +407,33 @@
   </entry>
   
   <entry>
+    <title>【Java】ExecutorService 线程池</title>
+    <link href="https://www.wx1998.cn/Java-ExecutorService-notes/"/>
+    <id>https://www.wx1998.cn/Java-ExecutorService-notes/</id>
+    <published>2020-04-12T07:24:13.000Z</published>
+    <updated>2019-03-17T04:10:00.000Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;并发编程 ExecutorService 线程池的使用
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img data-src=&quot;/Java-ExecutorService-notes/ExecutorService.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="java" scheme="https://www.wx1998.cn/categories/java/"/>
+    
+    <category term="并发" scheme="https://www.wx1998.cn/categories/java/%E5%B9%B6%E5%8F%91/"/>
+    
+    
+    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
+    
+    <category term="并发编程" scheme="https://www.wx1998.cn/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+    <category term="线程池" scheme="https://www.wx1998.cn/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【设计模式】设计模式目录</title>
     <link href="https://www.wx1998.cn/Pattern-Design/"/>
     <id>https://www.wx1998.cn/Pattern-Design/</id>
@@ -462,29 +489,6 @@
     <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
 &lt;/code&gt;&lt;/pre&gt;
 &lt;img data-src=&quot;/Pattern-Design/Pattern-Composite-Entity-Pattern/1.jpg&quot;&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】数据访问对象模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Data-Access-Object/"/>
-    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Data-Access-Object/</id>
-    <published>2019-03-09T03:25:31.000Z</published>
-    <updated>2019-03-19T01:20:19.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img data-src=&quot;/Pattern-Design/Pattern-Data-Access-Object/1.jpg&quot;&gt;</summary>
     
     
     

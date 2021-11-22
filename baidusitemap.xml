@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/</loc>
+    <lastmod>2021-11-22</lastmod>
+  </url>
+  <url>
+    <loc>https://www.wx1998.cn/java-mianshi/</loc>
+    <lastmod>2021-11-20</lastmod>
+  </url>
+  <url>
     <loc>https://www.wx1998.cn/Spring-MVC-Practice/</loc>
     <lastmod>2021-11-12</lastmod>
   </url>
@@ -17,19 +25,11 @@
     <lastmod>2021-11-06</lastmod>
   </url>
   <url>
-    <loc>https://www.wx1998.cn/java-mianshi/</loc>
-    <lastmod>2021-11-06</lastmod>
-  </url>
-  <url>
     <loc>https://www.wx1998.cn/NodeJs-Notes/</loc>
     <lastmod>2021-09-22</lastmod>
   </url>
   <url>
     <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Proxy-Pattern/</loc>
-    <lastmod>2021-09-15</lastmod>
-  </url>
-  <url>
-    <loc>https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/</loc>
     <lastmod>2021-09-15</lastmod>
   </url>
   <url>

@@ -55,7 +55,7 @@
     <link href="https://www.wx1998.cn/java-mianshi/"/>
     <id>https://www.wx1998.cn/java-mianshi/</id>
     <published>2021-10-11T13:35:57.000Z</published>
-    <updated>2021-11-06T12:15:26.175Z</updated>
+    <updated>2021-11-20T17:15:26.037Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;面试八股文,
@@ -104,9 +104,9 @@
     
     <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
     
-    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
-    
     <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
+    
+    <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
@@ -155,7 +155,7 @@
     <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/"/>
     <id>https://www.wx1998.cn/Pattern-Design/Pattern-Dynamic-Proxy/</id>
     <published>2021-07-06T05:44:45.000Z</published>
-    <updated>2021-09-15T09:48:58.167Z</updated>
+    <updated>2021-11-22T00:53:41.733Z</updated>
     
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;动态代理模式的理解以及使用
@@ -298,11 +298,11 @@
     <category term="自定义中间件" scheme="https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
     
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
+    
     <category term="Android" scheme="https://www.wx1998.cn/tags/Android/"/>
     
     <category term="Android反编译" scheme="https://www.wx1998.cn/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
-    
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
     

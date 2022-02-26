@@ -9,6 +9,6 @@ console.log(
   "                                   /\\____/                \n" +
   "                                   \\_/__/                 ");
 
-console.log("简历详见界面：","https://www.wx1998.cn/resume")
-console.log("简历PDF：","https://www.wx1998.cn/resume/wangxu.pdf")
-console.log("简历PDF-阿里云盘：","https://www.aliyundrive.com/s/ainM9yqwjVd")
+// console.log("简历详见界面：","https://www.wx1998.cn/resume")
+// console.log("简历PDF：","https://www.wx1998.cn/resume/wangxu.pdf")
+// console.log("简历PDF-阿里云盘：","https://www.aliyundrive.com/s/ainM9yqwjVd")

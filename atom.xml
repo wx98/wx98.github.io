@@ -6,7 +6,7 @@
   <link href="https://www.wx1998.cn/atom.xml" rel="self"/>
   
   <link href="https://www.wx1998.cn/"/>
-  <updated>2022-01-02T16:00:19.805Z</updated>
+  <updated>2022-04-26T13:11:04.673Z</updated>
   <id>https://www.wx1998.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES6笔记</title>
+    <link href="https://www.wx1998.cn/ES6-note/"/>
+    <id>https://www.wx1998.cn/ES6-note/</id>
+    <published>2022-03-24T09:08:28.000Z</published>
+    <updated>2022-04-26T13:11:04.673Z</updated>
+    
+    
+    <summary type="html">&lt;pre&gt;&lt;code&gt;ES6学习笔记
+&lt;/code&gt;&lt;/pre&gt;
+&lt;img data-src=&quot;/ES6-note/ES6.png&quot; class=&quot;&quot;&gt;</summary>
+    
+    
+    
+    <category term="ES6" scheme="https://www.wx1998.cn/categories/ES6/"/>
+    
+    
+    <category term="ES6" scheme="https://www.wx1998.cn/tags/ES6/"/>
+    
+  </entry>
   
   <entry>
     <title>【消息中间件】MQ消息组件学习笔记</title>
@@ -123,9 +144,9 @@
     
     <category term="JavaWeb" scheme="https://www.wx1998.cn/categories/JavaWeb/"/>
     
-    <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
-    
     <category term="Mybatis" scheme="https://www.wx1998.cn/categories/JavaWeb/Mybatis/"/>
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/categories/JavaWeb/Spring/"/>
     
     <category term="SpringMvc" scheme="https://www.wx1998.cn/categories/JavaWeb/SpringMvc/"/>
     
@@ -317,11 +338,11 @@
     <category term="自定义中间件" scheme="https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     
     
-    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
-    
     <category term="Android" scheme="https://www.wx1998.cn/tags/Android/"/>
     
     <category term="Android反编译" scheme="https://www.wx1998.cn/tags/Android%E5%8F%8D%E7%BC%96%E8%AF%91/"/>
+    
+    <category term="Spring" scheme="https://www.wx1998.cn/tags/Spring/"/>
     
     <category term="Python" scheme="https://www.wx1998.cn/tags/Python/"/>
     
@@ -462,29 +483,6 @@
     
     <summary type="html">&lt;pre&gt;&lt;code&gt;设计模式目录
 &lt;/code&gt;&lt;/pre&gt;</summary>
-    
-    
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-    
-    <category term="Java" scheme="https://www.wx1998.cn/tags/Java/"/>
-    
-    <category term="设计模式" scheme="https://www.wx1998.cn/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【设计模式】业务代表模式</title>
-    <link href="https://www.wx1998.cn/Pattern-Design/Pattern-Business-Delegate/"/>
-    <id>https://www.wx1998.cn/Pattern-Design/Pattern-Business-Delegate/</id>
-    <published>2019-03-09T03:25:31.000Z</published>
-    <updated>2019-03-19T01:20:19.000Z</updated>
-    
-    
-    <summary type="html">&lt;pre&gt;&lt;code&gt;模式理解剖析以及应用
-&lt;/code&gt;&lt;/pre&gt;
-&lt;img data-src=&quot;/Pattern-Design/Pattern-Business-Delegate/1.svg&quot;&gt;</summary>
     
     
     

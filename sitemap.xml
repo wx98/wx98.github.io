@@ -676,20 +676,6 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/tags/Dos%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/tags/%E5%91%BD%E4%BB%A4/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/tags/Hexo/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -711,6 +697,27 @@
   </url>
   
   <url>
+    <loc>https://www.wx1998.cn/tags/Dos%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/tags/%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/tags/Markdown/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/tags/learn/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -719,13 +726,6 @@
   
   <url>
     <loc>https://www.wx1998.cn/tags/%E6%8C%87%E4%BB%A4%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/tags/Markdown/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -895,21 +895,7 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Android/%E5%8F%8D%E7%BC%96%E8%AF%91/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://www.wx1998.cn/categories/JavaWeb/Mybatis/</loc>
-    <lastmod>2023-09-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://www.wx1998.cn/categories/Windows/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -923,14 +909,21 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Github/</loc>
+    <loc>https://www.wx1998.cn/categories/Windows/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Oracle/Sql/</loc>
+    <loc>https://www.wx1998.cn/categories/Android/%E5%8F%8D%E7%BC%96%E8%AF%91/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.wx1998.cn/categories/Github/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -944,7 +937,7 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
+    <loc>https://www.wx1998.cn/categories/Oracle/Sql/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -958,14 +951,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/Python/</loc>
+    <loc>https://www.wx1998.cn/categories/Android/%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%AD%E9%97%B4%E4%BB%B6/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/java/</loc>
+    <loc>https://www.wx1998.cn/categories/Python/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -979,6 +972,13 @@
   </url>
   
   <url>
+    <loc>https://www.wx1998.cn/categories/java/</loc>
+    <lastmod>2023-09-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://www.wx1998.cn/categories/JavaWeb/SpringMvc/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -986,14 +986,14 @@
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/JavaWeb/Html5/</loc>
+    <loc>https://www.wx1998.cn/categories/java/%E5%B9%B6%E5%8F%91/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://www.wx1998.cn/categories/java/%E5%B9%B6%E5%8F%91/</loc>
+    <loc>https://www.wx1998.cn/categories/JavaWeb/Html5/</loc>
     <lastmod>2023-09-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/android-chrome-512x512.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本篇为常用的《hexo命令》笔记 涵盖了 编译、预览、部署、新建文章 等基本命令 收录了 文章属性，分类与标签、hexo特有标签插件等基本语法与规则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【hexo】命令汇总-日常更新维护命令">
+<meta property="og:url" content="https://www.wx1998.cn/Note/hello-hexo/index.html">
+<meta property="og:site_name" content="洛玖随笔">
+<meta property="og:description" content="本篇为常用的《hexo命令》笔记 涵盖了 编译、预览、部署、新建文章 等基本命令 收录了 文章属性，分类与标签、hexo特有标签插件等基本语法与规则">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wx1998.cn/Note/hello-hexo/hexo.png">
+<meta property="article:published_time" content="2020-11-06T23:51:01.000Z">
+<meta property="article:modified_time" content="2024-04-19T19:28:31.628Z">
+<meta property="article:author" content="洛玖">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="learn">
+<meta property="article:tag" content="指令笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wx1998.cn/Note/hello-hexo/hexo.png">
+
+<link rel="canonical" href="https://www.wx1998.cn/Note/hello-hexo/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【hexo】命令汇总-日常更新维护命令 | 洛玖随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="洛玖随笔" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">洛玖随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wx1998.cn/Note/hello-hexo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-192x192.png">
+      <meta itemprop="name" content="洛玖">
+      <meta itemprop="description" content="对酒当歌，人生几何！<br>譬如朝露，去日苦多。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="洛玖随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【hexo】命令汇总-日常更新维护命令
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-07 07:51:01" itemprop="dateCreated datePublished" datetime="2020-11-07T07:51:01+08:00">2020-11-07</time>
+            </span>
+
+
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2024-04-20T03:28:31+08:00" content="2024-04-20" title="2024-04-20 03:28:31">
+                2024-04-20
+              </time>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index"><span itemprop="name">Hexo</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>本篇为常用的《hexo命令》笔记
+涵盖了 编译、预览、部署、新建文章 等基本命令
+收录了 文章属性，分类与标签、hexo特有标签插件等基本语法与规则
+</code></pre>
+<img data-src="/Note/hello-hexo/hexo.png" class="">
+<span id="more"></span>
+
+<ul>
+<li>若无hexo项目，请花5分钟移步文章【<a href="#">Post not found: build-hexo-project 从零构建hexo网站项目发布</a>】 创建项目。</li>
+</ul>
+<hr>
+<h1 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h1><h2 id="新建文章-界面"><a href="#新建文章-界面" class="headerlink" title="新建文章/界面"></a>新建文章/界面</h2><ul>
+<li>新建文章或者页面<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+Tips:默认为 post布局，可以通过修改 _config.yml 中的 default_layout 参数来指定默认布局。<table>
+<thead>
+<tr>
+<th align="center">layout</th>
+<th align="center">路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">post</td>
+<td align="center">source/_posts</td>
+</tr>
+<tr>
+<td align="center">page</td>
+<td align="center">source</td>
+</tr>
+<tr>
+<td align="center">draft</td>
+<td align="center">source/_drafts</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="新建草稿"><a href="#新建草稿" class="headerlink" title="新建草稿"></a>新建草稿</h2><p>draft布局为草稿，草稿默认不会显示在页面中</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new draft &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<p>您可通过 publish 命令将草稿移动到 source/_posts 文件夹</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo publish [layout] &lt;title&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h2><p>在新建文章时，Hexo 会根据 scaffolds 文件夹内相对应的文件来建立文件，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new test &quot;my test&quot;</span><br></pre></td></tr></table></figure>
+<p>在执行这行指令时，Hexo 会尝试在 scaffolds 文件夹中寻找 test.md，并根据其内容建立文章，<br>以下是您可以在模版中使用的变量：</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">layout</td>
+<td align="center">布局</td>
+</tr>
+<tr>
+<td align="center">title</td>
+<td align="center">标题</td>
+</tr>
+<tr>
+<td align="center">date</td>
+<td align="center">文件建立日期</td>
+</tr>
+</tbody></table>
+<h1 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h1><h2 id="文章属性-Front-matter"><a href="#文章属性-Front-matter" class="headerlink" title="文章属性 Front-matter"></a>文章属性 Front-matter</h2><p>Front-matter 是文件最上方以 <code>---</code> 分隔的区域，用于指定个别文件的变量，举例来说：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: Hello World</span><br><span class="line">date: 2013/7/13 20:46:25</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>以下是预先定义的参数，您可在模板中使用这些参数值并加以利用。</p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">描述</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">layout</td>
+<td align="center">布局</td>
+<td align="left">此处请参考  _layout.yml配置</td>
+</tr>
+<tr>
+<td align="center">title</td>
+<td align="center">标题</td>
+<td align="left">文章的文件名</td>
+</tr>
+<tr>
+<td align="center">date</td>
+<td align="center">建立日期</td>
+<td align="left">文件建立日期</td>
+</tr>
+<tr>
+<td align="center">updated</td>
+<td align="center">更新日期</td>
+<td align="left">文件更新日期</td>
+</tr>
+<tr>
+<td align="center">comments</td>
+<td align="center">开启文章的评论功能</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="center">tags</td>
+<td align="center">标签（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">categories</td>
+<td align="center">分类（不适用于分页）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">permalink</td>
+<td align="center">覆盖文章网址</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">excerpt</td>
+<td align="center">纯文本的页面摘录。使用此插件格式化文本</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">disableNunjucks</td>
+<td align="center">启用时禁用Nunjucks标记<code>&#123;&#123; &#125;&#125;/&#123;% %&#125;</code>和标记插件的呈现</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">lang</td>
+<td align="center">设置语言以覆盖自动检测</td>
+<td align="left">继承自_config.yml</td>
+</tr>
+</tbody></table>
+<h2 id="分类和标签"><a href="#分类和标签" class="headerlink" title="分类和标签"></a>分类和标签</h2><p>只有文章支持分类和标签，您可以在 Front-matter 中设置。<br>在其他系统中，分类和标签听起来很接近，但是在 Hexo 中两者有着明显的差别：<br>分类具有顺序性和层次性，也就是说 Foo, Bar 不等于 Bar, Foo；<br>而标签没有顺序和层次。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">tags:</span><br><span class="line">- PS3</span><br><span class="line">- Games</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>分类方法的分歧</strong><br>如果您有过使用 WordPress 的经验，就很容易误解 Hexo 的分类方式。<br>WordPress 支持对一篇文章设置多个分类，而且这些分类可以是同级的，也可以是父子分类。<br>但是 <strong>Hexo 不支持指定多个同级分类</strong>。下面的指定方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- Diary</span><br><span class="line">- Life</span><br></pre></td></tr></table></figure>
+<p>以上会使分类Life成为Diary的子分类，<strong>而不是并列分类</strong>。因此，有必要为您的文章选择尽可能准确的分类。<br>如果你需要<strong>为文章添加多个分类</strong>，可以尝试以下 list 中的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">categories:</span><br><span class="line">- [Diary, PlayStation]</span><br><span class="line">- [Diary, Games]</span><br><span class="line">- [Life]</span><br></pre></td></tr></table></figure>
+<p>此时这篇<strong>文章同时包括三个分类</strong>： PlayStation 和 Games 分别都是父分类 Diary 的子分类，<br><strong>同时</strong> Life 是一个没有子分类的分类。</p>
+</blockquote>
+<h2 id="文件名称"><a href="#文件名称" class="headerlink" title="文件名称"></a>文件名称</h2><p>Hexo 默认以标题做为文件名称，但您可编辑 <code>new_post_name</code> 参数来改变默认的文件名称，<br>举例来说，设为 <code>:year-:month-:day-:title.md</code> 可让您更方便的通过日期来管理文章。</p>
+<table>
+<thead>
+<tr>
+<th align="center">变量</th>
+<th align="center">描述</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">:title</td>
+<td align="center">标题（小写，空格将会被替换为短杠）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">:year</td>
+<td align="center">建立的年份</td>
+<td align="left">比如， 2015</td>
+</tr>
+<tr>
+<td align="center">:month</td>
+<td align="center">建立的月份（有前导零）</td>
+<td align="left">比如， 04</td>
+</tr>
+<tr>
+<td align="center">:i_month</td>
+<td align="center">建立的月份（无前导零）</td>
+<td align="left">比如， 4</td>
+</tr>
+<tr>
+<td align="center">:day</td>
+<td align="center">建立的日期（有前导零）</td>
+<td align="left">比如， 07</td>
+</tr>
+<tr>
+<td align="center">:i_day</td>
+<td align="center">建立的日期（无前导零）</td>
+<td align="left">比如， 7</td>
+</tr>
+</tbody></table>
+<h1 id="标签插件"><a href="#标签插件" class="headerlink" title="标签插件"></a>标签插件</h1><p>标签插件和 Front-matter 中的标签不同，它们是<strong>用于在文章中快速插入特定内容</strong>的插件。<br>虽然你可以使用任何格式书写你的文章，但是标签插件永远可用，且语法也都是一致的。<br><del>ps:个人认为这部分的学习成本较高，有特殊需求使用即可，其他情况建议使用Markdown</del></p>
+<h2 id="引用块"><a href="#引用块" class="headerlink" title="引用块"></a>引用块</h2><ul>
+<li>在文章中插入引言，可包含作者、来源和标题。<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote [author[, source]] [link] [source_link_title] %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>举例<ul>
+<li>只输出普通的blockquote（<strong>无参</strong>）<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote %&#125;</span><br><span class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+效果:<blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+</blockquote></li>
+<li>引用书上的句子（<strong>有参</strong>）<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote David Levithan, Wide Awake %&#125;</span><br><span class="line">Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+效果:<blockquote><p>Do not just seek happiness for yourself. Seek happiness for all. Through kindness. Through mercy.</p>
+<footer><strong>David Levithan</strong><cite>Wide Awake</cite></footer></blockquote></li>
+<li>引用网上的文章<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% blockquote Seth Godin http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html Welcome to Island Marketing %&#125;</span><br><span class="line">Every interaction is both precious and an opportunity to delight.</span><br><span class="line">&#123;% endblockquote %&#125;</span><br></pre></td></tr></table></figure>
+效果:<blockquote><p>Every interaction is both precious and an opportunity to delight.</p>
+<footer><strong>Seth Godin</strong><cite><a target="_blank" rel="noopener" href="http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html">Welcome to Island Marketing</a></cite></footer></blockquote></li>
+</ul>
+</li>
+</ul>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><ul>
+<li><p>在文章中插入代码。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock [title] [lang:language] [url] [link text] [additional options] %&#125;</span><br><span class="line">code snippet</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">额外选项</th>
+<th align="center">说明</th>
+<th align="left">默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">line_number</td>
+<td align="center">显示行号</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="center">highlight</td>
+<td align="center">启用代码突出显示</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="center">first_line</td>
+<td align="center">定第一行号</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">wrap</td>
+<td align="center">将代码块包装在<code>&lt;table&gt;</code>中</td>
+<td align="left">true</td>
+</tr>
+<tr>
+<td align="center">mark</td>
+<td align="center">突出显示特定行，每个值用逗号分隔。使用破折号指定数字范围 示例：mark：1,4-7,10将标记第1、4至7和10行</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><del>ps:我这里认为此处语法与Markdown中的``````类似</del></p>
+</li>
+<li><p>举例</p>
+<ul>
+<li>普通的代码块<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock %&#125;</span><br><span class="line">alert(&#x27;Hello World!&#x27;);</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+效果:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(&#39;Hello World!&#39;);</span><br></pre></td></tr></table></figure></li>
+<li>指定语言<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock lang:objc %&#125;</span><br><span class="line">[rectangle setX: 10 y: 10 width: 20 height: 20];</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+效果:<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[rectangle setX: <span class="number">10</span> y: <span class="number">10</span> width: <span class="number">20</span> height: <span class="number">20</span>];</span><br></pre></td></tr></table></figure></li>
+<li>附加说明<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock Array.map %&#125;</span><br><span class="line">array.map(callback[, thisArg])</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+效果:<figure class="highlight plain"><figcaption><span>Array.map</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.map(callback[, thisArg])</span><br></pre></td></tr></table></figure></li>
+<li>附加说明和网址<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;% codeblock _.compact http://underscorejs.org/#compact Underscore.js %&#125;</span><br><span class="line">_.compact([0, 1, false, 2, &#x27;&#x27;, 3]);</span><br><span class="line">=&gt; [1, 2, 3]</span><br><span class="line">&#123;% endcodeblock %&#125;</span><br></pre></td></tr></table></figure>
+效果:<figure class="highlight plain"><figcaption><span>_.compact</span><a target="_blank" rel="noopener" href="http://underscorejs.org/#compact">Underscore.js</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.compact([0, 1, false, 2, &#39;&#39;, 3]);</span><br><span class="line">&#x3D;&gt; [1, 2, 3]</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="反引号代码块"><a href="#反引号代码块" class="headerlink" title="反引号代码块"></a>反引号代码块</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">``` [language] [title] [url] [link text] code snippet ```</span><br></pre></td></tr></table></figure>
+<h2 id="Pull-Quote"><a href="#Pull-Quote" class="headerlink" title="Pull Quote"></a>Pull Quote</h2><p>在文章中插入 Pull quote。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% pullquote [class] %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endpullquote %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="jsFiddle"><a href="#jsFiddle" class="headerlink" title="jsFiddle"></a>jsFiddle</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% jsfiddle shorttag [tabs] [skin] [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Gist"><a href="#Gist" class="headerlink" title="Gist"></a>Gist</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% gist gist_id [filename] %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="iframe"><a href="#iframe" class="headerlink" title="iframe"></a>iframe</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% iframe url [width] [height] %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Image"><a href="#Image" class="headerlink" title="Image"></a>Image</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% img [class names] /path/to/image [width] [height] &#x27;&quot;title text&quot; &quot;alt text&quot;&#x27; %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code [title] [lang:language] [from:line] [to:line] path/to/file %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Include-Code"><a href="#Include-Code" class="headerlink" title="Include Code"></a>Include Code</h2><ul>
+<li>插入 source/downloads/code 文件夹内的代码文件。<br>source/downloads/code 不是固定的，取决于你在配置文件中 code_dir 的配置。<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code [title] [lang:language] [from:line] [to:line] path/to/file %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>举例<ul>
+<li>嵌入 test.js 文件全文<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code lang:javascript test.js %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>只嵌入第 3 行<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:3 to:3 test.js %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>嵌入第 5 行至第 8 行<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:5 to:8 test.js %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>嵌入第 5 行至文件结束<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code lang:javascript from:5 test.js %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>嵌入第 1 行至第 8 行<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% include_code lang:javascript to:8 test.js %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="引用文章"><a href="#引用文章" class="headerlink" title="引用文章"></a>引用文章</h2></li>
+</ul>
+</li>
+<li>引用其他文章的链接。<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_path filename %&#125;</span><br><span class="line">&#123;% post_link filename [title] [escape] %&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在使用此标签时可以忽略文章文件所在的路径或者文章的永久链接信息、如语言、日期。   </li>
+<li>例如，在文章中使用<code>&#123;% post_link aaaaa %&#125; </code>时，只需有一个名为 <code>aaaaa.md</code> 的文章文件即可。   </li>
+<li>即使这个文件位于站点文件夹的 source/posts/2015-02-my-family-holiday 目录下、或者文章的永久链接是 2018/en/how-to-bake-a-cake，都没有影响。   </li>
+<li>默认链接文字是文章的标题，你也可以自定义要显示的文本。</li>
+<li>默认对文章的标题和自定义标题里的特殊字符进行转义。可以使用escape选项，禁止对特殊字符进行转义。</li>
+<li>举例<ul>
+<li>链接使用文章的标题<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_link build-hexo-project  %&#125;</span><br></pre></td></tr></table></figure>
+效果:   <a href="#">Post not found: build-hexo-project</a></li>
+<li>链接使用自定义文字<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_link build-hexo-project &#x27;从零构建hexo网站项目发布&#x27; %&#125;</span><br></pre></td></tr></table></figure>
+效果:   <a href="#">Post not found: build-hexo-project 从零构建hexo网站项目发布</a></li>
+<li>对标题的特殊字符进行转义<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_link build-hexo-project &#x27;How to use &lt;b&gt; tag in title&#x27; %&#125;</span><br></pre></td></tr></table></figure>
+效果:   <a href="#">Post not found: build-hexo-project How to use <b> tag in title</a></li>
+<li>禁止对标题的特殊字符进行转义<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% post_link build-hexo-project &#x27;&lt;b&gt;bold&lt;/b&gt; custom title&#x27; false %&#125;</span><br></pre></td></tr></table></figure>
+效果:   <a href="#">Post not found: build-hexo-project <b>bold</b> custom title false</a>
+<h2 id="引用资源"><a href="#引用资源" class="headerlink" title="引用资源"></a>引用资源</h2>引用文章的资源。<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_path filename %&#125;</span><br><span class="line">&#123;% asset_img [class names] slug [width] [height] [title text [alt text]] %&#125;</span><br><span class="line">&#123;% asset_link filename [title] [escape] %&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="嵌入图片"><a href="#嵌入图片" class="headerlink" title="嵌入图片"></a>嵌入图片</h2></li>
+</ul>
+</li>
+<li>默认（无选项）<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img foo.jpg %&#125;</span><br></pre></td></tr></table></figure>
+效果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/2020/01/02/hello/foo.jpg&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>自定样式<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img post-image foo.jpg %&#125;</span><br></pre></td></tr></table></figure>
+效果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/2020/01/02/hello/foo.jpg&quot;</span> <span class="attr">class</span>=<span class="string">&quot;post-image&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>显示大小<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img foo.jpg 500 400 %&#125;</span><br></pre></td></tr></table></figure>
+效果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/2020/01/02/hello/foo.jpg&quot;</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;400&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>标题和替换<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;% asset_img logo.svg &quot;lorem ipsum&#x27;dolor&#x27;&quot; %&#125;</span><br></pre></td></tr></table></figure>
+效果：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/2020/01/02/hello/foo.jpg&quot;</span> <span class="attr">title</span>=<span class="string">&quot;lorem ipsum&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;dolor&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="文章摘要和截断"><a href="#文章摘要和截断" class="headerlink" title="文章摘要和截断"></a>文章摘要和截断</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- more --&gt;</span><br></pre></td></tr></table></figure>
+<p>在文章中使用<code> &lt;!-- more --&gt;</code>，那么<code>&lt;!-- more --&gt;</code>之前的文字将会被视为摘要。<br><strong>首页中将只出现这部分文字</strong>，同时这部分文字也会出现在正文之中。</p>
+<h2 id="Raw"><a href="#Raw" class="headerlink" title="Raw"></a>Raw</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line">content</span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="编译-预览-部署"><a href="#编译-预览-部署" class="headerlink" title="编译 预览 部署"></a>编译 预览 部署</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br><span class="line">hexo g</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center"></th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-d</td>
+<td align="center">–deploy</td>
+<td align="left">文件生成后立即部署网站</td>
+</tr>
+<tr>
+<td align="center">-w</td>
+<td align="center">–watch</td>
+<td align="left">监视文件变动</td>
+</tr>
+<tr>
+<td align="center">-b</td>
+<td align="center">–bail</td>
+<td align="left">生成过程中如果发生任何未处理的异常则抛出异常</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">–force</td>
+<td align="left">强制重新生成文件，Hexo 引入了差分机制，如果 public 目录存在，那么 hexo g 只会重新生成改动的文件。<br>使用该参数的效果接近 <code>hexo clean &amp;&amp; hexo generate</code></td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">–concurrency</td>
+<td align="left">最大同时生成文件的数量，默认无限制</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="清除缓存"><a href="#清除缓存" class="headerlink" title="清除缓存"></a>清除缓存</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此命令将启动服务器在本地预览博客</li>
+<li>默认情况访问网址为<a target="_blank" rel="noopener" href="http://localhost:4000/" title="请本地访问">http://localhost:4000/</a></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center"></th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-p</td>
+<td align="center">–port</td>
+<td align="left">重设端口</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">–static</td>
+<td align="left">只使用静态文件</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">–log</td>
+<td align="left">启动日记记录，使用覆盖记录格式</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo deploy</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center"></th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-g</td>
+<td align="center">–generate</td>
+<td align="left">部署之前预先生成静态文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>调用此目录前需在<code>_config.yml</code>中进行部署配置</p>
+</li>
+<li><p>例如部署到git</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br></pre></td></tr></table></figure></li>
+<li><p>同时部署到git &amp; heroku</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo:</span><br><span class="line">    type: heroku</span><br><span class="line">    repo:</span><br></pre></td></tr></table></figure></li>
+<li><p>部署到git配置详解</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: &lt;repository url&gt; #https://bitbucket.org/JohnSmith/johnsmith.bitbucket.io</span><br><span class="line">  branch: [branch]</span><br><span class="line">  message: [message]</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="center">参 数</th>
+<th align="center">描 述</th>
+<th align="left">默认</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">repo</td>
+<td align="center">库（Repository）地址</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="center">branch</td>
+<td align="center">分支名称</td>
+<td align="left"><code>gh-pages(GitHub)</code><br/><code>coding-pages(Coding.net)</code><br/><code>master (others)</code></td>
+</tr>
+<tr>
+<td align="center">message</td>
+<td align="center">自定义提交信息</td>
+<td align="left"><code>Site updated: &#123;&#123;now('YYYY-MM-DD HH:mm:ss')&#125;&#125;)</code></td>
+</tr>
+<tr>
+<td align="center">token</td>
+<td align="center">用于与仓库进行身份验证的可选令牌值。<br/>带$的前缀以从环境变量读取令牌</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>以本项目举例配置为</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">    <span class="attr">repo:</span> <span class="string">git@github.com:wx98/wx98.github.io.git</span></span><br><span class="line">    <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
+<li><p>注意:若部署至git则需安装名为<code>hexo-deployer-git</code>的插件，否则会报如下错误:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Deployer not found: git</span><br></pre></td></tr></table></figure>
+<p>安装只需执行如下代码</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+<p>安装完毕后执行<code>hexo g</code>完成部署</p>
+</li>
+<li><p>Tips:可以将部署写成一个脚本简化流程，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p><strong>文章到此就结束啦，感谢查阅。</strong></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>洛玖
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wx1998.cn/Note/hello-hexo/" title="【hexo】命令汇总-日常更新维护命令">https://www.wx1998.cn/Note/hello-hexo/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/learn/" rel="tag"># learn</a>
+              <a href="/tags/%E6%8C%87%E4%BB%A4%E7%AC%94%E8%AE%B0/" rel="tag"># 指令笔记</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Note/Hexo-build-project/" rel="prev" title="【hexo】从零构建hexo网站项目">
+      <i class="fa fa-chevron-left"></i> 【hexo】从零构建hexo网站项目
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Android/android-middleware-module/" rel="next" title="【Flag】Android中间件模块-使用反编译注入自定义代码">
+      【Flag】Android中间件模块-使用反编译注入自定义代码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">写作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E6%96%87%E7%AB%A0-%E7%95%8C%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">新建文章&#x2F;界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E8%8D%89%E7%A8%BF"><span class="nav-number">1.2.</span> <span class="nav-text">新建草稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">模板</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%B1%9E%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">基本属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E5%B1%9E%E6%80%A7-Front-matter"><span class="nav-number">2.1.</span> <span class="nav-text">文章属性 Front-matter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE"><span class="nav-number">2.2.</span> <span class="nav-text">分类和标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E5%90%8D%E7%A7%B0"><span class="nav-number">2.3.</span> <span class="nav-text">文件名称</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">标签插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E5%9D%97"><span class="nav-number">3.1.</span> <span class="nav-text">引用块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.2.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">3.3.</span> <span class="nav-text">反引号代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pull-Quote"><span class="nav-number">3.4.</span> <span class="nav-text">Pull Quote</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jsFiddle"><span class="nav-number">3.5.</span> <span class="nav-text">jsFiddle</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gist"><span class="nav-number">3.6.</span> <span class="nav-text">Gist</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iframe"><span class="nav-number">3.7.</span> <span class="nav-text">iframe</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Image"><span class="nav-number">3.8.</span> <span class="nav-text">Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link"><span class="nav-number">3.9.</span> <span class="nav-text">Link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Include-Code"><span class="nav-number">3.10.</span> <span class="nav-text">Include Code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E6%96%87%E7%AB%A0"><span class="nav-number">3.11.</span> <span class="nav-text">引用文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%B5%84%E6%BA%90"><span class="nav-number">3.12.</span> <span class="nav-text">引用资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B5%8C%E5%85%A5%E5%9B%BE%E7%89%87"><span class="nav-number">3.13.</span> <span class="nav-text">嵌入图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E7%AB%A0%E6%91%98%E8%A6%81%E5%92%8C%E6%88%AA%E6%96%AD"><span class="nav-number">3.14.</span> <span class="nav-text">文章摘要和截断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Raw"><span class="nav-number">3.15.</span> <span class="nav-text">Raw</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E8%AF%91-%E9%A2%84%E8%A7%88-%E9%83%A8%E7%BD%B2"><span class="nav-number">4.</span> <span class="nav-text">编译 预览 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91"><span class="nav-number">4.1.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98"><span class="nav-number">4.2.</span> <span class="nav-text">清除缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E8%A7%88"><span class="nav-number">4.3.</span> <span class="nav-text">预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2"><span class="nav-number">4.4.</span> <span class="nav-text">部署</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="洛玖"
+      src="/images/android-chrome-192x192.png">
+  <p class="site-author-name" itemprop="name">洛玖</p>
+  <div class="site-description" itemprop="description">对酒当歌，人生几何！<br>譬如朝露，去日苦多。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;1262148122&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wx.98@qq.com" title="E-Mail → mailto:wx.98@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/wx98" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wx98" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洛玖</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">674k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:12</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备19004628号-1</a>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+<script src="/js/code_unfold.js"></script>
+
+<script src="/js/hello.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

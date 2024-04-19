@@ -1,0 +1,79 @@
+
+## WebApplicationContext
+&emsp;&emsp;Spring 中的 ApplicationContext 实例可以限定范围。在 Web MVC 框架中，每个 DispatcherServlet 都有自己的 WebApplicationContext。它继承 WebApplicationContext 中已经定义的所有 bean。
+&emsp;&emsp;WebApplicationContext包含所有其他上下文和 Servlet 实例之间 所有的 bean。这些继承的 bean 可以在特定于 servlet 的范围内被覆盖，并且您可以在给定的 Servlet 实例本地定义新的特定于范围的 bean。
+
+### 下文层次结构
+{% asset_img mvc-context-hierarchy.png SpringWebMVC中的典型上下文层次结构 %}
+
+&emsp;&emsp;Spring MVC在您的 Web 应用程序的目录中查找名为 [servlet-name]-servlet.xml的WEB-INF文件，并创建在那里定义的 bean，覆盖在全局范围内使用相同名称定义的任何 bean 的定义.
+
+若在web.xml文件中存在以下DispatcherServlet 的Servlet 配置
+golfing-servlet.xml
+```xml
+<web-app>
+    <servlet>
+        <servlet-name>golfing</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>golfing</servlet-name>
+        <url-pattern>/golfing/*</url-pattern>
+    </servlet-mapping>
+</web-app>
+```
+此 Servlet 配置，此文件将包含所有 Spring Web MVC 特定的组件（bean）。
+
+### 单根上下文
+对于单个 DispatcherServlet 场景，也可能只有一个根上下文。
+{% asset_img mvc-root-context.png SpringWebMVC中的单根上下文 %}
+这可以通过设置一个空的 contextConfigLocation servlet init 参数来配置，如下所示：
+```xml
+<web-app>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/root-context.xml</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value></param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+</web-app>
+```
+或者
+```java
+public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        // MyAppConfig defines beans that would be in root-context.xml
+        return new Class<?>[] { MyAppConfig.class };
+    }
+
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        // MyWebConfig defines beans that would be in My-servlet.xml
+        return new Class<?>[] { MyWebConfig.class };
+    }
+
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/My/*" };
+    }
+}
+```
+&emsp;&emsp;WebApplicationContext 是普通 ApplicationContext 的扩展，它具有一些 Web 应用程序所需的额外功能，它与普通 ApplicationContext 的不同之处在于它能够解析主题，并且它知道它与哪个 Servlet 相关联（通过链接到 ServletContext）。
+&emsp;&emsp;WebApplicationContext 绑定在 ServletContext 中，并且通过使用 RequestContextUtils 类上的静态方法，如果您需要访问它，您可以随时查找 WebApplicationContext。

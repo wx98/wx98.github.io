@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/android-chrome-512x512.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="面试八股文, 图片很多30多M，慎点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Java】Java面试八股文随笔">
+<meta property="og:url" content="https://www.wx1998.cn/Back-end/java-mianshi/index.html">
+<meta property="og:site_name" content="洛玖随笔">
+<meta property="og:description" content="面试八股文, 图片很多30多M，慎点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-31-17.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_21-39-06.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_21-46-01.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_21-47-31.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_22-03-05.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_22-07-27.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_22-10-36.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_22-21-07.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-11_22-32-01.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_08-31-57.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_09-07-13.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_09-07-59.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_18-41-28.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_19-06-41.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_19-04-46.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_19-23-10.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_19-41-46.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_19-45-35.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_20-01-36.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_20-03-23.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_20-08-42.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-12_20-38-17.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-15_19-04-10.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-15_19-50-17.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-16_02-12-33.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_11-22-26.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_11-34-42.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_12-04-56.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_12-32-03.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_13-12-38.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_13-29-09.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_18-21-12.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-17_18-39-09.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-02-38.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-23-46.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-31-17.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-39-34.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-46-19.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-48-09.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-51-11.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-53-39.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-57-46.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-59-29.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-03-35.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-06-03.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-07-36.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-18-30.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-19-18.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-23-42.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_02-26-17.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-05-06.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-25-12.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-27-25.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-29-47.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-30-18.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-35-07.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-47-25.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_12-57-58.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_13-03-37.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_14-43-24.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_14-52-05.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_15-01-25.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_22-52-23.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_22-52-48.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_22-58-51.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_23-04-32.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_23-14-51.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_23-18-52.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_02-16-22.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_02-28-59.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-04-24.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-06-27.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-07-37.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-17-55.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-19-12.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-21-18.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-21-58.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-23-18.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-26-41.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-32-44.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-33-12.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-36-12.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-41-03.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-43-28.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_10-45-07.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_11-15-18.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_11-15-52.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_11-19-29.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_11-56-25.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_13-10-30.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_13-30-55.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-19_18-45-07.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_13-09-05.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_13-43-15.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_13-46-04.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_13-52-15.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_13-54-57.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_14-00-55.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-23_14-02-04.png">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-24_17-05-24.png">
+<meta property="article:published_time" content="2021-12-02T13:35:57.000Z">
+<meta property="article:modified_time" content="2021-12-03T13:35:57.000Z">
+<meta property="article:author" content="洛玖">
+<meta property="article:tag" content="洛玖,洛玖博客,洛玖随笔,wx1998.cn,luoooo,JavaScript,Hexo,Android,Java,Spring,MySql,Html5,Css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wx1998.cn/Back-end/java-mianshi/Snipaste_2021-10-18_01-31-17.png">
+
+<link rel="canonical" href="https://www.wx1998.cn/Back-end/java-mianshi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Java】Java面试八股文随笔 | 洛玖随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="洛玖随笔" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">洛玖随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wx1998.cn/Back-end/java-mianshi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-192x192.png">
+      <meta itemprop="name" content="洛玖">
+      <meta itemprop="description" content="对酒当歌，人生几何！<br>譬如朝露，去日苦多。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="洛玖随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Java】Java面试八股文随笔
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-02 21:35:57" itemprop="dateCreated datePublished" datetime="2021-12-02T21:35:57+08:00">2021-12-02</time>
+            </span>
+
+
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2021-12-03T21:35:57+08:00" content="2021-12-03" title="2021-12-03 21:35:57">
+                2021-12-03
+              </time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>945</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>面试八股文,
+图片很多30多M，慎点
+</code></pre>
+<img data-src="/Back-end/java-mianshi/Snipaste_2021-10-18_01-31-17.png" class="">
+
+<span id="more"></span>
+
+<h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><p><a target="_blank" rel="noopener" href="https://javaguide.cn/">javaguide</a></p>
+<h2 id="查找算法"><a href="#查找算法" class="headerlink" title="查找算法"></a>查找算法</h2><p>实现</p>
+<p><img data-src="./Snipaste_2021-10-11_21-39-06.png"></p>
+<p>公式优化防止溢出</p>
+<p><img data-src="Snipaste_2021-10-11_21-46-01.png"><br>使用移位</p>
+<p><img data-src="Snipaste_2021-10-11_21-47-31.png"></p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><h3 id="冒泡"><a href="#冒泡" class="headerlink" title="冒泡"></a>冒泡</h3><p>冒泡实现</p>
+<p><img data-src="Snipaste_2021-10-11_22-03-05.png"><br>优化1，减少内置循环</p>
+<p><img data-src="Snipaste_2021-10-11_22-07-27.png"><br>优化2，减少冒泡次数</p>
+<p><img data-src="Snipaste_2021-10-11_22-10-36.png"></p>
+<p>最终优化使用变量控制避免无效冒泡</p>
+<p>认为最后一次交之后的元素均已达成排序条件</p>
+<p><img data-src="Snipaste_2021-10-11_22-21-07.png"></p>
+<h3 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h3><p>实现</p>
+<p><img data-src="Snipaste_2021-10-11_22-32-01.png"></p>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>实现</p>
+<p><img data-src="Snipaste_2021-10-12_08-31-57.png"></p>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>单边快排</p>
+<p><img data-src="Snipaste_2021-10-12_09-07-13.png"></p>
+<p><img data-src="Snipaste_2021-10-12_09-07-59.png"></p>
+<p>双边快排</p>
+<p><img data-src="Snipaste_2021-10-12_18-41-28.png"></p>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><h3 id="扩容机制"><a href="#扩容机制" class="headerlink" title="扩容机制"></a>扩容机制</h3><ul>
+<li><p>初始容量为0<br><img data-src="Snipaste_2021-10-12_19-06-41.png"></p>
+</li>
+<li><p>（add）扩容容量都是上一次容量的1.5倍<br><img data-src="Snipaste_2021-10-12_19-04-46.png"><br>旧数组长+旧数组长度右移一位（除2）</p>
+</li>
+<li><p> （addAll）<br><img data-src="Snipaste_2021-10-12_19-23-10.png"><br>空数组时，addall <strong>扩容 10 与 实际元素个数 之间的较大值</strong><br>非空数组时，addall <strong>扩容 1.5倍原容量 与 实际元素个数 之间的较大值</strong></p>
+</li>
+</ul>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><ul>
+<li><p>fail-fast 不允许在便利时修改list，<br><img data-src="Snipaste_2021-10-12_19-41-46.png"><br>若修改则会使迭代器立即报错<br><img data-src="Snipaste_2021-10-12_19-45-35.png"></p>
+</li>
+<li><p>fail-safe 允许并发修改list，但会牺牲一致性<br><img data-src="Snipaste_2021-10-12_20-01-36.png"><br>添加新元素的时候会复制一边数组，读写分离</p>
+</li>
+</ul>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><p><img data-src="Snipaste_2021-10-12_20-03-23.png"></p>
+<ul>
+<li><p>读取<br>arrylist 实现了 RandomAccess 接口<br><img data-src="Snipaste_2021-10-12_20-08-42.png"><br>所以可以直接可以使用get 获取元素， 效率比(LinkedList 沿着链表遍历找值 )高</p>
+</li>
+<li><p>增删<br>arrylist 增删会导致数据移动效率会降低，头尾插入没有问题<br>LinkedList 只有头尾性能高</p>
+</li>
+<li><p>空间占用<br>arrylist 因为局部性原理，可以避免频繁的内存与缓存的读写</p>
+</li>
+</ul>
+<h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p><img data-src="Snipaste_2021-10-12_20-38-17.png"><br><img data-src="Snipaste_2021-10-15_19-04-10.png"><br><img data-src="Snipaste_2021-10-15_19-50-17.png"></p>
+<h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><h3 id="常识"><a href="#常识" class="headerlink" title="常识"></a>常识</h3><p><img data-src="Snipaste_2021-10-16_02-12-33.png"><br><img data-src="Snipaste_2021-10-17_11-22-26.png"><br><img data-src="Snipaste_2021-10-17_11-34-42.png"></p>
+<h3 id="sleep-wait"><a href="#sleep-wait" class="headerlink" title="sleep | wait"></a>sleep | wait</h3><p><img data-src="Snipaste_2021-10-17_12-04-56.png"></p>
+<h3 id="lock-synchronize"><a href="#lock-synchronize" class="headerlink" title="lock | synchronize"></a>lock | synchronize</h3><p><img data-src="Snipaste_2021-10-17_12-32-03.png"></p>
+<h3 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h3><p><img data-src="Snipaste_2021-10-17_13-12-38.png"><br><img data-src="Snipaste_2021-10-17_13-29-09.png"></p>
+<h3 id="悲观锁，乐观锁"><a href="#悲观锁，乐观锁" class="headerlink" title="悲观锁，乐观锁"></a>悲观锁，乐观锁</h3><p><img data-src="Snipaste_2021-10-17_18-21-12.png"></p>
+<h3 id="Hashtable-ConcurrentHashMap"><a href="#Hashtable-ConcurrentHashMap" class="headerlink" title="Hashtable | ConcurrentHashMap"></a>Hashtable | ConcurrentHashMap</h3><p><img data-src="Snipaste_2021-10-17_18-39-09.png"></p>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p><img data-src="Snipaste_2021-10-18_01-02-38.png"></p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p><img data-src="Snipaste_2021-10-18_01-23-46.png"><br><img data-src="Snipaste_2021-10-18_01-31-17.png"></p>
+<h3 id="内存结构"><a href="#内存结构" class="headerlink" title="内存结构"></a>内存结构</h3><p><img data-src="Snipaste_2021-10-18_01-39-34.png"><br><img data-src="Snipaste_2021-10-18_01-46-19.png"><br><img data-src="Snipaste_2021-10-18_01-48-09.png"></p>
+<h3 id="JVM内存参数"><a href="#JVM内存参数" class="headerlink" title="JVM内存参数"></a>JVM内存参数</h3><p><img data-src="Snipaste_2021-10-18_01-51-11.png"><br><img data-src="Snipaste_2021-10-18_01-53-39.png"><br><img data-src="Snipaste_2021-10-18_01-57-46.png"><br><img data-src="Snipaste_2021-10-18_01-59-29.png"></p>
+<h3 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h3><p><img data-src="Snipaste_2021-10-18_02-03-35.png"><br><img data-src="Snipaste_2021-10-18_02-06-03.png"><br><img data-src="Snipaste_2021-10-18_02-07-36.png"></p>
+<h3 id="垃圾回收-GC"><a href="#垃圾回收-GC" class="headerlink" title="垃圾回收 | GC"></a>垃圾回收 | GC</h3><p><img data-src="Snipaste_2021-10-18_02-18-30.png"><br><img data-src="Snipaste_2021-10-18_02-19-18.png"><br><img data-src="Snipaste_2021-10-18_02-23-42.png"></p>
+<h3 id="三色标记"><a href="#三色标记" class="headerlink" title="三色标记"></a>三色标记</h3><p><img data-src="Snipaste_2021-10-18_02-26-17.png"></p>
+<h3 id="并发漏标"><a href="#并发漏标" class="headerlink" title="并发漏标"></a>并发漏标</h3><p><img data-src="Snipaste_2021-10-18_12-05-06.png"><br><img data-src="Snipaste_2021-10-18_12-25-12.png"><br><img data-src="Snipaste_2021-10-18_12-27-25.png"></p>
+<h3 id="内存溢出"><a href="#内存溢出" class="headerlink" title="内存溢出"></a>内存溢出</h3><p><img data-src="Snipaste_2021-10-18_12-29-47.png"><br><img data-src="Snipaste_2021-10-18_12-30-18.png"><br><img data-src="Snipaste_2021-10-18_12-35-07.png"><br><img data-src="Snipaste_2021-10-18_12-47-25.png"></p>
+<h2 id="双亲委派"><a href="#双亲委派" class="headerlink" title="双亲委派"></a>双亲委派</h2><p><img data-src="Snipaste_2021-10-18_12-57-58.png"><br><img data-src="Snipaste_2021-10-18_13-03-37.png"><br><img data-src="Snipaste_2021-10-18_14-43-24.png"><br><img data-src="Snipaste_2021-10-18_14-52-05.png"></p>
+<h2 id="四种-引用对象"><a href="#四种-引用对象" class="headerlink" title="四种 引用对象"></a>四种 引用对象</h2><p><img data-src="Snipaste_2021-10-18_15-01-25.png"></p>
+<h2 id="finalize"><a href="#finalize" class="headerlink" title="finalize"></a>finalize</h2><p><img data-src="Snipaste_2021-10-18_22-52-23.png"><br><img data-src="Snipaste_2021-10-18_22-52-48.png"><br><img data-src="Snipaste_2021-10-18_22-58-51.png"><br><img data-src="Snipaste_2021-10-18_23-04-32.png"><br><img data-src="Snipaste_2021-10-18_23-14-51.png"></p>
+<h2 id="Java面向对象有哪些特征"><a href="#Java面向对象有哪些特征" class="headerlink" title="Java面向对象有哪些特征"></a>Java面向对象有哪些特征</h2><p>继承、封装、多态、</p>
+<h2 id="ArrayList和LinkedList有什么区别"><a href="#ArrayList和LinkedList有什么区别" class="headerlink" title="ArrayList和LinkedList有什么区别"></a>ArrayList和LinkedList有什么区别</h2><ul>
+<li>一个数组，一个链表</li>
+<li>插入、删除、访问</li>
+</ul>
+<h2 id="Java中抽象类和接口有什么区别"><a href="#Java中抽象类和接口有什么区别" class="headerlink" title="Java中抽象类和接口有什么区别"></a>Java中抽象类和接口有什么区别</h2><ul>
+<li>语义区别<ul>
+<li>抽象类是一个抽象的概念：动物、食物、</li>
+<li>接口是一个共同事物的共同特征：会飞的、会发光的、</li>
+</ul>
+</li>
+</ul>
+<h2 id="高并发的集合有哪些问题"><a href="#高并发的集合有哪些问题" class="headerlink" title="高并发的集合有哪些问题"></a>高并发的集合有哪些问题</h2><ul>
+<li>第一代，默认线程安全，效率很低</li>
+<li>第二代，非线程安全，ArrayList、HashMap，线程不安全但是效率比较高</li>
+<li>第三代，线程安全集合类。。。。。。</li>
+</ul>
+<h2 id="1-8的新特性有哪些？"><a href="#1-8的新特性有哪些？" class="headerlink" title="1.8的新特性有哪些？"></a>1.8的新特性有哪些？</h2><h1 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h1><h2 id="refresh"><a href="#refresh" class="headerlink" title="refresh"></a>refresh</h2><p><img data-src="Snipaste_2021-10-18_23-18-52.png"><br><img data-src="Snipaste_2021-10-19_02-16-22.png"><br><img data-src="Snipaste_2021-10-19_02-28-59.png"><br><img data-src="Snipaste_2021-10-19_10-04-24.png"><br><img data-src="Snipaste_2021-10-19_10-06-27.png"><br><img data-src="Snipaste_2021-10-19_10-07-37.png"><br><img data-src="Snipaste_2021-10-19_10-17-55.png"><br><img data-src="Snipaste_2021-10-19_10-19-12.png"><br><img data-src="Snipaste_2021-10-19_10-21-18.png"><br><img data-src="Snipaste_2021-10-19_10-21-58.png"><br><img data-src="Snipaste_2021-10-19_10-23-18.png"><br><img data-src="Snipaste_2021-10-19_10-26-41.png"><br><img data-src="Snipaste_2021-10-19_10-32-44.png"><br><img data-src="Snipaste_2021-10-19_10-33-12.png"></p>
+<h2 id="spring-bean"><a href="#spring-bean" class="headerlink" title="spring bean"></a>spring bean</h2><p><img data-src="Snipaste_2021-10-19_10-36-12.png"><br><img data-src="Snipaste_2021-10-19_10-41-03.png"><br><img data-src="Snipaste_2021-10-19_10-43-28.png"><br><img data-src="Snipaste_2021-10-19_10-45-07.png"><br><img data-src="Snipaste_2021-10-19_11-15-18.png"><br><img data-src="Snipaste_2021-10-19_11-15-52.png"><br><img data-src="Snipaste_2021-10-19_11-19-29.png"><br><img data-src="Snipaste_2021-10-19_11-56-25.png"><br><img data-src="Snipaste_2021-10-19_13-10-30.png"><br><img data-src="Snipaste_2021-10-19_13-30-55.png"><br><img data-src="Snipaste_2021-10-19_18-45-07.png"></p>
+<h2 id="spring-事务失效"><a href="#spring-事务失效" class="headerlink" title="spring 事务失效"></a>spring 事务失效</h2><p><img data-src="Snipaste_2021-10-23_13-09-05.png"><br><img data-src="Snipaste_2021-10-23_13-43-15.png"><br><img data-src="Snipaste_2021-10-23_13-46-04.png"></p>
+<h2 id="spring-MVC"><a href="#spring-MVC" class="headerlink" title="spring MVC"></a>spring MVC</h2><p><img data-src="Snipaste_2021-10-23_13-52-15.png"><br><img data-src="Snipaste_2021-10-23_13-54-57.png"><br><img data-src="Snipaste_2021-10-23_14-00-55.png"><br><img data-src="Snipaste_2021-10-23_14-02-04.png"><br><img data-src="Snipaste_2021-10-24_17-05-24.png"></p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><h2 id="spring-boot-自动配置"><a href="#spring-boot-自动配置" class="headerlink" title="spring boot 自动配置"></a>spring boot 自动配置</h2><h2 id="spring-循环依赖"><a href="#spring-循环依赖" class="headerlink" title="spring 循环依赖"></a>spring 循环依赖</h2>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>洛玖
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wx1998.cn/Back-end/java-mianshi/" title="【Java】Java面试八股文随笔">https://www.wx1998.cn/Back-end/java-mianshi/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Back-end/java-ReduceImg/" rel="prev" title="【Java】图片压缩">
+      <i class="fa fa-chevron-left"></i> 【Java】图片压缩
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Middleware/mq-notes/" rel="next" title="【消息中间件】MQ消息组件学习笔记">
+      【消息中间件】MQ消息组件学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java"><span class="nav-number">1.</span> <span class="nav-text">Java</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">查找算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%92%E6%B3%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">冒泡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9"><span class="nav-number">1.2.2.</span> <span class="nav-text">选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5"><span class="nav-number">1.2.3.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.2.4.</span> <span class="nav-text">快速排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList"><span class="nav-number">1.3.</span> <span class="nav-text">ArrayList</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6"><span class="nav-number">1.3.1.</span> <span class="nav-text">扩容机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList"><span class="nav-number">1.3.3.</span> <span class="nav-text">LinkedList</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashMap"><span class="nav-number">1.4.</span> <span class="nav-text">HashMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">单例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91"><span class="nav-number">1.6.</span> <span class="nav-text">并发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%AF%86"><span class="nav-number">1.6.1.</span> <span class="nav-text">常识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sleep-wait"><span class="nav-number">1.6.2.</span> <span class="nav-text">sleep | wait</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lock-synchronize"><span class="nav-number">1.6.3.</span> <span class="nav-text">lock | synchronize</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#volatile"><span class="nav-number">1.6.4.</span> <span class="nav-text">volatile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81%EF%BC%8C%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">1.6.5.</span> <span class="nav-text">悲观锁，乐观锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashtable-ConcurrentHashMap"><span class="nav-number">1.6.6.</span> <span class="nav-text">Hashtable | ConcurrentHashMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal"><span class="nav-number">1.6.7.</span> <span class="nav-text">ThreadLocal</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM"><span class="nav-number">1.7.</span> <span class="nav-text">JVM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">1.7.1.</span> <span class="nav-text">内存结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0"><span class="nav-number">1.7.2.</span> <span class="nav-text">JVM内存参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">1.7.3.</span> <span class="nav-text">垃圾回收</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6-GC"><span class="nav-number">1.7.4.</span> <span class="nav-text">垃圾回收 | GC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0"><span class="nav-number">1.7.5.</span> <span class="nav-text">三色标记</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%BC%8F%E6%A0%87"><span class="nav-number">1.7.6.</span> <span class="nav-text">并发漏标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">1.7.7.</span> <span class="nav-text">内存溢出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE"><span class="nav-number">1.8.</span> <span class="nav-text">双亲委派</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E7%A7%8D-%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.9.</span> <span class="nav-text">四种 引用对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#finalize"><span class="nav-number">1.10.</span> <span class="nav-text">finalize</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E5%BE%81"><span class="nav-number">1.11.</span> <span class="nav-text">Java面向对象有哪些特征</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayList%E5%92%8CLinkedList%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.12.</span> <span class="nav-text">ArrayList和LinkedList有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E4%B8%AD%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="nav-number">1.13.</span> <span class="nav-text">Java中抽象类和接口有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E7%9A%84%E9%9B%86%E5%90%88%E6%9C%89%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98"><span class="nav-number">1.14.</span> <span class="nav-text">高并发的集合有哪些问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">1.15.</span> <span class="nav-text">1.8的新特性有哪些？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring"><span class="nav-number">2.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#refresh"><span class="nav-number">2.1.</span> <span class="nav-text">refresh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-bean"><span class="nav-number">2.2.</span> <span class="nav-text">spring bean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88"><span class="nav-number">2.3.</span> <span class="nav-text">spring 事务失效</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-MVC"><span class="nav-number">2.4.</span> <span class="nav-text">spring MVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.5.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">2.6.</span> <span class="nav-text">spring boot 自动配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="nav-number">2.7.</span> <span class="nav-text">spring 循环依赖</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="洛玖"
+      src="/images/android-chrome-192x192.png">
+  <p class="site-author-name" itemprop="name">洛玖</p>
+  <div class="site-description" itemprop="description">对酒当歌，人生几何！<br>譬如朝露，去日苦多。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;1262148122&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wx.98@qq.com" title="E-Mail → mailto:wx.98@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/wx98" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wx98" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洛玖</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">674k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:12</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备19004628号-1</a>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+<script src="/js/code_unfold.js"></script>
+
+<script src="/js/hello.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

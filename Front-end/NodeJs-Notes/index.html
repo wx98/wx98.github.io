@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/android-chrome-512x512.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="NodeJs学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Node.js】NodeJs学习笔记">
+<meta property="og:url" content="https://www.wx1998.cn/Front-end/NodeJs-Notes/index.html">
+<meta property="og:site_name" content="洛玖随笔">
+<meta property="og:description" content="NodeJs学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wx1998.cn/Front-end/NodeJs-Notes/WhatIsNodejs.png">
+<meta property="og:image" content="https://www.wx1998.cn/Front-end/NodeJs-Notes/Webpack.png">
+<meta property="article:published_time" content="2017-10-02T07:40:37.000Z">
+<meta property="article:modified_time" content="2024-04-19T19:28:31.394Z">
+<meta property="article:author" content="洛玖">
+<meta property="article:tag" content="Ndoe.js">
+<meta property="article:tag" content="NPM">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wx1998.cn/Front-end/NodeJs-Notes/WhatIsNodejs.png">
+
+<link rel="canonical" href="https://www.wx1998.cn/Front-end/NodeJs-Notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Node.js】NodeJs学习笔记 | 洛玖随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="洛玖随笔" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">洛玖随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wx1998.cn/Front-end/NodeJs-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-192x192.png">
+      <meta itemprop="name" content="洛玖">
+      <meta itemprop="description" content="对酒当歌，人生几何！<br>譬如朝露，去日苦多。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="洛玖随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Node.js】NodeJs学习笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2017-10-02 15:40:37" itemprop="dateCreated datePublished" datetime="2017-10-02T15:40:37+08:00">2017-10-02</time>
+            </span>
+
+
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2024-04-20T03:28:31+08:00" content="2024-04-20" title="2024-04-20 03:28:31">
+                2024-04-20
+              </time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>NodeJs学习笔记
+</code></pre>
+<img data-src="/Front-end/NodeJs-Notes/WhatIsNodejs.png" class="">
+<span id="more"></span>
+
+<h1 id="Node-js是什么"><a href="#Node-js是什么" class="headerlink" title="Node.js是什么"></a>Node.js是什么</h1><p>Node.js是一个基于Chrome V8 </p>
+<h1 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h1><h2 id="实现请求响应"><a href="#实现请求响应" class="headerlink" title="实现请求响应"></a>实现请求响应</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入模块是require 就类似于import java.io </span></span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);</span><br><span class="line"><span class="comment">// 1: 创建一个httpserver服务</span></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request,response</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 浏览器怎么认识hello server!!! </span></span><br><span class="line">    response.writeHead(<span class="number">200</span>,&#123;<span class="string">&#x27;Content-type&#x27;</span>:<span class="string">&#x27;text/plain&#x27;</span>&#125;); <span class="comment">//这句话的含义是：告诉浏览器将</span></span><br><span class="line">    <span class="comment">// 以text-plain去解析hello server 这段数据。</span></span><br><span class="line">    <span class="comment">// 给浏览器输出内容</span></span><br><span class="line">    response.end(<span class="string">&quot;&lt;strong&gt;hello server!!!&lt;/strong&gt;&quot;</span>);</span><br><span class="line">    <span class="comment">// 2: 监听一端口8888</span></span><br><span class="line">&#125;).listen(<span class="number">8888</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;你启动的服务是：http://localhpst:8888以启动成功!!&quot;</span>);</span><br><span class="line"><span class="comment">// 3: 启动运行服务 node httpserver.js</span></span><br><span class="line"><span class="comment">// 4: 在浏览器访问http://localhost:8888</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> NAMES utf8mb4;</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> IF <span class="keyword">EXISTS</span> `kss_user`;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `kss_user`  (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">255</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> Compact;</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `kss_user` <span class="keyword">VALUES</span> (<span class="number">1</span>, <span class="string">&#x27;学相伴&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `kss_user` <span class="keyword">VALUES</span> (<span class="number">2</span>, <span class="string">&#x27;广东&#x27;</span>);</span><br><span class="line"><span class="keyword">SET</span> FOREIGN_KEY_CHECKS <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<p>-</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1: 导入mysql依赖包,  mysql属于第三方的模块就类似于 java.sql一样的道理</span></span><br><span class="line"><span class="keyword">var</span> mysql = <span class="built_in">require</span>(<span class="string">&quot;mysql&quot;</span>);</span><br><span class="line"><span class="comment">// 1: 创建一个mysql的Connection对象</span></span><br><span class="line"><span class="comment">// 2: 配置数据连接的信息 </span></span><br><span class="line"><span class="keyword">var</span> connection =mysql.createConnection(&#123;</span><br><span class="line">    host:<span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">    port:<span class="number">3306</span>,</span><br><span class="line">    user:<span class="string">&quot;root&quot;</span>,</span><br><span class="line">    password:<span class="string">&quot;mkxiaoer&quot;</span>,</span><br><span class="line">    database:<span class="string">&quot;db_test&quot;</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 3：开辟连接</span></span><br><span class="line">connection.connect();</span><br><span class="line"><span class="comment">// 4: 执行curd</span></span><br><span class="line">connection.query(<span class="string">&quot;select * from kss_user&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">error,results,fields</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 如果查询出错，直接抛出</span></span><br><span class="line">    <span class="keyword">if</span>(error)<span class="keyword">throw</span> error;</span><br><span class="line">    <span class="comment">// 查询成功</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;results = &quot;</span>,results);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 5: 关闭连接</span></span><br><span class="line">connection.end();</span><br><span class="line"><span class="comment">// 最后一步：运行node db.js 查看效果</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><h2 id="let-const"><a href="#let-const" class="headerlink" title="let/const"></a>let/const</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//传统</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;helo word&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> link = <span class="string">&quot;wx1998.com&quot;</span></span><br><span class="line"><span class="keyword">var</span> PI = <span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="built_in">console</span>.log(nam2);</span><br><span class="line"><span class="built_in">console</span>.log(link);</span><br><span class="line"><span class="built_in">console</span>.log(PI);</span><br><span class="line"><span class="comment">//ES6</span></span><br><span class="line"><span class="keyword">let</span> name2 = <span class="string">&quot;helo word&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> link2 = <span class="string">&quot;wxxwwx98.com&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> PI2= <span class="built_in">Math</span>.PI;</span><br><span class="line"><span class="built_in">console</span>.log(name2);</span><br><span class="line"><span class="built_in">console</span>.log(link2);</span><br><span class="line"><span class="built_in">console</span>.log(PI2);</span><br></pre></td></tr></table></figure>
+<p>解决了var 变量穿透的问题与常量修改的问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//var或造成变量穿透</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">5</span>;i++)&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;===这里就是变量穿透===&gt;&quot;</span> + i)</span><br><span class="line"><span class="comment">//let或造成变量穿透</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> j=<span class="number">0</span>;j&lt;<span class="number">5</span>;j++)&#123;</span><br><span class="line"> <span class="built_in">console</span>.log(j);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;===这里无法穿透===&gt;&quot;</span> + j)</span><br></pre></td></tr></table></figure>
+
+<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><p>使用反引号</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//es5    </span></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;itcast&#x27;</span>    </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;hello &#x27;</span> + name)    </span><br><span class="line"><span class="comment">//es6    </span></span><br><span class="line"><span class="keyword">const</span> name = <span class="string">&#x27;itcast&#x27;</span>    </span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`hello <span class="subst">$&#123;name&#125;</span>`</span>)</span><br></pre></td></tr></table></figure>
+<p>用例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> username = <span class="string">&quot;张三&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">30</span>;</span><br><span class="line"><span class="comment">// 1: 原始的做法就是去拼接字符串</span></span><br><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;我名字叫 &quot;</span> + username+<span class="string">&quot;,年龄是: &quot;</span>+age;</span><br><span class="line"><span class="built_in">console</span>.log(str);  </span><br><span class="line"><span class="comment">// 2:用模板字符串来拯救 注意：这里是 `（飘键） (tab键盘的上面那个键)</span></span><br><span class="line"><span class="comment">// jdk1.9 </span></span><br><span class="line"><span class="keyword">var</span> str2 = <span class="string">`我名字叫 <span class="subst">$&#123;username&#125;</span>,年龄是: <span class="subst">$&#123;age&#125;</span>`</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str2);</span><br></pre></td></tr></table></figure>
+
+<h2 id="函数默认参数与箭头函数"><a href="#函数默认参数与箭头函数" class="headerlink" title="函数默认参数与箭头函数"></a>函数默认参数与箭头函数</h2><ul>
+<li><p>函数默认参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认参数 给参数列表设定初始值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">a =<span class="number">100</span>,b=<span class="number">100</span></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(a,b);    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 执行方法，会用默认值填充，打印出来100,200</span></span><br><span class="line">add();</span><br><span class="line"><span class="comment">// 覆盖默认值打印  结果是1，2      </span></span><br><span class="line">add(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>箭头函数<br>它也是一种函数的定义，它简化定义仅此而已。<br>步骤：1：去掉function  2: 括号后面加箭头。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1:声明式的定义</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 2:表达式的定义</span></span><br><span class="line"><span class="keyword">var</span> add2 = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 3:箭头函数的定义</span></span><br><span class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">a = <span class="number">100</span>,b = <span class="number">300</span></span>) =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//  只有 return 可以直接省略为下面写法</span></span><br><span class="line"><span class="keyword">var</span> sum2 = <span class="function">(<span class="params">a = <span class="number">100</span>,b = <span class="number">300</span></span>) =&gt;</span> a + b;</span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(add2(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(sum(<span class="number">1</span>,<span class="number">2</span>));</span><br><span class="line"><span class="built_in">console</span>.log(sum2(<span class="number">1</span>,<span class="number">2</span>));</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="对象初始化简写"><a href="#对象初始化简写" class="headerlink" title="对象初始化简写"></a>对象初始化简写</h2><p>1.key value 名称一致，定义一次即可<br>2.函数可以去掉function</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    name: <span class="string">&quot;wx&quot;</span>,</span><br><span class="line">    age: <span class="string">&quot;age&quot;</span>,</span><br><span class="line">    test:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;info.test()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//简写为</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;wx&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> info1 = &#123;</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;info.test()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(info1.name)</span><br><span class="line"><span class="built_in">console</span>.log(info1.age)</span><br><span class="line">info1.test()</span><br></pre></td></tr></table></figure>
+<h2 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h2><p>es6提供一些获取快捷获取对象属性和行为方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//常规方式1</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;wx&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> age = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">let</span> info = &#123;</span><br><span class="line">    name,</span><br><span class="line">    age,</span><br><span class="line">    <span class="function"><span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;info.test()&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(info.name)</span><br><span class="line"><span class="built_in">console</span>.log(info.age)</span><br><span class="line">info.test()</span><br><span class="line"><span class="comment">//常规方式2</span></span><br><span class="line"><span class="built_in">console</span>.log(info[<span class="string">&quot;name&quot;</span>])</span><br><span class="line"><span class="built_in">console</span>.log(info[<span class="string">&quot;age&quot;</span>])</span><br><span class="line">info[<span class="string">&quot;test&quot;</span>]()</span><br><span class="line"><span class="comment">//Es6 对象解构</span></span><br><span class="line"><span class="keyword">let</span> &#123;name,age,test&#125; = info;</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line">test();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="传播操作符"><a href="#传播操作符" class="headerlink" title="传播操作符"></a>传播操作符</h2><p>把一个对象的属性传播到另外一个对象中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1： 定义一个对象</span></span><br><span class="line"><span class="keyword">var</span> person1 = &#123;</span><br><span class="line">    name: <span class="string">&#x27;小飞飞&#x27;</span>,</span><br><span class="line">    age: <span class="number">16</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 2： 对象解构</span></span><br><span class="line"><span class="keyword">var</span> &#123;name,age&#125; = person1;</span><br><span class="line"><span class="comment">// =========================== ... 对象融合=====================</span></span><br><span class="line"><span class="keyword">var</span> person2 = &#123;</span><br><span class="line">    ...person1,</span><br><span class="line">    gender:<span class="number">1</span>,</span><br><span class="line">    tel:<span class="number">123456789</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(person2);</span><br><span class="line"><span class="comment">// =========================== ... 对象取值=====================</span></span><br><span class="line"><span class="comment">// ... 对象取值</span></span><br><span class="line"><span class="keyword">var</span> person3 = &#123;</span><br><span class="line">    name:<span class="string">&quot;李四&quot;</span>,</span><br><span class="line">    gender:<span class="number">1</span>,</span><br><span class="line">    tel:<span class="string">&quot;11111&quot;</span>,</span><br><span class="line">    address:<span class="string">&#x27;广州&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// ...person4 把剩下没取走给我。</span></span><br><span class="line"><span class="keyword">var</span> &#123;name,gender,...person4&#125; = person3;</span><br><span class="line"><span class="built_in">console</span>.log(name)</span><br><span class="line"><span class="built_in">console</span>.log(age)</span><br><span class="line"><span class="built_in">console</span>.log(person4)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="数组map和-reduce-使用"><a href="#数组map和-reduce-使用" class="headerlink" title="数组map和 reduce() 使用"></a>数组map和 reduce() 使用</h2><p>map</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [ <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>];</span><br><span class="line"><span class="keyword">let</span> newArr = [];</span><br><span class="line"><span class="comment">//统一x2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">    newArr.push(arr[i]*<span class="number">2</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(newArr);</span><br><span class="line"><span class="comment">//新写法</span></span><br><span class="line"><span class="keyword">let</span> newArr2 = arr.map(<span class="function"><span class="params">ele</span>=&gt;</span>ele*<span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(newArr2);</span><br><span class="line"><span class="comment">//操作对象</span></span><br><span class="line"><span class="keyword">let</span> user = [&#123;<span class="attr">name</span>:<span class="string">&quot;wx1&quot;</span>,<span class="attr">age</span>:<span class="number">1</span>,<span class="attr">name</span>:<span class="string">&quot;wx2&quot;</span>,<span class="attr">age</span>:<span class="number">2</span>,<span class="attr">name</span>:<span class="string">&quot;wx3&quot;</span>,<span class="attr">age</span>:<span class="number">3</span>&#125;];</span><br><span class="line"><span class="keyword">let</span> newUsers = user.map(<span class="function"><span class="keyword">function</span>(<span class="params">ele</span>)</span>&#123; ele.age+=<span class="number">1</span>; <span class="keyword">return</span> ele; &#125;)</span><br><span class="line"><span class="keyword">let</span> newUsers2 = user.map(<span class="function"><span class="params">ele</span>=&gt;</span>&#123; ele.age+=<span class="number">1</span>; <span class="keyword">return</span> ele; &#125;)</span><br><span class="line"><span class="built_in">console</span>.log(newusers);</span><br><span class="line"><span class="built_in">console</span>.log(newusers);</span><br></pre></td></tr></table></figure>
+<p>reduce()</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr2 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>];</span><br><span class="line"><span class="keyword">var</span> result = arr2.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(result);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result2 = arr2.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b);</span><br><span class="line"><span class="built_in">console</span>.log(result2);</span><br></pre></td></tr></table></figure>
+
+<h1 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h1><p>NPM全称Node Package Manager，是Node.js包管理工具，是全球最大的模块生态系统，里面所有的模块都是开源免费的；也是Node.js的包管理工具，相当于前端的Maven 。</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#在命令提示符输入 npm -v 可查看当前npm版本</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><ul>
+<li>快速构建nodejs</li>
+<li>快速安装第三方工程</li>
+</ul>
+<h2 id="使用npm管理项目"><a href="#使用npm管理项目" class="headerlink" title="使用npm管理项目"></a>使用npm管理项目</h2><p>建立一个空文件夹，在命令提示符进入该文件夹  执行命令初始化</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>项目名称</td>
+</tr>
+<tr>
+<td>version</td>
+<td>项目版本号</td>
+</tr>
+<tr>
+<td>description</td>
+<td>项目描述</td>
+</tr>
+<tr>
+<td>keywords</td>
+<td>{Array}关键词，便于用户搜索到我们的项目</td>
+</tr>
+</tbody></table>
+<p>最后会生成package.json文件，这个是包的配置文件，相当于maven的pom.xml</p>
+<p>如果想直接生成 package.json 文件，那么可以使用命令</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装第三方模块"><a href="#安装第三方模块" class="headerlink" title="安装第三方模块"></a>安装第三方模块</h2><ul>
+<li>使用 npm install 安装依赖包的最新版，<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install xxxxx</span><br><span class="line">npm i  xxxxx</span><br></pre></td></tr></table></figure></li>
+<li>模块安装的位置：项目目录\node_modules</li>
+<li>安装会自动在项目目录下添加 package-lock.json文件，这个文件帮助锁定安装包的版本</li>
+<li>同时package.json 文件中，依赖包会被添加到dependencies节点下，类似maven中的 <dependencies></li>
+<li>如果安装时想指定特定的版本<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install jquery@2.1.x</span><br></pre></td></tr></table></figure></li>
+<li>devDependencies节点：开发时的依赖包，项目打包到生产环境的时候不包含的依赖</li>
+<li>使用 -D参数将依赖添加到devDependencies节点<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev eslint</span><br><span class="line">#或</span><br><span class="line">npm install -D eslint</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="全局安装"><a href="#全局安装" class="headerlink" title="全局安装"></a>全局安装</h2><p>Node.js全局安装的npm包和工具的位置：用户目录\AppData\Roaming\npm\node_modules<br>一些命令行工具常使用全局安装的方式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack</span><br></pre></td></tr></table></figure>
+<p>npm管理的项目在备份和传输的时候一般不携带node_modules文件夹</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>根据package.json中的配置下载依赖，初始化项目</p>
+<h2 id="修改npm镜像"><a href="#修改npm镜像" class="headerlink" title="修改npm镜像"></a>修改npm镜像</h2><p>经过下面的配置，以后所有的 npm install 都会经过淘宝的镜像地址下载</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry https://registry.npm.taobao.org </span><br><span class="line"># 查看npm配置信息</span><br><span class="line">npm config list</span><br></pre></td></tr></table></figure>
+
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><p>ES6的某些高级语法在浏览器环境甚至是Node.js环境中无法执行。<br>Babel是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行执行。<br>这意味着，你可以现在就用 ES6 编写程序，而不用担心现有环境是否支持</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g babel-cli</span><br><span class="line">#查看是否安装成功</span><br><span class="line">babel --version</span><br></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
+<li>配置文件<br>Babel的配置文件是.babelrc，存放在项目的根目录下，该文件用来设置转码规则和插件，基本格式如下。<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;presets&quot;</span>: [],</span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+presets字段设定转码规则，将es2015规则加入 .babelrc：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;presets&quot;</span>: [<span class="string">&quot;es2015&quot;</span>],</span><br><span class="line">    <span class="attr">&quot;plugins&quot;</span>: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>安装转码器，在项目中安装<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-preset-es2015</span><br></pre></td></tr></table></figure></li>
+<li>转码<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># npm install --save-dev csv-loader xml-loader</span><br><span class="line"># 转码结果写入一个文件</span><br><span class="line">mkdir dist1</span><br><span class="line"># --out-file 或 -o 参数指定输出文件</span><br><span class="line">babel src/example.js --out-file dist1/compiled.js</span><br><span class="line"># 或者</span><br><span class="line">babel src/example.js -o dist1/compiled.js</span><br><span class="line"># 整个目录转码</span><br><span class="line">mkdir dist2</span><br><span class="line"># --out-dir 或 -d 参数指定输出目录</span><br><span class="line">babel src --out-dir dist2</span><br><span class="line"># 或者</span><br><span class="line">babel src -d dist2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="自定义脚本"><a href="#自定义脚本" class="headerlink" title="自定义脚本"></a>自定义脚本</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;build&quot;</span>:  <span class="string">&quot;babel src\\example.js -o dist\\compiled.js&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>随着网站逐渐变成”互联网应用程序”，嵌入网页的Javascript代码越来越庞大，越来越复杂。<br>Javascript模块化编程，已经成为一个迫切的需求。理想情况下，开发者只需要实现核心的业务逻辑，其他都可以加载别人已经写好的模块。但是，Javascript不是一种模块化编程语言，它不支持”类”（class），包（package）等概念，也不支持”模块”（module）。</p>
+<h3 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h3><p>CommonJS模块化规范<br>ES6模块化规范</p>
+<h3 id="CommonJS规范"><a href="#CommonJS规范" class="headerlink" title="CommonJS规范"></a>CommonJS规范</h3><p>每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。</p>
+<ul>
+<li>创建“module”文件夹</li>
+<li>创建 mokuai-common-js/mode.js<br>mode.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义成员：</span></span><br><span class="line"><span class="keyword">const</span> sum = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> subtract = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a - b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> multiply = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a * b</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> divide = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a / b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>导出模块中的成员<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导出成员：</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    sum: sum,</span><br><span class="line">    subtract: subtract,</span><br><span class="line">    multiply: multiply,</span><br><span class="line">    divide: divide</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+简写<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//简写</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    sum,</span><br><span class="line">    subtract,</span><br><span class="line">    multiply,</span><br><span class="line">    divide</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>引入模块<br>test.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引入模块，注意：当前路径必须写 ./</span></span><br><span class="line"><span class="keyword">const</span> m = <span class="built_in">require</span>(<span class="string">&#x27;./mode.js&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(m)</span><br><span class="line"><span class="keyword">const</span> r1 = m.sum(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">const</span> r2 = m.subtract(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"><span class="built_in">console</span>.log(r1,r2)</span><br></pre></td></tr></table></figure></li>
+<li>运行 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node 引入模块.js</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="ES6模块化规范"><a href="#ES6模块化规范" class="headerlink" title="ES6模块化规范"></a>ES6模块化规范</h3><p>ES6使用 export 和 import 来导出、导入模块。</p>
+<h3 id="写法1"><a href="#写法1" class="headerlink" title="写法1"></a>写法1</h3><ul>
+<li>建 src/userApi.js 文件，导出模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">getList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;获取数据列表&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">save</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;保存数据&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建 src/userComponent.js文件，导入模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//只取需要的方法即可，多个方法用逗号分隔</span></span><br><span class="line"><span class="keyword">import</span> &#123; getList, save &#125; <span class="keyword">from</span> <span class="string">&#x27;./userApi.js&#x27;</span></span><br><span class="line">getList()</span><br><span class="line">save()</span><br></pre></td></tr></table></figure></li>
+<li>这时的程序无法运行的，因为ES6的模块化无法在Node.js中执行，需要用Babel编辑成ES5后再执行。<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#执行命令转码</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure></li>
+<li>运行<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node dist/userComponent.js</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="写法2"><a href="#写法2" class="headerlink" title="写法2"></a>写法2</h3><ul>
+<li>创建 src/userApi2.js ，导出模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="function"><span class="title">getList</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;获取数据列表2&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">save</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;保存数据2&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>创建 src/userComponent2.js，导入模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> user <span class="keyword">from</span> <span class="string">&quot;./userApi2.js&quot;</span></span><br><span class="line">user.getList()</span><br><span class="line">user.save()</span><br></pre></td></tr></table></figure></li>
+<li>转码 + 运行<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br><span class="line">node dist/userComponent2.js</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Webpack 是一个前端资源加载/打包工具。它将根据模块的依赖关系进行静态分析，然后将这些模块按照指定的规则生成对应的静态资源。</p>
+<img data-src="/Front-end/NodeJs-Notes/Webpack.png" class="">
+<p>从图中我们可以看出，Webpack 可以将多种静态资源 js、css、less 转换成一个静态文件，减少了页面的请求。</p>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack webpack-cli</span><br><span class="line">webpack -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>src下创建common.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.info = <span class="function"><span class="keyword">function</span> (<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.write(str);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>src下创建utils.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exports</span>.add = <span class="function"><span class="keyword">function</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>src下创建main.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> common = <span class="built_in">require</span>(<span class="string">&#x27;./common&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> utils = <span class="built_in">require</span>(<span class="string">&#x27;./utils&#x27;</span>);</span><br><span class="line">common.info(<span class="string">&#x27;Hello world!&#x27;</span> + utils.add(<span class="number">100</span>, <span class="number">200</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="JS打包"><a href="#JS打包" class="headerlink" title="JS打包"></a>JS打包</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&quot;path&quot;); //Node.js内置模块</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &#x27;./src/main.js&#x27;, //配置入口文件</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, &#x27;./dist&#x27;), //输出路径，__dirname：当前文件所在路径</span><br><span class="line">        filename: &#x27;bundle.js&#x27; //输出文件</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+以上配置的意思是：读取当前项目目录下src文件夹中的main.js（入口文件）内容，分析资源依赖，把相关的js文件打包，打包后的文件放入当前目录的dist文件夹下，打包后的js文件名为bundle.js</li>
+<li>命令行执行编译命令<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack --mode=development</span><br></pre></td></tr></table></figure>
+执行后查看bundle.js 里面包含了上面两个js文件的内容并进行了代码压缩<br>也可以配置项目的npm运行命令，修改package.json文件<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;dev&quot;</span>: <span class="string">&quot;webpack --mode=development&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+运行npm命令执行打包<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Css打包"><a href="#Css打包" class="headerlink" title="Css打包"></a>Css打包</h3><p>Webpack 本身只能处理 JavaScript 模块，如果要处理其他类型的文件，就需要使用 loader 进行转换。<br>Loader 可以理解为是模块和资源的转换器。<br>首先我们需要安装相关Loader插件</p>
+<blockquote>
+<p>css-loader 是将 css 装载到 javascript<br>style-loader 是让 javascript 认识css</p>
+</blockquote>
+<ul>
+<li>安装 style-loader 和 css-loader<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev style-loader css-loader</span><br></pre></td></tr></table></figure></li>
+<li>修改webpack.config.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>); <span class="comment">//Node.js内置模块</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">//...,</span></span><br><span class="line">    output:&#123;</span><br><span class="line">        <span class="comment">//其他配置</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [  </span><br><span class="line">            &#123;  </span><br><span class="line">                test: <span class="regexp">/\.css$/</span>,    <span class="comment">//打包规则应用到以css结尾的文件上</span></span><br><span class="line">                use: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>]</span><br><span class="line">            &#125;  </span><br><span class="line">        ]  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在src文件夹创建style.css<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>:pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>修改main.js，在第一行引入style.css<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;./style.css&#x27;</span>);</span><br></pre></td></tr></table></figure></li>
+<li>编译<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<p>感谢查阅</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>洛玖
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wx1998.cn/Front-end/NodeJs-Notes/" title="【Node.js】NodeJs学习笔记">https://www.wx1998.cn/Front-end/NodeJs-Notes/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Ndoe-js/" rel="tag"># Ndoe.js</a>
+              <a href="/tags/NPM/" rel="tag"># NPM</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Front-end/javascript-notes/" rel="prev" title="【JavaScript】 JavaScript 学习笔记">
+      <i class="fa fa-chevron-left"></i> 【JavaScript】 JavaScript 学习笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Note/basic-dos-command/" rel="next" title="【Dos命令】基础Dos命令随笔">
+      【Dos命令】基础Dos命令随笔 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node-js%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Node.js是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B"><span class="nav-number">2.</span> <span class="nav-text">快速上手</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%AF%B7%E6%B1%82%E5%93%8D%E5%BA%94"><span class="nav-number">2.1.</span> <span class="nav-text">实现请求响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">2.2.</span> <span class="nav-text">操作数据库</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6"><span class="nav-number">3.</span> <span class="nav-text">ES6</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#let-const"><span class="nav-number">3.1.</span> <span class="nav-text">let&#x2F;const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.2.</span> <span class="nav-text">模板字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E4%B8%8E%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">3.3.</span> <span class="nav-text">函数默认参数与箭头函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%88%9D%E5%A7%8B%E5%8C%96%E7%AE%80%E5%86%99"><span class="nav-number">3.4.</span> <span class="nav-text">对象初始化简写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%A7%A3%E6%9E%84"><span class="nav-number">3.5.</span> <span class="nav-text">对象解构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E6%92%AD%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="nav-number">3.6.</span> <span class="nav-text">传播操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84map%E5%92%8C-reduce-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.7.</span> <span class="nav-text">数组map和 reduce() 使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NPM"><span class="nav-number">4.</span> <span class="nav-text">NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E9%80%94"><span class="nav-number">4.1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8npm%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE"><span class="nav-number">4.2.</span> <span class="nav-text">使用npm管理项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E7%AC%AC%E4%B8%89%E6%96%B9%E6%A8%A1%E5%9D%97"><span class="nav-number">4.3.</span> <span class="nav-text">安装第三方模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85"><span class="nav-number">4.4.</span> <span class="nav-text">全局安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9npm%E9%95%9C%E5%83%8F"><span class="nav-number">4.5.</span> <span class="nav-text">修改npm镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel"><span class="nav-number">4.6.</span> <span class="nav-text">Babel</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">4.6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.6.2.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%84%9A%E6%9C%AC"><span class="nav-number">4.7.</span> <span class="nav-text">自定义脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="nav-number">4.8.</span> <span class="nav-text">模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">4.8.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%84%E8%8C%83"><span class="nav-number">4.8.2.</span> <span class="nav-text">规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS%E8%A7%84%E8%8C%83"><span class="nav-number">4.8.3.</span> <span class="nav-text">CommonJS规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%84%E8%8C%83"><span class="nav-number">4.8.4.</span> <span class="nav-text">ES6模块化规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%951"><span class="nav-number">4.8.5.</span> <span class="nav-text">写法1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%952"><span class="nav-number">4.8.6.</span> <span class="nav-text">写法2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack"><span class="nav-number">5.</span> <span class="nav-text">Webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-1"><span class="nav-number">5.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="nav-number">5.3.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS%E6%89%93%E5%8C%85"><span class="nav-number">5.3.1.</span> <span class="nav-text">JS打包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Css%E6%89%93%E5%8C%85"><span class="nav-number">5.3.2.</span> <span class="nav-text">Css打包</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="洛玖"
+      src="/images/android-chrome-192x192.png">
+  <p class="site-author-name" itemprop="name">洛玖</p>
+  <div class="site-description" itemprop="description">对酒当歌，人生几何！<br>譬如朝露，去日苦多。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;1262148122&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wx.98@qq.com" title="E-Mail → mailto:wx.98@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/wx98" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wx98" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洛玖</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">674k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:12</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备19004628号-1</a>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+<script src="/js/code_unfold.js"></script>
+
+<script src="/js/hello.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

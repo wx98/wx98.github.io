@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/android-chrome-512x512.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.wx1998.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"default"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":true,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":true},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Java环境中,大图片批量压缩，思路实现">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【Java】图片压缩">
+<meta property="og:url" content="https://www.wx1998.cn/Back-end/java-ReduceImg/index.html">
+<meta property="og:site_name" content="洛玖随笔">
+<meta property="og:description" content="Java环境中,大图片批量压缩，思路实现">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.wx1998.cn/Back-end/java-ReduceImg/Snipaste_2021-11-06_19-58-11.png">
+<meta property="article:published_time" content="2021-11-06T11:44:44.000Z">
+<meta property="article:modified_time" content="2024-04-19T19:28:31.285Z">
+<meta property="article:author" content="洛玖">
+<meta property="article:tag" content="洛玖,洛玖博客,洛玖随笔,wx1998.cn,luoooo,JavaScript,Hexo,Android,Java,Spring,MySql,Html5,Css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.wx1998.cn/Back-end/java-ReduceImg/Snipaste_2021-11-06_19-58-11.png">
+
+<link rel="canonical" href="https://www.wx1998.cn/Back-end/java-ReduceImg/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【Java】图片压缩 | 洛玖随笔</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="洛玖随笔" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">洛玖随笔</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.wx1998.cn/Back-end/java-ReduceImg/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/android-chrome-192x192.png">
+      <meta itemprop="name" content="洛玖">
+      <meta itemprop="description" content="对酒当歌，人生几何！<br>譬如朝露，去日苦多。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="洛玖随笔">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【Java】图片压缩
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-11-06 19:44:44" itemprop="dateCreated datePublished" datetime="2021-11-06T19:44:44+08:00">2021-11-06</time>
+            </span>
+
+
+
+          
+            <span class="post-updated">
+              &nbsp; | &nbsp; 更新于
+              <time itemprop="dateUpdated" datetime="2024-04-20T03:28:31+08:00" content="2024-04-20" title="2024-04-20 03:28:31">
+                2024-04-20
+              </time>
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <pre><code>Java环境中,大图片批量压缩，思路实现
+</code></pre>
+<img data-src="/Back-end/java-ReduceImg/Snipaste_2021-11-06_19-58-11.png" class="">
+<span id="more"></span>
+
+<h1 id="ReduceImg-java"><a href="#ReduceImg-java" class="headerlink" title="ReduceImg.java"></a>ReduceImg.java</h1><p>压缩思路</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.sun.image.codec.jpeg.JPEGCodec;</span><br><span class="line"><span class="keyword">import</span> com.sun.image.codec.jpeg.JPEGImageEncoder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.ImageIO;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.image.BufferedImage;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片压缩工具</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReduceImg</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定图片宽度和高度和压缩比例对图片进行压缩</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> imgsrc  源图片地址</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> imgdist 目标图片地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">reduceImg</span><span class="params">(String imgsrc, String imgdist)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            File srcfile = <span class="keyword">new</span> File(imgsrc);</span><br><span class="line">            <span class="comment">// 检查图片文件是否存在</span></span><br><span class="line">            <span class="keyword">if</span> (!srcfile.exists()) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;文件不存在&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span>[] results = getImgWidthHeight(srcfile);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> widthDist = results[<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> heightDist = results[<span class="number">1</span>];</span><br><span class="line">            <span class="comment">// 开始读取文件并进行压缩</span></span><br><span class="line">            Image src = ImageIO.read(srcfile);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 构造一个类型为预定义图像类型之一的 BufferedImage</span></span><br><span class="line">            BufferedImage tag = <span class="keyword">new</span> BufferedImage(widthDist, heightDist, BufferedImage.TYPE_INT_RGB);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这边是压缩的模式设置</span></span><br><span class="line">            tag.getGraphics().drawImage(src.getScaledInstance(widthDist, heightDist, Image.SCALE_SMOOTH), <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建文件输出流</span></span><br><span class="line">            FileOutputStream out = <span class="keyword">new</span> FileOutputStream(imgdist);</span><br><span class="line">            <span class="comment">//将图片按JPEG压缩，保存到out中</span></span><br><span class="line">            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);</span><br><span class="line">            encoder.encode(tag);</span><br><span class="line">            <span class="comment">//关闭文件输出流</span></span><br><span class="line">            out.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ef) &#123;</span><br><span class="line">            ef.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取图片宽度和高度</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file 图片路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回图片的宽度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] getImgWidthHeight(File file) &#123;</span><br><span class="line">        InputStream is = <span class="keyword">null</span>;</span><br><span class="line">        BufferedImage src = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">int</span> result[] = &#123;<span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 获得文件输入流</span></span><br><span class="line">            is = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">            <span class="comment">// 从流里将图片写入缓冲图片区</span></span><br><span class="line">            src = ImageIO.read(is);</span><br><span class="line">            <span class="comment">// 得到源图片宽</span></span><br><span class="line">            result[<span class="number">0</span>] = src.getWidth(<span class="keyword">null</span>);</span><br><span class="line">            <span class="comment">// 得到源图片高</span></span><br><span class="line">            result[<span class="number">1</span>] = src.getHeight(<span class="keyword">null</span>);</span><br><span class="line">            is.close();  <span class="comment">//关闭输入流</span></span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception ef) &#123;</span><br><span class="line">            ef.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="FileUtil-java"><a href="#FileUtil-java" class="headerlink" title="FileUtil.java"></a>FileUtil.java</h1><p>文件工具类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 文件工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeTxt</span><span class="params">(String fileName, StringBuffer process)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fileName = <span class="keyword">new</span> String(fileName.getBytes(), <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">            File f = <span class="keyword">new</span> File(fileName);</span><br><span class="line">            <span class="keyword">if</span> (!f.exists()) &#123;<span class="comment">//新建文件</span></span><br><span class="line">                f.createNewFile();</span><br><span class="line">            &#125;</span><br><span class="line">            FileOutputStream fileOutputStream = <span class="keyword">new</span> FileOutputStream(f);</span><br><span class="line">            fileOutputStream.write(process.toString().getBytes());</span><br><span class="line">            fileOutputStream.flush();</span><br><span class="line">            fileOutputStream.close();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回path下所有的文件名</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getAllPath</span><span class="params">(String path)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        File file = <span class="keyword">new</span> File(path);</span><br><span class="line">        File[] files = file.listFiles();</span><br><span class="line">        <span class="keyword">if</span> (files == <span class="keyword">null</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;目录不存在:&quot;</span> + path);</span><br><span class="line">            file.mkdir();</span><br><span class="line">            <span class="keyword">return</span> list;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (File file1 : files) &#123;</span><br><span class="line">            list.add(<span class="string">&quot;&quot;</span> + file1.getName());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取文件内容</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> file</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 行值的List</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">readTxt</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        BufferedReader br = <span class="keyword">null</span>;</span><br><span class="line">        List&lt;String&gt; txtData = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            br = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(<span class="keyword">new</span> FileInputStream(file), <span class="string">&quot;UTF-8&quot;</span>)); <span class="comment">//这里可以控</span></span><br><span class="line">            String line = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> ((line = br.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                txtData.add(line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                br.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> txtData;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 删除dir下所有文件</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> dir</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeDir</span><span class="params">(String dir)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; files = getAllPath(dir);</span><br><span class="line">        <span class="keyword">for</span> (String file : files) &#123;</span><br><span class="line">            File file1 = <span class="keyword">new</span> File(dir + file);</span><br><span class="line">            <span class="keyword">if</span> (file1.isDirectory()) &#123;</span><br><span class="line">                removeDir(file);</span><br><span class="line">            &#125;</span><br><span class="line">            file1.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line">        File[] files = file.listFiles();</span><br><span class="line">        <span class="keyword">for</span> (File file1 : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file1.isDirectory()) &#123;</span><br><span class="line">                delete(file1);</span><br><span class="line">            &#125;</span><br><span class="line">            file1.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 图片压缩工具</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String oldImgPath = <span class="string">&quot;D:\\workspace\\IDEAProject\\wx98blog\\source\\_posts\\java-mianshi&quot;</span>;</span><br><span class="line">        String newImgPath = oldImgPath + File.separator;</span><br><span class="line">        List&lt;String&gt; allPath = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 不覆盖缓存原文件，新建文件夹存放压缩后的结果</span></span><br><span class="line"><span class="comment">         * 可以整段注释，</span></span><br><span class="line"><span class="comment">         * 注释后直接替换源文件</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        &#123;</span><br><span class="line">            newImgPath += <span class="string">&quot;new&quot;</span> + File.separator;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">new</span> File(newImgPath).exists() &amp;&amp; <span class="keyword">new</span> File(newImgPath).isDirectory()) &#123;</span><br><span class="line">                <span class="keyword">new</span> FileUtil().removeDir(newImgPath);<span class="comment">//清空文件夹下的文件</span></span><br><span class="line">                Files.delete(Paths.get(newImgPath));<span class="comment">//删除此文件夹</span></span><br><span class="line">            &#125; <span class="keyword">else</span></span><br><span class="line">                allPath = <span class="keyword">new</span> FileUtil().getAllPath(oldImgPath);</span><br><span class="line">            <span class="keyword">new</span> File(newImgPath).mkdir();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 若文件列表未被初始化，则初始化文件列表</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == allPath || allPath.isEmpty()) &#123;</span><br><span class="line">            allPath = <span class="keyword">new</span> FileUtil().getAllPath(oldImgPath);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 遍历每张图片并压缩</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">for</span> (String fileName : allPath) &#123;</span><br><span class="line">            String imgSrc = oldImgPath + File.separator + fileName;</span><br><span class="line">            String imgDist = newImgPath + File.separator + fileName;</span><br><span class="line"></span><br><span class="line">            System.out.print(fileName + <span class="string">&quot;   原大小:&quot;</span> + <span class="keyword">new</span> File(imgSrc).length());</span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 压缩图片</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">new</span> ReduceImg().reduceImg(imgSrc, imgDist);</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">&quot; --&gt; 现大小:&quot;</span> + <span class="keyword">new</span> File(imgDist).length());</span><br><span class="line">            System.out.println(<span class="string">&quot;===================================================================&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>结果:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line">Snipaste_2021-10-11_21-39-06.png   原大小:368505 --&gt; 现大小:107771</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_21-46-01.png   原大小:54075 --&gt; 现大小:14629</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_21-47-31.png   原大小:84400 --&gt; 现大小:22513</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_22-03-05.png   原大小:446135 --&gt; 现大小:129624</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_22-07-27.png   原大小:87368 --&gt; 现大小:23239</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_22-10-36.png   原大小:143842 --&gt; 现大小:33189</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_22-21-07.png   原大小:84833 --&gt; 现大小:28140</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-11_22-32-01.png   原大小:112001 --&gt; 现大小:26694</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_08-31-57.png   原大小:160846 --&gt; 现大小:52790</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_09-07-13.png   原大小:108490 --&gt; 现大小:31923</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_09-07-59.png   原大小:71177 --&gt; 现大小:20740</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_18-41-28.png   原大小:106108 --&gt; 现大小:35600</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_19-04-46.png   原大小:58715 --&gt; 现大小:34076</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_19-06-41.png   原大小:39987 --&gt; 现大小:31688</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_19-23-10.png   原大小:111088 --&gt; 现大小:68642</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_19-41-46.png   原大小:61145 --&gt; 现大小:37741</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_19-45-35.png   原大小:103237 --&gt; 现大小:62065</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_20-01-36.png   原大小:56398 --&gt; 现大小:35705</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_20-03-23.png   原大小:172593 --&gt; 现大小:56964</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_20-08-42.png   原大小:19403 --&gt; 现大小:13230</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-12_20-38-17.png   原大小:613253 --&gt; 现大小:243339</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-15_19-04-10.png   原大小:313154 --&gt; 现大小:100622</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-15_19-50-17.png   原大小:304276 --&gt; 现大小:118373</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-16_02-12-33.png   原大小:310717 --&gt; 现大小:95010</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_11-22-26.png   原大小:176745 --&gt; 现大小:65684</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_11-34-42.png   原大小:337675 --&gt; 现大小:101995</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_12-04-56.png   原大小:244147 --&gt; 现大小:84977</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_12-32-03.png   原大小:217446 --&gt; 现大小:77394</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_13-12-38.png   原大小:186459 --&gt; 现大小:79770</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_13-29-09.png   原大小:177181 --&gt; 现大小:74255</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_18-21-12.png   原大小:248619 --&gt; 现大小:84104</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-17_18-39-09.png   原大小:185740 --&gt; 现大小:65114</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-02-38.png   原大小:537780 --&gt; 现大小:148343</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-23-46.png   原大小:344579 --&gt; 现大小:100786</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-31-17.png   原大小:391128 --&gt; 现大小:108918</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-39-34.png   原大小:221421 --&gt; 现大小:65300</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-46-19.png   原大小:311760 --&gt; 现大小:92101</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-48-09.png   原大小:485583 --&gt; 现大小:127192</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-51-11.png   原大小:209108 --&gt; 现大小:76317</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-53-39.png   原大小:392263 --&gt; 现大小:124214</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-57-46.png   原大小:141626 --&gt; 现大小:40146</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_01-59-29.png   原大小:80372 --&gt; 现大小:20951</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-03-35.png   原大小:177657 --&gt; 现大小:68645</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-06-03.png   原大小:210862 --&gt; 现大小:87004</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-07-36.png   原大小:205792 --&gt; 现大小:72986</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-18-30.png   原大小:334403 --&gt; 现大小:89843</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-19-18.png   原大小:206910 --&gt; 现大小:73472</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-23-42.png   原大小:292181 --&gt; 现大小:98972</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_02-26-17.png   原大小:92947 --&gt; 现大小:45532</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-05-06.png   原大小:164293 --&gt; 现大小:61215</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-25-12.png   原大小:451123 --&gt; 现大小:187302</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-27-25.png   原大小:526588 --&gt; 现大小:202725</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-29-47.png   原大小:100280 --&gt; 现大小:40979</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-30-18.png   原大小:228800 --&gt; 现大小:56352</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-35-07.png   原大小:231629 --&gt; 现大小:60408</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-47-25.png   原大小:225001 --&gt; 现大小:54070</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_12-57-58.png   原大小:321793 --&gt; 现大小:89722</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_13-03-37.png   原大小:308623 --&gt; 现大小:72578</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_14-43-24.png   原大小:143387 --&gt; 现大小:51031</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_14-52-05.png   原大小:595661 --&gt; 现大小:132576</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_15-01-25.png   原大小:674319 --&gt; 现大小:184887</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_22-52-23.png   原大小:235313 --&gt; 现大小:87617</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_22-52-48.png   原大小:168578 --&gt; 现大小:31017</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_22-58-51.png   原大小:477874 --&gt; 现大小:163729</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_23-04-32.png   原大小:386496 --&gt; 现大小:127042</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_23-14-51.png   原大小:241393 --&gt; 现大小:68944</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-18_23-18-52.png   原大小:207224 --&gt; 现大小:56307</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_02-16-22.png   原大小:151230 --&gt; 现大小:59873</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_02-28-59.png   原大小:328933 --&gt; 现大小:114171</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-04-24.png   原大小:496959 --&gt; 现大小:196159</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-06-27.png   原大小:134245 --&gt; 现大小:65219</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-07-37.png   原大小:544789 --&gt; 现大小:198293</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-17-55.png   原大小:522654 --&gt; 现大小:191794</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-19-12.png   原大小:405493 --&gt; 现大小:152473</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-21-18.png   原大小:512259 --&gt; 现大小:203716</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-21-58.png   原大小:93034 --&gt; 现大小:45887</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-23-18.png   原大小:514740 --&gt; 现大小:214222</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-26-41.png   原大小:644382 --&gt; 现大小:231921</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-32-44.png   原大小:442143 --&gt; 现大小:141995</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-33-12.png   原大小:337854 --&gt; 现大小:93009</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-36-12.png   原大小:221475 --&gt; 现大小:67820</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-41-03.png   原大小:174064 --&gt; 现大小:55619</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-43-28.png   原大小:90892 --&gt; 现大小:34454</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_10-45-07.png   原大小:204537 --&gt; 现大小:66889</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_11-15-18.png   原大小:162912 --&gt; 现大小:53891</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_11-15-52.png   原大小:306267 --&gt; 现大小:88341</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_11-19-29.png   原大小:431311 --&gt; 现大小:114246</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_11-56-25.png   原大小:498033 --&gt; 现大小:136960</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_13-10-30.png   原大小:329706 --&gt; 现大小:98016</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_13-30-55.png   原大小:291616 --&gt; 现大小:119957</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-19_18-45-07.png   原大小:315217 --&gt; 现大小:103456</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_13-09-05.png   原大小:301504 --&gt; 现大小:96019</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_13-43-15.png   原大小:321646 --&gt; 现大小:106179</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_13-46-04.png   原大小:445508 --&gt; 现大小:161171</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_13-52-15.png   原大小:672952 --&gt; 现大小:214426</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_13-54-57.png   原大小:559381 --&gt; 现大小:215032</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_14-00-55.png   原大小:595149 --&gt; 现大小:187899</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-23_14-02-04.png   原大小:565777 --&gt; 现大小:183018</span><br><span class="line">===================================================================</span><br><span class="line">Snipaste_2021-10-24_17-05-24.png   原大小:185021 --&gt; 现大小:87660</span><br><span class="line">===================================================================</span><br><span class="line"></span><br><span class="line">Process finished with exit code 0</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>洛玖
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.wx1998.cn/Back-end/java-ReduceImg/" title="【Java】图片压缩">https://www.wx1998.cn/Back-end/java-ReduceImg/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Database/mysql-notes-senior/" rel="prev" title="【MySql】 MySql高级面试八股文笔记">
+      <i class="fa fa-chevron-left"></i> 【MySql】 MySql高级面试八股文笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Back-end/java-mianshi/" rel="next" title="【Java】Java面试八股文随笔">
+      【Java】Java面试八股文随笔 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ReduceImg-java"><span class="nav-number">1.</span> <span class="nav-text">ReduceImg.java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FileUtil-java"><span class="nav-number">2.</span> <span class="nav-text">FileUtil.java</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="洛玖"
+      src="/images/android-chrome-192x192.png">
+  <p class="site-author-name" itemprop="name">洛玖</p>
+  <div class="site-description" itemprop="description">对酒当歌，人生几何！<br>譬如朝露，去日苦多。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="http://wpa.qq.com/msgrd?v=3&uin=1262148122&site=qq&menu=yes" title="QQ → http:&#x2F;&#x2F;wpa.qq.com&#x2F;msgrd?v&#x3D;3&amp;uin&#x3D;1262148122&amp;site&#x3D;qq&amp;menu&#x3D;yes" rel="noopener" target="_blank"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wx.98@qq.com" title="E-Mail → mailto:wx.98@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/wx98" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;wx98" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fas fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">洛玖</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">674k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:12</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+<a href="https://beian.miit.gov.cn/" target="_blank">陕ICP备19004628号-1</a>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+<script src="/js/code_unfold.js"></script>
+
+<script src="/js/hello.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
